@@ -25,6 +25,8 @@ namespace Iris.ServiceLayer.Contracts
         Task<IList<ProductWidgetViewModel>> GetSuggestionProducts(int count);
         Task<IList<ProductWidgetViewModel>> GetPopularProducts(int count);
         Task<IList<decimal>> GetAvailableProductPrices();
+        Task<decimal> GetAvailbleProductPriceMax();
+        Task<decimal> GetAvailbleProductPriceMin();
         Task<IList<decimal>> GetAvailableProductDiscounts();
         Task<ProductSearchPagedList> SearchProduct(SearchProductViewModel searchModel);
         Task<ProductPageViewModel> GetProductPage(int productId);

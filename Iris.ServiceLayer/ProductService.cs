@@ -221,6 +221,22 @@ namespace Iris.ServiceLayer
                 .ToListAsync();
         }
 
+        public async Task<decimal> GetAvailbleProductPriceMax()
+        {
+            return await _products.Where(product => product.ProductStatus == ProductStatus.Available) //max
+                    .MaxAsync(q => q.Prices
+                        .OrderByDescending(price => price.Date).Select(price => price.Price)
+                        .FirstOrDefault());
+        }
+        
+        public async Task<decimal> GetAvailbleProductPriceMin()
+        {
+            return await _products.Where(product => product.ProductStatus == ProductStatus.Available) //min
+                    .MinAsync(q => q.Prices
+                        .OrderByDescending(price => price.Date).Select(price => price.Price)
+                        .FirstOrDefault());
+        }
+
         public async Task<IList<decimal>> GetAvailableProductDiscounts()
         {
             return await _products.Where(product => product.ProductStatus == ProductStatus.Available)

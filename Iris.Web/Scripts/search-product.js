@@ -1,4 +1,5 @@
-﻿function isNumeric(n) {
+﻿/*
+function isNumeric(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
@@ -354,5 +355,31 @@ $("#priceRange").on("slidecreate", function (event, ui) {
         mainNonAjaxContentDivId: "#mainNonAjaxContent",
         paramName: "",
         pageName: "صفحه"
+    });
+});
+*/
+
+$(document).ready(function () {
+    var nonLinearStepSlider = document.getElementById('priceRange');
+
+    noUiSlider.create(nonLinearStepSlider, {
+        start: [priceMin, priceMax],
+        connect: true,
+        direction: 'rtl',
+        format: wNumb({
+            decimals: 0,
+            thousand: ','
+        }),
+        range: {
+            'min': priceMin,
+            /*'10%': [500, 500],
+            '50%': [40000, 1000],*/
+            'max': priceMax
+        }
+    });
+    var nonLinearStepSliderValueElement = document.getElementById('priceRange-value');
+
+    nonLinearStepSlider.noUiSlider.on('update', function (values) {
+        nonLinearStepSliderValueElement.innerHTML = values.join(' - ');
     });
 });

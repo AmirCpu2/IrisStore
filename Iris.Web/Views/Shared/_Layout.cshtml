@@ -43,6 +43,7 @@
         <!-- Plugins -->
         @Styles.Render("~/Content/css/vendor/owl.carousel.min.css")
         @Styles.Render("~/Content/css/vendor/jquery.horizontalmenu.css")
+        @Styles.Render("~/Content/css/vendor/nouislider.min.css")
         <!-- Font Icon -->
         @Styles.Render("~/Content/css/vendor/materialdesignicons.min.css")
         <!-- Main CSS File -->
@@ -92,7 +93,7 @@
             var autocompleteSource = "@Url.Action(MVC.Search.ActionNames.AutoCompleteSearch, MVC.Search.Name, new {area = ""})";
         </script>
         @Scripts.Render("~/bundles/layout")
-        
+
         @RenderSection("scripts", required: false)
 
         <!--Begin Style Scripts-->
@@ -103,6 +104,10 @@
         <!-- Plugins -->
         <script src="~/Scripts/js/vendor/owl.carousel.min.js"></script>
         <script src="~/Scripts/js/vendor/jquery.horizontalmenu.js"></script>
+        <script src="~/Scripts/js/vendor/nouislider.min.js"></script>
+        <script src="~/Scripts/js/vendor/wNumb.js"></script>
+        <script src="~/Scripts/js/vendor/ResizeSensor.min.js"></script>
+        <script src="~/Scripts/js/vendor/theia-sticky-sidebar.min.js"></script>
         <!-- Main JS File -->
         <script src="~/Scripts/js/main.js"></script>
         <!--End Style Scripts-->
