@@ -1,9 +1,9 @@
-﻿/*
+﻿
 function isNumeric(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
-
+/*
 (function ($) {
     $.fn.SearchProducts = function (options) {
         var defaults = {
