@@ -2,55 +2,59 @@
 
 <!DOCTYPE html>
 <html lang="fa">
-    <head>
-        <title>@SeoHelpers.GeneratePageTitle(ViewBag.Title, ViewBag.SiteName)</title>
-        <link rel="canonical" href="@(Request.Url?.AbsoluteUri)" />
-        <meta http-equiv="Content-Language" content="fa" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="application-name" content="@ViewBag.SiteName" />
+<head>
+    <title>@SeoHelpers.GeneratePageTitle(ViewBag.Title, ViewBag.SiteName)</title>
+    <link rel="canonical" href="@(Request.Url?.AbsoluteUri)" />
+    <meta http-equiv="Content-Language" content="fa" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="application-name" content="@ViewBag.SiteName" />
 
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <meta name="theme-color" content="#f7858d">
-        <meta name="msapplication-navbutton-color" content="#f7858d">
-        <meta name="apple-mobile-web-app-status-bar-style" content="#f7858d">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="theme-color" content="#f7858d">
+    <meta name="msapplication-navbutton-color" content="#f7858d">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#f7858d">
 
-        @if (!string.IsNullOrWhiteSpace(ViewBag.Keywords))
-        {
-            <meta name="keywords" content="@ViewBag.Keywords" />
-        }
-        @if (!string.IsNullOrWhiteSpace(ViewBag.MetaDescription))
-        {
-            <meta name="description" content="@ViewBag.MetaDescription" />
-        }
-        @if (!string.IsNullOrWhiteSpace(ViewBag.LastModified))
-        {
-            <meta http-equiv="last-modified" content="@ViewBag.LastModified" />
-        }
-        @if (!string.IsNullOrWhiteSpace(ViewBag.Author))
-        {
-            <meta name="author" content="@ViewBag.Author (@Request.Url)" />
-        }
-        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    @if (!string.IsNullOrWhiteSpace(ViewBag.Keywords))
+    {
+        <meta name="keywords" content="@ViewBag.Keywords" />
+    }
+    @if (!string.IsNullOrWhiteSpace(ViewBag.MetaDescription))
+    {
+        <meta name="description" content="@ViewBag.MetaDescription" />
+    }
+    @if (!string.IsNullOrWhiteSpace(ViewBag.LastModified))
+    {
+        <meta http-equiv="last-modified" content="@ViewBag.LastModified" />
+    }
+    @if (!string.IsNullOrWhiteSpace(ViewBag.Author))
+    {
+        <meta name="author" content="@ViewBag.Author (@Request.Url)" />
+    }
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 
-        @Styles.Render("~/Content/themes/base/jqueryUi")
-        @Styles.Render("~/Content/css")
-        @RenderSection("styles", required: false)
+    @Styles.Render("~/Content/themes/base/jqueryUi")
+    @Styles.Render("~/Content/css")
+    @RenderSection("styles", required: false)
 
-        <!-- Bootstrap -->
-        @Styles.Render("~/Content/css/vendor/bootstrap.min.css")
-        <!-- Plugins -->
-        @Styles.Render("~/Content/css/vendor/owl.carousel.min.css")
-        @Styles.Render("~/Content/css/vendor/jquery.horizontalmenu.css")
-        @Styles.Render("~/Content/css/vendor/nouislider.min.css")
-        <!-- Font Icon -->
-        @Styles.Render("~/Content/css/vendor/materialdesignicons.min.css")
-        <!-- Main CSS File -->
-        @Styles.Render("~/Content/css/main.css")
+    <!-- Bootstrap -->
+    @Styles.Render("~/Content/css/vendor/bootstrap.min.css")
+    <!-- Plugins -->
+    @Styles.Render("~/Content/css/vendor/owl.carousel.min.css")
+    @Styles.Render("~/Content/css/vendor/jquery.horizontalmenu.css")
+    @Styles.Render("~/Content/css/vendor/nouislider.min.css")
+    <!-- Font Icon -->
+    @Styles.Render("~/Content/css/vendor/materialdesignicons.min.css")
+    <!-- Main CSS File -->
+    @Styles.Render("~/Content/css/main.css")
 
-        @*Styles.Render("~/Content/bootstrap")*@
-    </head>
+    @*Styles.Render("~/Content/bootstrap")*@
+
+    <!--scripts-->
+    <!--angular js-->
+    <script src="~/Scripts/angular.min.js"></script>
+</head>
     <body>
         <div class="wrapper">
             <!-- Start header -->
@@ -110,7 +114,9 @@
         <script src="~/Scripts/js/vendor/theia-sticky-sidebar.min.js"></script>
         <!-- Main JS File -->
         <script src="~/Scripts/js/main.js"></script>
+        
         <!--End Style Scripts-->
+        
 
     </body>
 </html>
