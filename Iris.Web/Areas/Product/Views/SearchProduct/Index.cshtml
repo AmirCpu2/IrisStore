@@ -110,7 +110,7 @@
 
 <!--=====================================================================================================================-->
 
-<div class="container main-container">
+<div ng-app="myApp" ng-controller="productController" class="container main-container">
 
     <div class="row">
 
@@ -357,17 +357,18 @@
                 </div>
 
                 <!--Product-->
-                <div ng-app="myApp" ng-controller="myCtrl">
+                <div>
                     <div class="ah-tab-content-wrapper dt-sl px-res-0">
                         <div class="ah-tab-content dt-sl" data-ah-tab-active="true">
                             <div class="row mb-3 mx-0 px-res-0">
-                                <div class="col-lg-3 col-md-4 col-sm-6 col-12 px-10 mb-1 px-res-0" ng-repeat="x in records">
+                                <div class="col-lg-3 col-md-4 col-sm-6 col-12 px-10 mb-1 px-res-0" ng-repeat="product in products">
                                     <div class="product-card mb-2 mx-res-0">
-                                        <div class="promotion-badge" ng-if="x.vip">
+                                        <div class="promotion-badge" ng-if="product.vip">
                                             فروش ویژه
                                         </div>
                                         <div class="product-head">
                                             <div class="rating-stars">
+                                                <input class="rate-product-custom" hidden="hidden" value="{{product.Rate}}"/>
                                                 <i class="mdi mdi-star active"></i>
                                                 <i class="mdi mdi-star active"></i>
                                                 <i class="mdi mdi-star active"></i>
@@ -375,18 +376,18 @@
                                                 <i class="mdi mdi-star active"></i>
                                             </div>
                                             <div class="discount">
-                                                <span>{{x.offer}}%</span>
+                                                <span>{{product.offer}}%</span>
                                             </div>
                                         </div>
                                         <a class="product-thumb" href="shop-single.html">
-                                            <img src="~/Content/img/products/07.jpg" alt="Product Thumbnail">
+                                            <img src="{{product.image}}" alt="Product Thumbnail">
                                         </a>
                                         <div class="product-card-body">
                                             <h5 class="product-title">
-                                                <a href="shop-single.html">{{x.name}}</a>
+                                                <a href="shop-single.html">{{product.name}}</a>
                                             </h5>
-                                            <a class="product-meta" href="shop-categories.html">{{x.category}}</a>
-                                            <span class="product-price">{{x.mony}} تومان</span>
+                                            <a class="product-meta" href="shop-categories.html">{{product.category}}</a>
+                                            <span class="product-price">{{product.mony}} تومان</span>
                                         </div>
                                     </div>
                                 </div>
@@ -430,7 +431,9 @@
                     "mony": "157,000",
                     "category": "لباس زنانه",
                     "offer": "10",
-                    "vip": false
+                    "vip": false,
+                    "rate": 0,
+                    "image": ""
                 },
                 {
                     "name" : "2لباس تست",
