@@ -20,6 +20,7 @@ namespace Iris.ViewModels
         public ProductStatus ProductStatus { get; set; }
         public string SlugUrl { get; set; }
         public string Category { get; set; }
+        public int AverageRating { get; set; }
 
         public IList<ProductPageDiscountWidgetViewModel> Discounts { get; set; }
 
@@ -58,7 +59,9 @@ namespace Iris.ViewModels
                             product =>
                                 product.Categories.OrderByDescending(Category => Category.Name)
                                 .Select(Category => Category.Name)
-                                .FirstOrDefault()));
+                                .FirstOrDefault()))
+
+                .ForMember(productModel => productModel.AverageRating, opt => opt.MapFrom(product => product.AverageRating));
         }
 
         #region Calculator Properties

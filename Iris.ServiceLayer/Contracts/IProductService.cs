@@ -12,7 +12,7 @@ namespace Iris.ServiceLayer.Contracts
     {
         Task AddProduct(Product product);
 
-        Task<IList<ProductImage>>  EditProduct(Product editedProduct);
+        Task<IList<ProductImage>> EditProduct(Product editedProduct);
 
         Task<AddProductViewModel> GetProductForEdit(int productId);
 

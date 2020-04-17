@@ -195,7 +195,7 @@ namespace Iris.ServiceLayer
                            .ProjectTo<ProductWidgetViewModel>(parameters: null, mappingEngine: _mappingEngine)
                               .Cacheable().ToListAsync();
         }
-        
+
         public async Task<IList<ProductWidgetViewModel>> GetSuggestionProducts(int count)
         {
             return await _products
@@ -228,7 +228,7 @@ namespace Iris.ServiceLayer
                         .OrderByDescending(price => price.Date).Select(price => price.Price)
                         .FirstOrDefault());
         }
-        
+
         public async Task<decimal> GetAvailbleProductPriceMin()
         {
             return await _products.Where(product => product.ProductStatus == ProductStatus.Available) //min

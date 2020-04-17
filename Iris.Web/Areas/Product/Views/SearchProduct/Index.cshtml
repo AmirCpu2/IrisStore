@@ -110,7 +110,7 @@
 
 <!--=====================================================================================================================-->
 
-<div class="container main-container">
+<div class="container main-container" ng-app="myApp">
 
     <div class="row">
 
@@ -347,23 +347,23 @@
                 <!--Sorted Product-->
                 <div class="ah-tab-wrapper dt-sl">
                     <div class="ah-tab dt-sl">
-                        <a class="ah-tab-item" data-ah-tab-active="true" href="">مرتبط ترین</a>
-                        <a class="ah-tab-item" href="">پربازدید ترین</a>
-                        <a class="ah-tab-item" href="">جدید ترین</a>
-                        <a class="ah-tab-item" href="">پرفروش ترین</a>
-                        <a class="ah-tab-item" href="">ارزان ترین</a>
-                        <a class="ah-tab-item" href="">گران ترین</a>
+                        <a class="ah-tab-item" data-ah-tab-active="true" ng-click="sort(1)">مرتبط ترین</a>
+                        <a class="ah-tab-item" ng-click="sort(2)">پربازدید ترین</a>
+                        <a class="ah-tab-item" ng-click="sort(3)">جدید ترین</a>
+                        <a class="ah-tab-item" ng-click="sort(4)">پرفروش ترین</a>
+                        <a class="ah-tab-item" ng-click="sort(5)">ارزان ترین</a>
+                        <a class="ah-tab-item" ng-click="sort(6)">گران ترین</a>
                     </div>
                 </div>
 
                 <!--Product-->
-                <div ng-app="myApp" ng-controller="myCtrl">
+                <div ng-controller="myCtrl">
                     <div class="ah-tab-content-wrapper dt-sl px-res-0">
                         <div class="ah-tab-content dt-sl" data-ah-tab-active="true">
                             <div class="row mb-3 mx-0 px-res-0">
-                                <div class="col-lg-3 col-md-4 col-sm-6 col-12 px-10 mb-1 px-res-0" ng-repeat="x in records">
+                                <div class="col-lg-3 col-md-4 col-sm-6 col-12 px-10 mb-1 px-res-0" ng-repeat="product in products">
                                     <div class="product-card mb-2 mx-res-0">
-                                        <div class="promotion-badge" ng-if="x.vip">
+                                        <div class="promotion-badge" ng-if="product.vip">
                                             فروش ویژه
                                         </div>
                                         <div class="product-head">
@@ -375,22 +375,23 @@
                                                 <i class="mdi mdi-star active"></i>
                                             </div>
                                             <div class="discount">
-                                                <span>{{x.offer}}%</span>
+                                                <span>{{product.discount}}%</span>
                                             </div>
                                         </div>
-                                        <a class="product-thumb" href="shop-single.html">
-                                            <img src="~/Content/img/products/07.jpg" alt="Product Thumbnail">
+                                        <a class="product-thumb" style="height:187px; text-align:center;" href="~/product/{{product.id}}/{{product.slugUrl}}">
+                                            <img ng-src="{{product.image}}" alt="Product Thumbnail">
                                         </a>
                                         <div class="product-card-body">
                                             <h5 class="product-title">
-                                                <a href="shop-single.html">{{x.name}}</a>
+                                                <a href="shop-single.html">{{product.name}}</a>
                                             </h5>
-                                            <a class="product-meta" href="shop-categories.html">{{x.category}}</a>
-                                            <span class="product-price">{{x.mony}} تومان</span>
+                                            <a class="product-meta" href="shop-categories.html">{{product.category}}</a>
+                                            <span class="product-price">{{product.mony}} تومان</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <!--paging-->
                             <div class="row">
                                 <div class="col-12">
                                     <div class="pagination">
@@ -417,45 +418,41 @@
 
 @section scripts{
     <script>
+
+        var value;
         //var values = @availablePricesList;
         var priceMax = @pricesMax;
         var priceMin = @pricesMin;
-        var sourceUrl = '@Url.Action(MVC.Product.SearchProduct.ActionNames.GetProducts,MVC.Product.SearchProduct.Name,new {area=MVC.Product.Name})';
+        var sourceUrl = 'http://localhost/product/getproductsJson';
         var app = angular.module("myApp", []);
-        app.controller("myCtrl", function ($scope) {
-            $scope.records =
-            [
-                {
-                    "name" : "لباس تست",
-                    "mony": "157,000",
-                    "category": "لباس زنانه",
-                    "offer": "10",
-                    "vip": false
-                },
-                {
-                    "name" : "2لباس تست",
-                    "mony": "157,000",
-                    "category": "لباس زنانه",
-                    "offer": "10",
-                    "vip": true
-                },
-                {
-                    "name" : "لباس تست3",
-                    "mony": "157,000",
-                    "category": "لباس زنانه",
-                    "offer": "10",
-                    "vip": true
-                },
-                {
-                    "name" : "4لباس تست",
-                    "mony": "157,000",
-                    "category": "لباس زنانه",
-                    "offer": "10",
-                    "vip": true
-                }
+        app.controller("myCtrl", function ($scope, $http) {
+            searchParams=
+            {
+                "PageNumber": 1,
+                "PageSize": "24",
+                "SortBy": "ViewNumber",
+                "SortOrder": "desc",
+                "ShowStockProductsOnly": false,
+                "MinPrice": priceMin,//document.getElementById('priceRange').noUiSlider.get()[0],
+                "MaxPrice": priceMax,//$('#priceRange').noUiSlider.get()[1],
+                "MinDiscount": null,
+                "MaxDiscount": null,
+                "SelectedCategories": [] ,
+                "SearchTerm": ""
+            }
 
-            ]
+            $http({
+                url: sourceUrl,
+                method: "post",
+                data: searchParams
+            }).then(function (response) {
+                $scope.products = response.data;
+            });
+
+
+
         });
+
     </script>
     @Scripts.Render("~/bundles/search-product")
 }

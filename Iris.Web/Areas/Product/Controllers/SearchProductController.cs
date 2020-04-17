@@ -52,5 +52,18 @@ namespace Iris.Web.Areas.Product.Controllers
             return PartialView(MVC.Product.SearchProduct.Views._GetProducts,
                                productsAsIPagedList);
         }
+
+        [Route("GetProductsJson")]
+        [OutputCache(Location = OutputCacheLocation.None, NoStore = true)]
+        public virtual async Task<JsonResult> GetProductsJson(SearchProductViewModel model)
+        {
+            var result = await _productService.SearchProduct(model);
+
+            var productsAsIPagedList = new StaticPagedList<ProductWidgetViewModel>(result.Products, model.PageNumber, model.PageSize, result.TotalCount);
+
+            /*return PartialView(MVC.Product.SearchProduct.Views._GetProducts,
+                               productsAsIPagedList);*/
+            return Json(productsAsIPagedList, JsonRequestBehavior.AllowGet);
+        }
     }
 }
