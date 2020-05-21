@@ -21,6 +21,10 @@ namespace Iris.DomainClasses.Configurations
                 .HasForeignKey(image => image.ProductId)
                 .WillCascadeOnDelete(true);
 
+            HasMany(product => product.ProductItems)
+                .WithRequired(product => product.Product)
+                .WillCascadeOnDelete(false);
+
             Property(entity => entity.Title).HasMaxLength(500);
 
             Property(entity => entity.Body).IsMaxLength();

@@ -25,6 +25,9 @@ namespace Iris.DataLayer
         public DbSet<SiteOption> SiteOptions { get; set; }
         public DbSet<Factor> Factors { get; set; }
         public DbSet<FactorProduct> FactorProducts { get; set; }
+        public virtual DbSet<Item> Items { get; set; }
+        public virtual DbSet<ItemType> ItemTypes { get; set; }
+        public virtual DbSet<ProductItem> ProductItems { get; set; }
 
 
         /// <summary>
@@ -57,6 +60,8 @@ namespace Iris.DataLayer
             builder.Configurations.Add(new SiteOptionConfig());
             builder.Configurations.Add(new SlideShowConfig());
             builder.Configurations.Add(new FactorConfig());
+            builder.Configurations.Add(new ItemTypeConfig());
+            builder.Configurations.Add(new ItemConfig());
 
 
             base.OnModelCreating(builder);
@@ -66,6 +71,7 @@ namespace Iris.DataLayer
             builder.Entity<CustomUserClaim>().ToTable("UserClaims");
             builder.Entity<CustomUserRole>().ToTable("UserRoles");
             builder.Entity<CustomUserLogin>().ToTable("UserLogins");
+            builder.Entity<ItemType>().ToTable("ItemType");
 
 
         }

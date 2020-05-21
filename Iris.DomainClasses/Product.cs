@@ -45,5 +45,6 @@ namespace Iris.DomainClasses
         public virtual ICollection<ProductPrice> Prices { get; set; }
         public virtual ICollection<ProductDiscount> Discounts { get; set; }
         public virtual ICollection<ProductImage> Images { get; set; }
+        public virtual ICollection<ProductItem> ProductItems { get; set; }
     }
 }
