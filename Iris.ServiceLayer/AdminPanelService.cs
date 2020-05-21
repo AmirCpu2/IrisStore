@@ -11,10 +11,12 @@ namespace Iris.ServiceLayer
     public class AdminPanelService : IAdminPanelService
     {
         private readonly IDbSet<Product> _products;
+        private readonly IDbSet<Factor> _factor;
 
         public AdminPanelService(IUnitOfWork unitOfWork)
         {
             _products = unitOfWork.Set<Product>();
+            _factor = unitOfWork.Set<Factor>();
         }
 
         public async Task<AdminDashboardViewModel> GetDashboardStatistics()
@@ -25,7 +27,8 @@ namespace Iris.ServiceLayer
                     await _products.Where(p => p.ProductStatus == ProductStatus.Available).CountAsync(),
                 UnAvailableProductsCount =
                     await _products.Where(p => p.ProductStatus == ProductStatus.NotAvailable).CountAsync(),
-                TotalProductsCount = await _products.CountAsync()
+                TotalProductsCount = await _products.CountAsync(),
+                NewOrdersCount = await _factor.Where(q => q.Status == FactorStatus.Paid).CountAsync()
             };
         }
     }

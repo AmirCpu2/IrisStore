@@ -50,16 +50,28 @@
             <div class="small-box bg-yellow">
                 <div class="inner">
                     <h3>@Model.UnAvailableProductsCount</h3>
-                        <p>کالای ناموجود</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-person-add"></i>
-                    </div>
-                    <a href="@Url.Action(MVC.Product.Admin.ActionNames.Index, MVC.Product.Admin.Name, new {area = MVC.Product.Name})" class="small-box-footer">اطلاعات بیشتر <i class="fa fa-arrow-circle-left"></i></a>
+                    <p>کالای ناموجود</p>
                 </div>
-            </div><!-- ./col -->
-
-        </div><!-- /.row -->
-        <!-- Main row -->
-    </section>
+                <div class="icon">
+                    <i class="ion ion-person-add"></i>
+                </div>
+                <a href="@Url.Action(MVC.Product.Admin.ActionNames.Index, MVC.Product.Admin.Name, new {area = MVC.Product.Name})" class="small-box-footer">اطلاعات بیشتر <i class="fa fa-arrow-circle-left"></i></a>
+            </div>
+        </div><!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-blue">
+                <div class="inner">
+                    <h3>@Model.NewOrdersCount</h3>
+                    <p>سفارشات جدید</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-person-add"></i>
+                </div>
+                <a href="@Url.Action(MVC.ShoppingCart.Admin.ActionNames.Index, MVC.ShoppingCart.Admin.Name, new {area = MVC.ShoppingCart.Name})" class="small-box-footer">اطلاعات بیشتر <i class="fa fa-arrow-circle-left"></i></a>
+            </div>
+        </div><!-- ./col -->
+    </div><!-- /.row -->
+<!-- Main row -->
+</section>
 
