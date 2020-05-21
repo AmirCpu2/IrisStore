@@ -20,7 +20,7 @@ namespace Iris.ViewModels
         public ProductStatus ProductStatus { get; set; }
         public string SlugUrl { get; set; }
         public string Category { get; set; }
-        public int AverageRating { get; set; }
+        public double? AverageRating { get; set; }
 
         public IList<ProductPageDiscountWidgetViewModel> Discounts { get; set; }
 

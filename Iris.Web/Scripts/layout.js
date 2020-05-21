@@ -78,6 +78,16 @@ $(function ($) {
         position: { my: "right top", at: "right bottom", collision: "none" }
     });
 
+    $("#searchInputProduct").catcomplete({
+        delay: 300,
+        source: autocompleteSource,
+        minLength: 2,
+        select: function (event, ui) {
+            window.location = ui.item.url;
+        },
+        position: { my: "right top", at: "right bottom", collision: "none" }
+    });
+
     $("#frmSearch form").submit(function (event) {
         event.preventDefault();
         var $this = $(this);

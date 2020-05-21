@@ -110,7 +110,7 @@
 
 <!--=====================================================================================================================-->
 
-<div class="container main-container" ng-app="myApp">
+<div class="container main-container" ng-controller="myCtrl" ng-app="myApp" ng-cloak>
 
     <div class="row">
 
@@ -129,8 +129,11 @@
                     <div class="col-12 mb-3">
                         <div class="widget-search">
                             <input type="text" name="s"
-                                   placeholder="نام محصول یا برند مورد نظر را بنویسید...">
-                            <button class="btn-search-widget">
+                                   placeholder="نام محصول یا برند مورد نظر را بنویسید..."
+                                   autocomplete="off"
+                                   id="searchInputProduct"
+                                   class="ui-autocomplete-input">
+                            <button class="btn-search-widget" id="btnSearchProdcut">
                                 <img src="~/Content/img/theme/search.png" alt="">
                             </button>
                         </div>
@@ -163,7 +166,7 @@
                                                 <label class="custom-control-label"
                                                        for="@item.Id">@item.Name</label>
                                                 </div>
-                                            }
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -334,6 +337,7 @@
                         <button class="btn btn-info btn-block" type="submit">
                             فیلتر
                         </button>
+                        <br />
                     </div>
 
                 }
@@ -357,53 +361,51 @@
                 </div>
 
                 <!--Product-->
-                <div ng-controller="myCtrl">
+                <div>
                     <div class="ah-tab-content-wrapper dt-sl px-res-0">
-                        <div class="ah-tab-content dt-sl" data-ah-tab-active="true">
-                            <div class="row mb-3 mx-0 px-res-0">
-                                <div class="col-lg-3 col-md-4 col-sm-6 col-12 px-10 mb-1 px-res-0" ng-repeat="product in products">
-                                    <div class="product-card mb-2 mx-res-0">
-                                        <div class="promotion-badge" ng-if="product.vip">
-                                            فروش ویژه
+                        <div class="row mb-3 mx-0 px-res-0">
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-12 px-10 mb-1 px-res-0" ng-repeat="product in products">
+                                <div class="product-card mb-2 mx-res-0">
+                                    <div class="promotion-badge" ng-if="product.discount >= 25">
+                                        فروش ویژه
+                                    </div>
+                                    <div class="product-head">
+                                        <div class="rating-stars">
+                                            <i class="mdi mdi-star active"></i>
+                                            <i class="mdi mdi-star active"></i>
+                                            <i class="mdi mdi-star active"></i>
+                                            <i class="mdi mdi-star active"></i>
+                                            <i class="mdi mdi-star active"></i>
                                         </div>
-                                        <div class="product-head">
-                                            <div class="rating-stars">
-                                                <i class="mdi mdi-star active"></i>
-                                                <i class="mdi mdi-star active"></i>
-                                                <i class="mdi mdi-star active"></i>
-                                                <i class="mdi mdi-star active"></i>
-                                                <i class="mdi mdi-star active"></i>
-                                            </div>
-                                            <div class="discount">
-                                                <span>{{product.discount}}%</span>
-                                            </div>
+                                        <div class="discount" ng-if="product.discount > 0">
+                                            <span>{{product.discount}}%</span>
                                         </div>
-                                        <a class="product-thumb" style="height:187px; text-align:center;" href="~/product/{{product.id}}/{{product.slugUrl}}">
-                                            <img ng-src="{{product.image}}" alt="Product Thumbnail">
-                                        </a>
-                                        <div class="product-card-body">
-                                            <h5 class="product-title">
-                                                <a href="shop-single.html">{{product.name}}</a>
-                                            </h5>
-                                            <a class="product-meta" href="shop-categories.html">{{product.category}}</a>
-                                            <span class="product-price">{{product.mony}} تومان</span>
-                                        </div>
+                                    </div>
+                                    <a class="product-thumb" style="height:187px; text-align:center;" href="~/product/{{product.id}}/{{product.slugUrl}}">
+                                        <img ng-src="{{product.image}}" alt="Product Thumbnail">
+                                    </a>
+                                    <div class="product-card-body">
+                                        <h5 class="product-title">
+                                            <a href="shop-single.html">{{product.name}}</a>
+                                        </h5>
+                                        <a class="product-meta" href="shop-categories.html">{{product.category}}</a>
+                                        <span class="product-price">{{product.price}} تومان</span>
                                     </div>
                                 </div>
                             </div>
-                            <!--paging-->
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="pagination">
-                                        <a href="#" class="prev"><i class="mdi mdi-chevron-double-right"></i></a>
-                                        <a href="#">1</a>
-                                        <a href="#" class="active-page">2</a>
-                                        <a href="#">3</a>
-                                        <a href="#">4</a>
-                                        <a href="#">...</a>
-                                        <a href="#">7</a>
-                                        <a href="#" class="next"><i class="mdi mdi-chevron-double-left"></i></a>
-                                    </div>
+                        </div>
+                        <!--paging-->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="pagination">
+                                    <a href="#" class="prev"><i class="mdi mdi-chevron-double-right"></i></a>
+                                    <a href="#">1</a>
+                                    <a href="#" class="active-page">2</a>
+                                    <a href="#">3</a>
+                                    <a href="#">4</a>
+                                    <a href="#">...</a>
+                                    <a href="#">7</a>
+                                    <a href="#" class="next"><i class="mdi mdi-chevron-double-left"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -426,30 +428,47 @@
         var sourceUrl = 'http://localhost/product/getproductsJson';
         var app = angular.module("myApp", []);
         app.controller("myCtrl", function ($scope, $http) {
-            searchParams=
-            {
-                "PageNumber": 1,
-                "PageSize": "24",
-                "SortBy": "ViewNumber",
-                "SortOrder": "desc",
-                "ShowStockProductsOnly": false,
-                "MinPrice": priceMin,//document.getElementById('priceRange').noUiSlider.get()[0],
-                "MaxPrice": priceMax,//$('#priceRange').noUiSlider.get()[1],
-                "MinDiscount": null,
-                "MaxDiscount": null,
-                "SelectedCategories": [] ,
-                "SearchTerm": ""
+
+            /**
+             * serch params
+             * @@param params is search attribute model
+             */
+            var searching = function (params) {
+                $http({
+                    url: sourceUrl,
+                    method: "post",
+                    data: params
+                }).then(function (response) {
+                    $scope.products = response.data;
+                });
             }
 
-            $http({
-                url: sourceUrl,
-                method: "post",
-                data: searchParams
-            }).then(function (response) {
-                $scope.products = response.data;
-            });
+            /**
+             * initilize value 
+             */
+            var initilize = function () {
+                searchParams =
+                {
+                    "PageNumber": 1,
+                    "PageSize": "24",
+                    "SortBy": "ViewNumber",
+                    "SortOrder": "desc",
+                    "ShowStockProductsOnly": false,
+                    "MinPrice": priceMin,//document.getElementById('priceRange').noUiSlider.get()[0],
+                    "MaxPrice": priceMax,//$('#priceRange').noUiSlider.get()[1],
+                    "MinDiscount": null,
+                    "MaxDiscount": null,
+                    "SelectedCategories": [],
+                    "SearchTerm": ""
+                }
+                searching(searchParams);
+            }
 
+            initilize();
 
+            $scope.sort = function (id) {
+                alert(id);
+            }
 
         });
 

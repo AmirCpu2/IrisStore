@@ -382,4 +382,5 @@ $(document).ready(function () {
     nonLinearStepSlider.noUiSlider.on('update', function (values) {
         nonLinearStepSliderValueElement.innerHTML = values.join(' - ');
     });
+
 });

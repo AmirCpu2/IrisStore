@@ -2623,7 +2623,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>14425</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/</IISUrl>
+          <IISUrl>http://localhost/Store</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>http://silkrood.ir/store</CustomServerUrl>
