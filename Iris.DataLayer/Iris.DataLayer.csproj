@@ -73,6 +73,10 @@
     <Compile Include="ChangeTrackerExtenstions.cs" />
     <Compile Include="EfExtensionMethods.cs" />
     <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="Migrations\202005211459002_ItemCollaction.cs" />
+    <Compile Include="Migrations\202005211459002_ItemCollaction.Designer.cs">
+      <DependentUpon>202005211459002_ItemCollaction.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ApplicationDbConfiguration.cs" />
@@ -91,6 +95,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202005211459002_ItemCollaction.resx">
+      <DependentUpon>202005211459002_ItemCollaction.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
