@@ -119,6 +119,8 @@
     <Compile Include="FooterViewModel.cs" />
     <Compile Include="GroupViewModel.cs" />
     <Compile Include="HomePageViewModel.cs" />
+    <Compile Include="ItemTypeDataGridViewModel.cs" />
+    <Compile Include="ItemTypeViewModel.cs" />
     <Compile Include="LinkViewModel.cs" />
     <Compile Include="ListFactorViewModel.cs" />
     <Compile Include="LuceneSearchModel.cs" />

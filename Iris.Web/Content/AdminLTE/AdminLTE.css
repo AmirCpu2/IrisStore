@@ -5221,3 +5221,7 @@ ul.wysihtml5-toolbar > li {
         right: -230px;
     }
 }
+
+.collapsed-box-Footer {
+    margin-right: 50px !important;
+}

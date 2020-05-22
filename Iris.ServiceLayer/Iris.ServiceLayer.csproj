@@ -118,6 +118,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddItemTypeViewModel.cs" />
     <Compile Include="AddPostCategoryViewModel.cs" />
     <Compile Include="AdminPanelService.cs" />
     <Compile Include="ApplicationRoleManager.cs" />
@@ -131,6 +132,7 @@
     <Compile Include="Contracts\ICategoryService.cs" />
     <Compile Include="Contracts\ICustomRoleStore.cs" />
     <Compile Include="Contracts\ICustomUserStore.cs" />
+    <Compile Include="Contracts\IItemTypeService.cs" />
     <Compile Include="Contracts\IPageService.cs" />
     <Compile Include="Contracts\IPostCategoryService.cs" />
     <Compile Include="Contracts\IPostService.cs" />
@@ -143,6 +145,7 @@
     <Compile Include="CustomRoleStore.cs" />
     <Compile Include="CustomUserStore.cs" />
     <Compile Include="EmailService.cs" />
+    <Compile Include="ItemTypeService.cs" />
     <Compile Include="PostCategoryService.cs" />
     <Compile Include="PostService.cs" />
     <Compile Include="PageService.cs" />

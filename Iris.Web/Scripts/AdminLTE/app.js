@@ -745,3 +745,16 @@ function _init() {
     });
   };
 }(jQuery));
+
+(function ($) {
+    $('a.sidebar-toggle').on('click', function () {
+        var box = $("footer");
+        if (!box.hasClass("collapsed-box-Footer")) {
+            //Hide the content
+            box.addClass("collapsed-box-Footer");
+            
+        } else {
+            box.removeClass("collapsed-box-Footer");
+        }
+    });
+}(jQuery));

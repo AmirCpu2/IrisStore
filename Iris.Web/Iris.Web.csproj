@@ -17,7 +17,7 @@
     <AssemblyName>Iris.Web</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -241,6 +241,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\StructuremapMvc.cs" />
     <Compile Include="Areas\AdminPanel\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\ItemType\Controllers\AdminController.cs" />
     <Compile Include="Areas\Page\Controllers\AdminController.cs" />
     <Compile Include="Areas\PostCategory\Controllers\AdminController.cs" />
     <Compile Include="Areas\Post\Controllers\AdminController.cs" />
@@ -279,6 +280,12 @@
     </Compile>
     <Compile Include="Helpers\CookieHelper.cs" />
     <Compile Include="HomeController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ItemType.ItemManagmentController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ItemType.SharedController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="LuceneIndexingController.generated.cs">
@@ -689,6 +696,8 @@
     <Content Include="Scripts\angular-cookies.min.js.map" />
     <Content Include="Scripts\angular-aria.min.js.map" />
     <Content Include="Scripts\angular-animate.min.js.map" />
+    <Content Include="Areas\ItemType\Views\web.config" />
+    <Content Include="Areas\ItemType\Views\Admin\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap-confirmation.js" />
     <Content Include="Scripts\bootstrap-editable.js" />
@@ -2545,8 +2554,8 @@
     <Content Include="Views\Home\_FooterMini.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\AdminPanel\Models\" />
     <Folder Include="Areas\AdminPanel\Views\Shared\" />
+    <Folder Include="Areas\ItemType\Views\Shared\" />
     <Folder Include="Areas\PostCategory\Models\" />
     <Folder Include="Areas\PostCategory\Views\Shared\" />
     <Folder Include="Areas\Post\Views\Shared\" />
@@ -2623,7 +2632,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>14425</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/Store</IISUrl>
+          <IISUrl>http://localhost/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>http://silkrood.ir/store</CustomServerUrl>

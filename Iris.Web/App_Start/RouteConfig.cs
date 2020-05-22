@@ -13,6 +13,8 @@ namespace Iris.Web
 
             routes.MapMvcAttributeRoutes(); //Enables Attribute Routing
 
+            //AreaRegistration.RegisterAllAreas();
+
             //routes.MapRoute(
             //    name: "Default",
             //    url: "{controller}/{action}/{id}",
