@@ -1,8 +1,8 @@
 ﻿@using Iris.ViewModels
 @using Utilities
-@model Iris.ViewModels.ItemTypeDataGridViewModel
+@model Iris.ViewModels.ItemsDataGridViewModel
 @{
-    ViewBag.Title = "مدیریت دسته بندیها";
+    ViewBag.Title = "مدیریت زیرگروه ها";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 @section scripts{
@@ -19,7 +19,7 @@
                 container: 'body',
                 onConfirm: function (event, element) {
 
-                    var deleteUrl = "@Url.Action("Delete","Admin" ,new {area="ItemType"})";
+                    var deleteUrl = "@Url.Action("Delete","Admin" ,new {area="Items"})";
 
                     $.ajax({
                         method: "POST",
@@ -74,11 +74,11 @@
 
         function loadGrid() {
             $('#list').jqGrid({
-                caption: "فهرست دسته بندیها",
+                caption: "فهرست نوع‌ها",
                 //url from wich data should be requested
-                url: '@Url.Action("GetDataGridData", "Admin", new {area = "ItemType"})',
+                url: '@(Url.Action("GetDataGridData", "Admin", new {area = "Items"}))?itemTypeId=@TempData["ItemTypeId"]',
                 //type of data
-                editurl: '@Url.Action("Add", "Admin", new { area = "ItemType" })',
+                editurl: '@Url.Action("Add", "Admin", new { area = "Items" })?itemTypeId=@TempData["ItemTypeId"]',
                 datatype: 'json',
                 jsonReader: {
                     root: "rows",
@@ -93,12 +93,12 @@
                 //url access method type
                 mtype: 'POST',
                 //columns names
-                colNames: ['شماره', 'نام انگیسی', "نام فارسی", "عملیات"],
+                colNames: ['شماره', 'نام انگیسی', "نام فارسی", "گروه اصلی", "ترتیب", "عملیات"],
                 //columns model
                 colModel: [
                     {
-                        name: '@(StronglyTyped.PropertyName<ItemTypeDataGridViewModel>(x => x.Id))',
-                        index: '@(StronglyTyped.PropertyName<ItemTypeDataGridViewModel>(x => x.Id))',
+                        name: '@(StronglyTyped.PropertyName<ItemsDataGridViewModel>(x => x.Id))',
+                        index: '@(StronglyTyped.PropertyName<ItemsDataGridViewModel>(x => x.Id))',
                         align: 'center',
                         width: 20,
                         sorttype: "number",
@@ -107,8 +107,8 @@
                         editable: false
                     },
                     {
-                        name: '@(StronglyTyped.PropertyName<ItemTypeDataGridViewModel>(x => x.NameEn))',
-                        index: '@(StronglyTyped.PropertyName<ItemTypeDataGridViewModel>(x => x.NameEn))',
+                        name: '@(StronglyTyped.PropertyName<ItemsDataGridViewModel>(x => x.NameEn))',
+                        index: '@(StronglyTyped.PropertyName<ItemsDataGridViewModel>(x => x.NameEn))',
                         align: 'center',
                         width: 25,
                         search: false,
@@ -132,8 +132,8 @@
                         }
                     },
                     {
-                        name: '@(StronglyTyped.PropertyName<ItemTypeDataGridViewModel>(x => x.NameFa))',
-                        index: '@(StronglyTyped.PropertyName<ItemTypeDataGridViewModel>(x => x.NameFa))',
+                        name: '@(StronglyTyped.PropertyName<ItemsDataGridViewModel>(x => x.NameFa))',
+                        index: '@(StronglyTyped.PropertyName<ItemsDataGridViewModel>(x => x.NameFa))',
                         align: 'center',
                         search: true,
                         width: 25,
@@ -152,6 +152,58 @@
                                 if (value.length < 3 || value.length > 40)
                                     return [false, colname + " باید بین 3 تا 40 حرف باشد"];
                                 else
+                                    return [true, ""];
+                            }
+                        }
+                    },
+                    {
+                        name: '@(StronglyTyped.PropertyName<ItemsDataGridViewModel>(x => x.ItemTypeFa))',
+                        index: '@(StronglyTyped.PropertyName<ItemsDataGridViewModel>(x => x.ItemTypeFa))',
+                        align: 'center',
+                        search: true,
+                        width: 25,
+                        stype: 'text',
+                        editable: false, edittype: 'text',
+                        editoptions: {
+                            maxlength: 40
+                        },
+                        editrules: {
+                            required: true,
+                            custom: true,
+                            custom_func: function (value, colname) {
+                                if (!value)
+                                    return [false, "لطفا نامی را وارد کنید"];
+
+                                if (value.length < 3 || value.length > 40)
+                                    return [false, colname + " باید بین 3 تا 40 حرف باشد"];
+                                else
+                                    return [true, ""];
+                            }
+                        }
+                    },
+                    {
+                        name: '@(StronglyTyped.PropertyName<ItemsDataGridViewModel>(x => x.DisplayPriority))',
+                        index: '@(StronglyTyped.PropertyName<ItemsDataGridViewModel>(x => x.DisplayPriority))',
+                        align: 'center',
+                        search: true,
+                        width: 25,
+                        stype: 'number',
+                        number: true,
+                        editable: true,
+                        edittype: 'text',
+                        editoptions: {
+                            maxlength: 40
+                        },
+                        editrules: {
+                            required: false,
+                            custom: true,
+                            custom_func: function (value, colname) {
+                                //if (!value)
+                                //    return [false, "لطفا نامی را وارد کنید"];
+
+                                //if (value.length < 3 || value.length > 40)
+                                //    return [false, colname + " باید بین 3 تا 40 حرف باشد"];
+                                //else
                                     return [true, ""];
                             }
                         }
@@ -177,9 +229,9 @@
                                 options.colModel.formatoptions.delbutton = true;
                             }
 
-                            var btnCustom = '<div title="مشاهده زير دسته بندیها" style="float:left;margin-left:5px;" class="ui-pg-div ui-inline-del" onmouseover="jQuery(this).addClass(\'ui-state-hover\');" onmouseout="jQuery(this).removeClass(\'ui-state-hover\');"><a class="ui-pg-div ui-inline" href="@Url.Action("index", "Admin", new { area = "Items"})?id=#{rowid}"><span class="ui-icon ui-icon-shuffle"></span></a></div>';
+                            //var btnCustom = '<div title="مشاهده زير گروه ها" style="float:left;margin-left:5px;" class="ui-pg-div ui-inline-del" onmouseover="jQuery(this).addClass(\'ui-state-hover\');" onmouseout="jQuery(this).removeClass(\'ui-state-hover\');"><a class="ui-pg-div ui-inline" href="@Url.Action("index", "Admin", new { area = "Items"})?id=#{rowid}"><span class="ui-icon ui-icon-shuffle"></span></a></div>';
 
-                            return $.fn.fmatter.actions(cellvalue, options, btnCustom);
+                            return $.fn.fmatter.actions(cellvalue, options);
                         },
                         formatoptions: {
                             keys: true,
@@ -189,7 +241,7 @@
                             },
                             delbutton: true,
                             delOptions: {
-                                url: '@Url.Action("Delete","Admin", new {area="ItemType"})'
+                                url: '@Url.Action("Delete","Admin", new {area="Items"})'
                             }
                         }
 
@@ -297,7 +349,8 @@
         function getInlineNavParams(isAdd) {
             return {
                 // استفاده از آدرس‌های مختلف برای حالات ویرایش و ثبت اطلاعات جدید
-                url: isAdd ? '@Url.Action("Add","Admin", new {area="ItemType"})' : '@Url.Action("Edit","Admin", new {area="ItemType"})',
+                url: isAdd ? '@(Url.Action("Add","Admin", new {area="Items"}))?itemTypeId=@TempData["ItemTypeId"]' :
+                             '@(Url.Action("Edit","Admin", new {area="Items"}))?itemTypeId=@TempData["ItemTypeId"]',
                 key: true,
                 restoreAfterError: false, // این مورد سبب می‌شود تا اعتبارسنجی سمت سرور قابل اعمال شود
                 oneditfunc: function (rowId) {
@@ -355,11 +408,11 @@
     <div class="box box-info">
         <div class="box-header with-border">
             <div class="col-md-6">
-                <h3 class="box-title">مدیریت دسته بندیها</h3>
+                <h3 class="box-title">مدریت زیر گروه‌</h3>
             </div>
-            @*<div class="text-left col-md-6">
-            <a href="@Url.Action("Add", "Admin", new {area = "Items"})" class="btn btn-primary"> <i class="fa fa-plus fa-lg"></i> افزودن زير نوع</a>
-        </div>*@
+            <div class="text-left col-md-6">
+                <a href="@Url.Action("Index", "Admin", new {area = "ItemType"})" class="btn btn-default"> <i class="fa fa-list fa-lg"></i> فهرست گروه ها</a>
+            </div>
         </div>
         <div class="box-body">
             <div class="row" style="padding: 0 5px 0 5px; ">

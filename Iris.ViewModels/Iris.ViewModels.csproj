@@ -109,6 +109,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddItemsViewModel.cs" />
     <Compile Include="AddProductViewModel.cs" />
     <Compile Include="AdminDashboardViewModel.cs" />
     <Compile Include="CategoryViewModel.cs" />
@@ -119,6 +120,8 @@
     <Compile Include="FooterViewModel.cs" />
     <Compile Include="GroupViewModel.cs" />
     <Compile Include="HomePageViewModel.cs" />
+    <Compile Include="ItemsDataGridViewModel.cs" />
+    <Compile Include="ItemsViewModel.cs" />
     <Compile Include="ItemTypeDataGridViewModel.cs" />
     <Compile Include="ItemTypeViewModel.cs" />
     <Compile Include="LinkViewModel.cs" />

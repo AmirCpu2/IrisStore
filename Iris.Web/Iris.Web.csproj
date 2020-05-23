@@ -241,6 +241,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\StructuremapMvc.cs" />
     <Compile Include="Areas\AdminPanel\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\Items\Controllers\AdminController.cs" />
     <Compile Include="Areas\ItemType\Controllers\AdminController.cs" />
     <Compile Include="Areas\Page\Controllers\AdminController.cs" />
     <Compile Include="Areas\PostCategory\Controllers\AdminController.cs" />
@@ -698,6 +699,8 @@
     <Content Include="Scripts\angular-animate.min.js.map" />
     <Content Include="Areas\ItemType\Views\web.config" />
     <Content Include="Areas\ItemType\Views\Admin\Index.cshtml" />
+    <Content Include="Areas\Items\Views\web.config" />
+    <Content Include="Areas\Items\Views\Admin\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap-confirmation.js" />
     <Content Include="Scripts\bootstrap-editable.js" />
@@ -2555,8 +2558,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\AdminPanel\Views\Shared\" />
+    <Folder Include="Areas\Items\Views\Shared\" />
     <Folder Include="Areas\ItemType\Views\Shared\" />
-    <Folder Include="Areas\PostCategory\Models\" />
     <Folder Include="Areas\PostCategory\Views\Shared\" />
     <Folder Include="Areas\Post\Views\Shared\" />
     <Folder Include="Areas\ProductCategory\Models\" />
