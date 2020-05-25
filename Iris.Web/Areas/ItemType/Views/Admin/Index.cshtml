@@ -179,7 +179,7 @@
 
                             var btnCustom = '<div title="مشاهده زير دسته بندیها" style="float:left;margin-left:5px;" class="ui-pg-div ui-inline-del" onmouseover="jQuery(this).addClass(\'ui-state-hover\');" onmouseout="jQuery(this).removeClass(\'ui-state-hover\');"><a class="ui-pg-div ui-inline" href="@Url.Action("index", "Admin", new { area = "Items"})?id=#{rowid}"><span class="ui-icon ui-icon-shuffle"></span></a></div>';
 
-                            return $.fn.fmatter.actions(cellvalue, options, btnCustom);
+                            return $.fn.fmatter.actions(cellvalue, options, null, btnCustom);
                         },
                         formatoptions: {
                             keys: true,

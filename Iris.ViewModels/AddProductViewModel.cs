@@ -15,6 +15,7 @@ namespace Iris.ViewModels
         public AddProductViewModel()
         {
             Categories = new List<string>();
+            ProductColor = new List<int>();
             Images = new List<AddProductImageViewModel>();
             SeoFields = new MetaTagsViewModel();
             Prices = new List<AddProductPriceViewModel>();
@@ -50,6 +51,18 @@ namespace Iris.ViewModels
         [AllowHtml]
         public string Description { get; set; }
 
+        [Display(Name = "رنگ کالا")]
+        [Required(ErrorMessage = "لطفا یک رنگ را انتخاب کنید")]
+        public List<int> ProductColor { get; set; }
+
+        [Display(Name = "فروشنده کالا")]
+        [Required(ErrorMessage = "لطفا یک فروشنده را انتخاب کنید")]
+        public int Sellers { get; set; }
+        
+        [Display(Name = "نام تجاری کالا")]
+        [Required(ErrorMessage = "لطفا یک نام تجاری را انتخاب کنید")]
+        public int Brand { get; set; }
+
         public List<AddProductImageViewModel> Images { get; set; }
         public List<AddProductPriceViewModel> Prices { get; set; }
         public List<AddProductDiscountViewModel> Discounts { get; set; }
@@ -69,14 +82,25 @@ namespace Iris.ViewModels
                 .ForMember(productModel => productModel.Description, opt => opt.MapFrom(product => product.Body))
                 .ForMember(productModel => productModel.Images, opt => opt.MapFrom(product => product.Images.OrderBy(image => image.Order)))
 
-            .ForMember(productModel => productModel.Prices,
-            opt => opt.MapFrom(product => product.Prices.OrderByDescending(price => price.Date)))
+                .ForMember(productModel => productModel.Prices,
+                opt => opt.MapFrom(product => product.Prices.OrderByDescending(price => price.Date)))
 
-             .ForMember(productModel => productModel.Discounts,
-            opt => opt.MapFrom(product => product.Discounts.OrderByDescending(Discount => Discount.EndDate)))
+                 .ForMember(productModel => productModel.Discounts,
+                opt => opt.MapFrom(product => product.Discounts.OrderByDescending(Discount => Discount.EndDate)))
 
-            .ForMember(productModel => productModel.Discounts,
-            opt => opt.MapFrom(product => product.Discounts.OrderByDescending(Discount => Discount.StartDate)));
+                .ForMember(productModel => productModel.Discounts,
+                opt => opt.MapFrom(product => product.Discounts.OrderByDescending(Discount => Discount.StartDate)))
+                
+                .ForMember(productModel => productModel.ProductColor, opt => opt.MapFrom(q=>q.Items
+                    .Where(p=>p.ItemType.Id.Equals((int)Enums.ItemType.ProductColor)).Select(pi=>pi.Id)))
+
+                .ForMember(productModel => productModel.Sellers, opt => opt.MapFrom(q => q.Items
+                    .Where(p => p.ItemType.Id.Equals((int)Enums.ItemType.Seller)).Select(pi => pi.Id).FirstOrDefault()))
+
+                .ForMember(productModel => productModel.Brand, opt => opt.MapFrom(q => q.Items
+                    .Where(p => p.ItemType.Id.Equals((int)Enums.ItemType.Brand)).Select(pi => pi.Id).FirstOrDefault()))
+                    
+                ;
 
 
 
@@ -145,7 +169,44 @@ namespace Iris.ViewModels
                    }))
 
 
-                .ForMember(product => product.Tags, opt => opt.Ignore());
+                .ForMember(product => product.Tags, opt => opt.Ignore())
+                
+                .ForMember(product => product.Items, opt => opt.ResolveUsing(productModel => {
+                    var Items = new List<Item>();
+                    //First UnJoin
+
+
+                    //Last Join
+                    foreach (var item in productModel.ProductColor)
+                    {
+                        Items.Add(new Item
+                        { 
+                            Id = item,
+                            ItemTypeId = (int)Enums.ItemType.ProductColor
+                        });
+                    }
+
+                    if (productModel.Sellers > 0)
+                    {
+                        Items.Add(new Item
+                        {
+                            Id = productModel.Sellers,
+                            ItemTypeId = (int)Enums.ItemType.Seller
+                        });
+                    }
+
+                    if (productModel.Brand > 0)
+                    {
+                        Items.Add(new Item
+                        {
+                            Id = productModel.Brand,
+                            ItemTypeId = (int)Enums.ItemType.Brand
+                        });
+                    }
+                    
+                    return Items;
+                }))
+                ;
 
 
         }

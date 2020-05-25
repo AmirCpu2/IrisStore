@@ -77,6 +77,14 @@
     <Compile Include="Migrations\202005211459002_ItemCollaction.Designer.cs">
       <DependentUpon>202005211459002_ItemCollaction.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005250046465_ChangeProductItems.cs" />
+    <Compile Include="Migrations\202005250046465_ChangeProductItems.Designer.cs">
+      <DependentUpon>202005250046465_ChangeProductItems.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005251226589_ChangeItemCollactionConfig.cs" />
+    <Compile Include="Migrations\202005251226589_ChangeItemCollactionConfig.Designer.cs">
+      <DependentUpon>202005251226589_ChangeItemCollactionConfig.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ApplicationDbConfiguration.cs" />
@@ -99,6 +107,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202005211459002_ItemCollaction.resx">
       <DependentUpon>202005211459002_ItemCollaction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005250046465_ChangeProductItems.resx">
+      <DependentUpon>202005250046465_ChangeProductItems.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005251226589_ChangeItemCollactionConfig.resx">
+      <DependentUpon>202005251226589_ChangeItemCollactionConfig.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

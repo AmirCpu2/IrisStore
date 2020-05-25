@@ -119,7 +119,6 @@ namespace Iris.Web.DependencyResolution
             For<IShoppingCartService>().Use<ShoppingCartService>();
             For<IItemTypeService>().Use<ItemTypeService>();
             For<IItemsService>().Use<ItemsService>();
-            //For<IProductItem>().Use<ProductItem>();
         }
 
         #endregion

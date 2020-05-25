@@ -27,7 +27,6 @@ namespace Iris.DataLayer
         public DbSet<FactorProduct> FactorProducts { get; set; }
         public virtual DbSet<Item> Items { get; set; }
         public virtual DbSet<ItemType> ItemTypes { get; set; }
-        public virtual DbSet<ProductItem> ProductItems { get; set; }
 
 
         /// <summary>

@@ -9,19 +9,13 @@
 
         $("#Price").number(true, 0);
 
-        $("#Categories").select2({
+        $(".js-example-responsive").select2({
             tags: true,
-            dir: "rtl"
+            dir: "rtl",
+            language: "fa"
         }).on('change', function () {
             $(this).trigger('blur');
-        });;
-
-        $("#Tags").select2({
-            tags: true,
-            dir: "rtl"
-        }).on('change', function () {
-            $(this).trigger('blur');
-        });;;
+        });
 
         CKEDITOR.replace('Description', {
             filebrowserBrowseUrl: Iris.roxyFileManPath,

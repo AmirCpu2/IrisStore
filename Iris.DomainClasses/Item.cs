@@ -14,7 +14,7 @@ namespace Iris.DomainClasses
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Item()
         {
-            ProductItems = new HashSet<ProductItem>();
+            Products = new HashSet<Product>();
         }
 
         public int Id { get; set; }
@@ -30,6 +30,6 @@ namespace Iris.DomainClasses
         public virtual ItemType ItemType { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductItem> ProductItems { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
     }
 }

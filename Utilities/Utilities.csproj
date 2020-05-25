@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="CacheManager.cs" />
     <Compile Include="EnumExtensions.cs" />
+    <Compile Include="Enums.cs" />
     <Compile Include="FileExtensions.cs" />
     <Compile Include="HtmlCleaner\HtmlSanitizer.cs" />
     <Compile Include="HtmlCleaner\PersianProofWriter.cs" />

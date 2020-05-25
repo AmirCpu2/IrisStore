@@ -5672,7 +5672,7 @@ var xmlJsonClass = {
 				break;
 		}
 	};
-	$.fn.fmatter.actions = function(cellval,opts,customRow="") {
+	$.fn.fmatter.actions = function (cellval, opts, temp ,customRow = "") {
 		var op={keys:false, editbutton:true, delbutton:true, editformbutton: false},
 			rowid=opts.rowId, str="",ocl;
 		if(opts.colModel.formatoptions !== undefined) {
@@ -5694,7 +5694,13 @@ var xmlJsonClass = {
 		str += "<div title='"+$.jgrid.edit.bSubmit+"' style='float:left;display:none' class='ui-pg-div ui-inline-save' "+ocl+"><span class='ui-icon ui-icon-disk'></span></div>";
 		ocl = "id='jCancelButton_"+rowid+"' onclick=jQuery.fn.fmatter.rowactions.call(this,'cancel'); onmouseover=jQuery(this).addClass('ui-state-hover'); onmouseout=jQuery(this).removeClass('ui-state-hover'); ";
 		str += "<div title='" + $.jgrid.edit.bCancel + "' style='float:left;display:none;margin-left:5px;' class='ui-pg-div ui-inline-cancel' " + ocl + "><span class='ui-icon ui-icon-cancel'></span></div>";
-		return "<div style='margin-left:8px;'>" + str + customRow.replace('#{rowid}',rowid) + "</div>";
+
+		if (customRow != null && customRow != "")
+			customRow = customRow.replace('#{rowid}', rowid);
+		else
+			customRow = customRow.replace('#{rowid}', 0)
+
+		return "<div style='margin-left:8px;'>" + str + customRow + "</div>";
 	};
 	$.unformat = function (cellval,options,pos,cnt) {
 		// specific for jqGrid only

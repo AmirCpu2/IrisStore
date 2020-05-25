@@ -2564,7 +2564,6 @@
     <Folder Include="Areas\Post\Views\Shared\" />
     <Folder Include="Areas\ProductCategory\Models\" />
     <Folder Include="Areas\ProductCategory\Views\Shared\" />
-    <Folder Include="Areas\Product\ViewModels\" />
     <Folder Include="Areas\ShoppingCart\Models\" />
     <Folder Include="Areas\SiteSetting\Models\" />
     <Folder Include="Areas\SiteSetting\Views\Shared\" />

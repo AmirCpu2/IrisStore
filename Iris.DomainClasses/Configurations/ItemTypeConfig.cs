@@ -10,10 +10,6 @@ namespace Iris.DomainClasses.Configurations
             .WithRequired(e => e.ItemType)
             .WillCascadeOnDelete(false);
 
-            HasMany(e => e.ProductItems)
-            .WithRequired(e => e.ItemType)
-            .WillCascadeOnDelete(false);
-
             Property(entity => entity.NameEn).HasMaxLength(256);
             Property(entity => entity.NameEn).IsRequired();
 

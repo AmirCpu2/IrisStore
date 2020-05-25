@@ -21,6 +21,7 @@ namespace Iris.ServiceLayer
     {
         private readonly IDbSet<Product> _products;
         private readonly IDbSet<Category> _categories;
+        private readonly IDbSet<Item> _item;
         private readonly IDbSet<ProductImage> _productImages;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMappingEngine _mappingEngine;
@@ -30,6 +31,7 @@ namespace Iris.ServiceLayer
             _unitOfWork = unitOfWork;
             _products = unitOfWork.Set<Product>();
             _categories = unitOfWork.Set<Category>();
+            _item = unitOfWork.Set<Item>();
             _productImages = unitOfWork.Set<ProductImage>();
             _mappingEngine = mappingEngine;
         }
@@ -38,13 +40,19 @@ namespace Iris.ServiceLayer
         {
 
             var selectedCategoryNamesList = product.Categories.Select(c => c.Name).ToList();
+            var selectedItemIdList = product.Items.Select(i => i.Id).ToList();
 
 
             product.Categories.Clear();
+            product.Items.Clear();
 
             ////سپس در طی فقط یک کوئری بررسی می‌کنیم کدامیک از موارد ارسالی موجود هستند
             var listOfActualCategories = await _categories.Where(x => selectedCategoryNamesList.Contains(x.Name)).ToListAsync();
             var listOfActualCategoryNames = listOfActualCategories.Select(x => x.Name.ToLower()).ToList();
+            
+            ////سپس در طی فقط یک کوئری بررسی می‌کنیم کدامیک از موارد ارسالی موجود هستند
+            var listOfActualItems = await _item.Where(x => selectedItemIdList.Contains(x.Id)).ToListAsync();
+            var listOfActualItemIds = listOfActualItems.Select(x => x.Id).ToList();
 
             //فقط موارد جدید به تگ‌ها و ارتباطات موجود اضافه می‌شوند
             foreach (var tag in selectedCategoryNamesList)
@@ -54,11 +62,26 @@ namespace Iris.ServiceLayer
                     product.Categories.Add(new Category { Name = tag.Trim() });
                 }
             }
+            
+            //فقط موارد جدید به تگ‌ها و ارتباطات موجود اضافه می‌شوند
+            foreach (var item in selectedItemIdList)
+            {
+                if (!listOfActualItemIds.Contains(item))
+                {
+                    product.Items.Add(new Item { Id = item });
+                }
+            }
 
             //موارد قبلی هم حفظ می‌شوند
             foreach (var item in listOfActualCategories)
             {
                 product.Categories.Add(item);
+            }
+            
+            //موارد قبلی هم حفظ می‌شوند
+            foreach (var item in listOfActualItems)
+            {
+                product.Items.Add(item);
             }
 
             _products.Add(product);
@@ -68,6 +91,7 @@ namespace Iris.ServiceLayer
         {
             var selectedProduct = await _products
                 .Include(p => p.Categories)
+                .Include(p => p.Items)
                 .Include(p => p.Images)
                 .Include(p => p.Prices)
                 .Include(p => p.Discounts)
@@ -119,6 +143,12 @@ namespace Iris.ServiceLayer
             {
                 selectedProduct.Categories.Add(item);
             }
+
+            //Items
+            selectedProduct.Items.Clear();
+            var itemSelected = editedProduct.Items.Select(i => i.Id).ToList();
+            var ListActualItem  = _item.Where(q=> itemSelected.Contains(q.Id)).ToList();
+            ListActualItem.ForEach(q => selectedProduct.Items.Add(q));
 
             return deletedImages;
         }

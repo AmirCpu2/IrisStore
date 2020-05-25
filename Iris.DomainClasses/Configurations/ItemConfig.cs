@@ -6,10 +6,9 @@ namespace Iris.DomainClasses.Configurations
     {
         public ItemConfig()
         {
-            HasMany(e => e.ProductItems)
-            .WithRequired(e => e.Item)
-            .HasForeignKey(e => e.ItemsId)
-            .WillCascadeOnDelete(false);
+            HasMany(e => e.Products)
+            .WithMany(e => e.Items)
+            .Map(m => m.ToTable("ProductItems").MapLeftKey("ItemId").MapRightKey("ProductId"));
 
             Property(entity => entity.NameEn).HasMaxLength(256);
             Property(entity => entity.NameEn).IsRequired();

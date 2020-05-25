@@ -24,14 +24,18 @@ namespace Iris.Web.Areas.Product.Controllers
         private readonly IMappingEngine _mappingEngine;
         private readonly IUnitOfWork _unitOfWork;
         private readonly ICategoryService _categoryService;
+        private readonly IItemsService _itemsService;
+        private readonly IItemTypeService _itemTypeService;
         private readonly IProductService _productService;
 
         public AdminController(IUnitOfWork unitOfWork, IProductService productService, ICategoryService categoryService,
-            IMappingEngine mappingEngine)
+            IItemsService itemsService, IItemTypeService itemTypeService, IMappingEngine mappingEngine)
         {
             _unitOfWork = unitOfWork;
             _productService = productService;
             _categoryService = categoryService;
+            _itemsService = itemsService;
+            _itemTypeService = itemTypeService;
             _mappingEngine = mappingEngine;
         }
 
@@ -86,8 +90,18 @@ namespace Iris.Web.Areas.Product.Controllers
         {
             var productModel = new AddProductViewModel();
 
+            //Set MuliSelectLists
             ViewData["CategoriesSelectList"] = new MultiSelectList(await _categoryService.GetAll(), "Name", "Name");
 
+            ViewData["ProductColorSelectList"] = new MultiSelectList(await _itemsService
+                                                                           .GetAllByItemType((int)Enums.ItemType.ProductColor), "Id", "NameFa");
+            
+            ViewData["SellersSelectList"] = new SelectList(await _itemsService
+                                                                           .GetAllByItemType((int)Enums.ItemType.Seller), "Id", "NameFa");
+            
+            ViewData["BrandSelectList"] = new SelectList(await _itemsService
+                                                                           .GetAllByItemType((int)Enums.ItemType.Brand), "Id", "NameFa");
+            
             return View(productModel);
         }
 
@@ -193,6 +207,20 @@ namespace Iris.Web.Areas.Product.Controllers
                 Category = "کالا‌ها"
             });
 
+            //Save ProductItems
+            //First Unjoin if id > 0
+            /*if (productModel.Id.HasValue)
+            {
+                var productItems = await _productItemService.GetAllItemsByProductId(productModel?.Id ?? 0);
+                if (productItems.Count > 0)
+                    _productItemService.Unjoin(productItems.Select(q => q.ItemId).ToList(), productModel?.Id ?? 0);
+            }
+
+            //Last Join Items To product
+            if (product.ProductItems.Count() > 0)
+                _productItemService.Join(product.ProductItems.Select(q => q.ItemId).ToList(),
+                                            product.Id);
+                                                //product.ProductItems.Select(q => q.ItemTypeId).ToList());*/
 
             return RedirectToAction(MVC.Product.Admin.ActionNames.Index);
         }
@@ -204,6 +232,15 @@ namespace Iris.Web.Areas.Product.Controllers
 
             ViewData["CategoriesSelectList"] =
                 new MultiSelectList(await _categoryService.GetAll(), "Name", "Name", selectedProduct.Categories);
+
+            ViewData["ProductColorSelectList"] = new MultiSelectList(await _itemsService
+                                                                           .GetAllByItemType((int)Enums.ItemType.ProductColor), "Id", "NameFa");
+
+            ViewData["SellersSelectList"] = new SelectList(await _itemsService
+                                                                           .GetAllByItemType((int)Enums.ItemType.Seller), "Id", "NameFa");
+
+            ViewData["BrandSelectList"] = new SelectList(await _itemsService
+                                                                           .GetAllByItemType((int)Enums.ItemType.Brand), "Id", "NameFa");
 
             return View(MVC.Product.Admin.Views.AddProduct, selectedProduct);
         }

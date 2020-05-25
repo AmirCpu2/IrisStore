@@ -15,7 +15,6 @@ namespace Iris.DomainClasses
         public ItemType()
         {
             Items = new HashSet<Item>();
-            ProductItems = new HashSet<ProductItem>();
         }
 
         public int Id { get; set; }
@@ -26,8 +25,5 @@ namespace Iris.DomainClasses
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Item> Items { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductItem> ProductItems { get; set; }
     }
 }
