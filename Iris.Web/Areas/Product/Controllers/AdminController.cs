@@ -14,6 +14,8 @@ using Iris.ViewModels;
 using JqGridHelper.DynamicSearch;
 using JqGridHelper.Models;
 using Utilities;
+using System.Security.Principal;
+using System.Web.WebPages;
 
 namespace Iris.Web.Areas.Product.Controllers
 {
@@ -27,9 +29,10 @@ namespace Iris.Web.Areas.Product.Controllers
         private readonly IItemsService _itemsService;
         private readonly IItemTypeService _itemTypeService;
         private readonly IProductService _productService;
+        private readonly IApplicationUserManager _userManager;
 
-        public AdminController(IUnitOfWork unitOfWork, IProductService productService, ICategoryService categoryService,
-            IItemsService itemsService, IItemTypeService itemTypeService, IMappingEngine mappingEngine)
+        public AdminController(IUnitOfWork unitOfWork, IApplicationUserManager userManager, IProductService productService, ICategoryService categoryService,
+            IItemsService itemsService, IItemTypeService itemTypeService, IMappingEngine mappingEngine )
         {
             _unitOfWork = unitOfWork;
             _productService = productService;
@@ -37,6 +40,7 @@ namespace Iris.Web.Areas.Product.Controllers
             _itemsService = itemsService;
             _itemTypeService = itemTypeService;
             _mappingEngine = mappingEngine;
+            _userManager = userManager;
         }
 
         [Route("List")]
@@ -94,13 +98,13 @@ namespace Iris.Web.Areas.Product.Controllers
             ViewData["CategoriesSelectList"] = new MultiSelectList(await _categoryService.GetAll(), "Name", "Name");
 
             ViewData["ProductColorSelectList"] = new MultiSelectList(await _itemsService
-                                                                           .GetAllByItemType((int)Enums.ItemType.ProductColor), "Id", "NameFa");
+                                                                           .GetAllByItemTypeByName(Enums.ItemType.ProductColor.ToString()), "Id", "NameFa");
             
             ViewData["SellersSelectList"] = new SelectList(await _itemsService
-                                                                           .GetAllByItemType((int)Enums.ItemType.Seller), "Id", "NameFa");
+                                                                           .GetAllByItemTypeByName(Enums.ItemType.Seller.ToString()), "Id", "NameFa");
             
             ViewData["BrandSelectList"] = new SelectList(await _itemsService
-                                                                           .GetAllByItemType((int)Enums.ItemType.Brand), "Id", "NameFa");
+                                                                           .GetAllByItemTypeByName(Enums.ItemType.Brand.ToString()), "Id", "NameFa");
             
             return View(productModel);
         }
@@ -153,7 +157,8 @@ namespace Iris.Web.Areas.Product.Controllers
             {
                 product.Title = productModel.Name;
                 product.PostedDate = DateTime.Now;
-                product.PostedByUserId = 1;
+                var user = await _userManager.FindByNameAsync(User.Identity.Name);
+                product.PostedByUserId = user.Id;
                 await _productService.AddProduct(product);
                 TempData["message"] = "کالای جدید با موفقیت ثبت شد";
             }
@@ -233,14 +238,14 @@ namespace Iris.Web.Areas.Product.Controllers
             ViewData["CategoriesSelectList"] =
                 new MultiSelectList(await _categoryService.GetAll(), "Name", "Name", selectedProduct.Categories);
 
-            ViewData["ProductColorSelectList"] = new MultiSelectList(await _itemsService
-                                                                           .GetAllByItemType((int)Enums.ItemType.ProductColor), "Id", "NameFa");
+            ViewData["ProductColorSelectList"] = new MultiSelectList(Enum.GetValues(typeof(ProductColor)).Cast<ProductColor>()
+                                                                            .Select(q => new { Id = (int)q, NameFa = Utilities.EnumExtensions.GetEnumDescription(q) }), "Id", "NameFa");
 
             ViewData["SellersSelectList"] = new SelectList(await _itemsService
-                                                                           .GetAllByItemType((int)Enums.ItemType.Seller), "Id", "NameFa");
+                                                                           .GetAllByItemTypeByName(Enums.ItemType.Seller.ToString()), "Id", "NameFa", selectedProduct.Sellers);
 
             ViewData["BrandSelectList"] = new SelectList(await _itemsService
-                                                                           .GetAllByItemType((int)Enums.ItemType.Brand), "Id", "NameFa");
+                                                                           .GetAllByItemTypeByName(Enums.ItemType.Brand.ToString()), "Id", "NameFa", selectedProduct.Brand);
 
             return View(MVC.Product.Admin.Views.AddProduct, selectedProduct);
         }

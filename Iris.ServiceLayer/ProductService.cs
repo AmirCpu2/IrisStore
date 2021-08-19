@@ -382,6 +382,7 @@ namespace Iris.ServiceLayer
             {
                 Id = p.Id,
                 ProductStatus = p.ProductStatus,
+                ProductColor = p.ProductColor,
                 Price = p.Prices.OrderByDescending(price => price.Date).Select(price => price.Price).FirstOrDefault(),
                 Discount = p.Discounts.OrderByDescending(discount => discount.StartDate).Select(discount => discount.Discount).FirstOrDefault(),
                 Title = p.Title,

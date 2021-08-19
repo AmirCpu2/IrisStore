@@ -14,6 +14,20 @@ namespace Iris.DomainClasses
         ComingSoon,
     }
 
+    public enum ProductColor
+    {
+        [Description("مشکی")]
+        Black,
+        [Description("طوسی")]
+        Gray,
+        [Description("آبی")]
+        Blue,
+        [Description("نقره ای")]
+        Silver,
+        [Description("زرد")]
+        Yellow,
+    }
+
     public class Product : BaseEntity
     {
         public Product()
@@ -41,6 +55,7 @@ namespace Iris.DomainClasses
         public double? AverageRating { get; set; }
 
         public ProductStatus ProductStatus { get; set; }
+        public ProductColor ProductColor { get; set; }
         public virtual ICollection<Category> Categories { get; set; }
         public virtual ICollection<ProductPrice> Prices { get; set; }
         public virtual ICollection<ProductDiscount> Discounts { get; set; }

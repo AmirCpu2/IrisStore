@@ -85,6 +85,10 @@
     <Compile Include="Migrations\202005251226589_ChangeItemCollactionConfig.Designer.cs">
       <DependentUpon>202005251226589_ChangeItemCollactionConfig.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202108192049572_ProductColor.cs" />
+    <Compile Include="Migrations\202108192049572_ProductColor.Designer.cs">
+      <DependentUpon>202108192049572_ProductColor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ApplicationDbConfiguration.cs" />
@@ -113,6 +117,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005251226589_ChangeItemCollactionConfig.resx">
       <DependentUpon>202005251226589_ChangeItemCollactionConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108192049572_ProductColor.resx">
+      <DependentUpon>202108192049572_ProductColor.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

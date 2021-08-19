@@ -11,11 +11,11 @@ namespace Utilities
         public enum ItemType
         {
             ///<summary>رنگ کالا</summary>
-            ProductColor = 11,
+            ProductColor ,
             ///<summary>فروشنده</summary>
-            Seller = 12,
+            Seller ,
             ///<summary>نام تجاری</summary>
-            Brand = 13,
+            Brand ,
         }
     }
 }

@@ -17,7 +17,8 @@ namespace Iris.ServiceLayer.Contracts
         void Delete(int id);
         void Edit(Item item);
         Task<IList<ItemsViewModel>> GetAll();
-        Task<IList<ItemsViewModel>> GetAllByItemType(int itemTypeId);
+        Task<IList<ItemsViewModel>> GetAllByItemTypeById(int itemTypeId);
+        Task<IList<ItemsViewModel>> GetAllByItemTypeByName(string itemTypeId);
         Task<string> GetItemName(int id);
         Task<IList<string>> GetItemNameList(List<int> id);
     }

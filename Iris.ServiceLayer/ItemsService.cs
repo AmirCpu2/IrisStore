@@ -75,9 +75,16 @@ namespace Iris.ServiceLayer
                 .ToListAsync();
         }
 
-        public async Task<IList<ItemsViewModel>> GetAllByItemType(int itemTypeId)
+        public async Task<IList<ItemsViewModel>> GetAllByItemTypeById(int itemTypeId)
         {
             return await _Item.AsQueryable().Where(q=>q.ItemTypeId.Equals(itemTypeId))
+                .ProjectTo<ItemsViewModel>(null, _mappingEngine)
+                .ToListAsync();
+        }
+
+        public async Task<IList<ItemsViewModel>> GetAllByItemTypeByName(string nameEn)
+        {
+            return await _Item.AsQueryable().Where(q => q.ItemType.NameEn.Equals(nameEn))
                 .ProjectTo<ItemsViewModel>(null, _mappingEngine)
                 .ToListAsync();
         }

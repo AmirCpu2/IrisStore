@@ -11,6 +11,7 @@ namespace Iris.DataLayer.Migrations
             DropForeignKey("dbo.ProductItems", "ItemId", "dbo.Items");
             DropForeignKey("dbo.ProductItems", "ProductId", "dbo.Products");
             DropIndex("dbo.ProductItems", new[] { "ItemType_Id" });
+            DropTable("dbo.ProductItems");
             CreateTable(
                 "dbo.ProductItems",
                 c => new
@@ -22,7 +23,6 @@ namespace Iris.DataLayer.Migrations
                 .ForeignKey("dbo.Items", t => t.ItemId, cascadeDelete: true)
                 .ForeignKey("dbo.Products", t => t.ProductId, cascadeDelete: true);
             
-            DropTable("dbo.ProductItems");
         }
         
         public override void Down()
