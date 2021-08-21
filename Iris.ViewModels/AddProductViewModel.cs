@@ -15,7 +15,7 @@ namespace Iris.ViewModels
         public AddProductViewModel()
         {
             Categories = new List<string>();
-            //ProductColor = new List<int>();
+            ProductColor = new List<int>();
             Images = new List<AddProductImageViewModel>();
             SeoFields = new MetaTagsViewModel();
             Prices = new List<AddProductPriceViewModel>();
@@ -53,7 +53,7 @@ namespace Iris.ViewModels
 
         [Display(Name = "رنگ کالا")]
         [Required(ErrorMessage = "لطفا یک رنگ را انتخاب کنید")]
-        public List<ProductColor> ProductColor { get; set; }
+        public List<int> ProductColor { get; set; }
 
         [Display(Name = "فروشنده کالا")]
         [Required(ErrorMessage = "لطفا یک فروشنده را انتخاب کنید")]
@@ -91,8 +91,8 @@ namespace Iris.ViewModels
                 .ForMember(productModel => productModel.Discounts,
                 opt => opt.MapFrom(product => product.Discounts.OrderByDescending(Discount => Discount.StartDate)))
                 
-                //.ForMember(productModel => productModel.ProductColor, opt => opt.MapFrom(q=>q.Items
-                //    .Where(p=>p.ItemType.NameEn.Equals(Enums.ItemType.ProductColor.ToString())).Select(pi=>pi.Id)))
+                .ForMember(productModel => productModel.ProductColor, opt => opt.MapFrom(q=>q.Items
+                    .Where(p=>p.ItemType.NameEn.Equals(Enums.ItemType.ProductColor.ToString())).Select(pi=>pi.Id)))
 
                 .ForMember(productModel => productModel.Sellers, opt => opt.MapFrom(q => q.Items
                     .Where(p => p.ItemType.NameEn.Equals(Enums.ItemType.Seller.ToString())).Select(pi => pi.Id).FirstOrDefault()))
@@ -177,14 +177,14 @@ namespace Iris.ViewModels
 
 
                     //Last Join
-                    //foreach (var item in productModel.ProductColor)
-                    //{
-                    //    Items.Add(new Item
-                    //    { 
-                    //        Id = item,
-                    //        ItemTypeId = (int)Enums.ItemType.ProductColor
-                    //    });
-                    //}
+                    foreach (var item in productModel.ProductColor)
+                    {
+                        Items.Add(new Item
+                        { 
+                            Id = item,
+                            ItemTypeId = (int)Enums.ItemType.ProductColor
+                        });
+                    }
 
                     if (productModel.Sellers > 0)
                     {

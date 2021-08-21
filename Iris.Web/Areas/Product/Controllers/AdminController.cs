@@ -238,8 +238,8 @@ namespace Iris.Web.Areas.Product.Controllers
             ViewData["CategoriesSelectList"] =
                 new MultiSelectList(await _categoryService.GetAll(), "Name", "Name", selectedProduct.Categories);
 
-            ViewData["ProductColorSelectList"] = new MultiSelectList(Enum.GetValues(typeof(ProductColor)).Cast<ProductColor>()
-                                                                            .Select(q => new { Id = (int)q, NameFa = Utilities.EnumExtensions.GetEnumDescription(q) }), "Id", "NameFa");
+            ViewData["ProductColorSelectList"] = new MultiSelectList(await _itemsService
+                                                                           .GetAllByItemTypeByName(Enums.ItemType.ProductColor.ToString()), "Id", "NameFa", selectedProduct.ProductColor);
 
             ViewData["SellersSelectList"] = new SelectList(await _itemsService
                                                                            .GetAllByItemTypeByName(Enums.ItemType.Seller.ToString()), "Id", "NameFa", selectedProduct.Sellers);

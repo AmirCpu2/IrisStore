@@ -46,7 +46,6 @@ namespace Iris.ServiceLayer.Contracts
         public decimal Price { get; set; }
         public decimal Discount { get; set; }
         public ProductStatus ProductStatus { get; set; }
-        public ProductColor ProductColor { get; set; }
         public string SlugUrl { get; set; }
         public string Category { get; set; }
     }
