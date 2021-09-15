@@ -16,6 +16,9 @@ namespace Iris.ViewModels
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
         public string Address { get; set; }
+        public Guid PublicId { get; set; }
+        public string PostalCode { get; set; }
+        public string RefId { get; set; }
         public DateTime IssueDate { get; set; } = DateTime.Now;
         public FactorStatus Status { get; set; }
 

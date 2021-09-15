@@ -21,6 +21,9 @@ namespace Iris.ViewModels
         public string PhoneNumber { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "لطفا آدرس را وارد کنید")]
         public string Address { get; set; }
+        public Guid PublicId { get; set; }
+        public string PostalCode { get; set; }
+        public string RefId { get; set; }
         public DateTime IssueDate { get; set; } = DateTime.Now;
         [Required]
         public FactorStatus Status { get; set; } = FactorStatus.Paying;
