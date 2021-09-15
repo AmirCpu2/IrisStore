@@ -57,6 +57,7 @@ namespace Iris.Web.Areas.User.Controllers
                 ViewBag.LastName = user.LastName;
                 ViewBag.Mobile = user.Mobile;
                 ViewBag.Address = user.Address;
+                ViewBag.PostalCode = user.PostalCode;
             }
             return View();
         }

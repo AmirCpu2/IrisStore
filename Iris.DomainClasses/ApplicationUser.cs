@@ -14,5 +14,9 @@ namespace Iris.DomainClasses
         public virtual string Mobile { get; set; }
 
         public virtual string Address { get; set; }
+
+        public virtual string PostalCode { get; set; }
+
+        public virtual string LatLong { get; set; }
     }
 }

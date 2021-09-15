@@ -89,6 +89,10 @@
     <Compile Include="Migrations\202109150934360_ChangeFactorParams.Designer.cs">
       <DependentUpon>202109150934360_ChangeFactorParams.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202109150955061_ChangeCustomUserModel.cs" />
+    <Compile Include="Migrations\202109150955061_ChangeCustomUserModel.Designer.cs">
+      <DependentUpon>202109150955061_ChangeCustomUserModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ApplicationDbConfiguration.cs" />
@@ -120,6 +124,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202109150934360_ChangeFactorParams.resx">
       <DependentUpon>202109150934360_ChangeFactorParams.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109150955061_ChangeCustomUserModel.resx">
+      <DependentUpon>202109150955061_ChangeCustomUserModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

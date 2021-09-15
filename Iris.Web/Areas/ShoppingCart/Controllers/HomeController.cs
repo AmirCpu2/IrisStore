@@ -197,6 +197,7 @@ namespace Iris.Web.Areas.ShoppingCart.Controllers
                     {
                         ViewBag.IsSuccess = true;
                         ViewBag.RefId = RefID;
+                        order.RefId = RefID.ToString();
                         order.Status = Iris.DomainClasses.FactorStatus.Paid;
                     }
                     else

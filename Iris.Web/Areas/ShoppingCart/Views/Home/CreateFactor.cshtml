@@ -26,11 +26,14 @@
                                     <a class="checkout-contact-btn-edit">در زمان تحویل، کالا فقط به این شخص تحویل داده میشود</a>
                                 </li>
                                 <li class="checkout-contact-item">
-                                    <div class="checkout-contact-item">
+                                    <div class="checkout-contact-item checkout-contact-item-mobile">
                                         شماره تماس:
                                         <span class="mobile-phone">{{Mobile}}</span>
                                     </div>
-
+                                    <div class="checkout-contact-item-message">
+                                        کد پستی:
+                                        <span class="post-code">{{PostalCode}}</span>
+                                    </div>
                                 </li>
                                 <li class="checkout-contact-item">
                                     <div class="checkout-contact-item">
@@ -97,7 +100,7 @@
                                                                            ng-model="model.EditLastName">
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-12 col-sm-12 mb-2">
+                                                            <div class="col-md-6 col-sm-12 mb-2">
                                                                 <div class="form-row-title">
                                                                     <h4>
                                                                         شماره موبایل
@@ -109,6 +112,19 @@
                                                                            maxlength="11"
                                                                            placeholder="09xxxxxxxxx"
                                                                            ng-model="model.EditMobile">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 col-sm-12 mb-2">
+                                                                <div class="form-row-title">
+                                                                    <h4>
+                                                                        کد پستی
+                                                                    </h4>
+                                                                </div>
+                                                                <div class="form-row">
+                                                                    <input class="input-ui pl-2 dir-ltr text-left placeholder-right"
+                                                                           type="text"
+                                                                           placeholder="بدون خط تیره"
+                                                                           ng-model="model.EditPostalCode">
                                                                 </div>
                                                             </div>
                                                             <div class="col-12 mb-2">
@@ -552,12 +568,14 @@
                 $scope.FirstName = `@(ViewBag.FirstName != null ? ViewBag.FirstName : "")`;
                 $scope.LastName = `@( ViewBag.LastName != null ? ViewBag.LastName: "")`;
                 $scope.Mobile = `@(ViewBag.Mobile != null ? ViewBag.Mobile : "")`;
+                $scope.PostalCode = `@(ViewBag.PostalCode != null ? ViewBag.PostalCode : "")`
 
                 $scope.model = {
                     EditAddress : $scope.Address,
                     EditFirstName : $scope.FirstName,
                     EditLastName : $scope.LastName,
-                    EditMobile : $scope.Mobile
+                    EditMobile: $scope.Mobile,
+                    EditPostalCode: $scope.PostalCode
                 };
 
                 $scope.step = 0;
