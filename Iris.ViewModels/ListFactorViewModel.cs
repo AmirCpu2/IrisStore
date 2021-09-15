@@ -28,6 +28,8 @@ namespace Iris.ViewModels
         [Required]
         public FactorStatus Status { get; set; } = FactorStatus.Paying;
         public IList<ListFactorProductViewModel> Products { get; set; }
+        [DisplayFormat(DataFormatString = "{0:###,###}", ApplyFormatInEditMode = true)]
+        public decimal TotalPrice => Products.Select(q => q.CalcDiscount * q.Count).Sum();
     }
 
     public class ListFactorProductViewModel 

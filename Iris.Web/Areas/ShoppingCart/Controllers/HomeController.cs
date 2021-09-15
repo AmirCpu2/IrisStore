@@ -9,6 +9,7 @@ using Iris.ServiceLayer.Contracts;
 using Iris.ViewModels;
 using Microsoft.AspNet.Identity;
 using Iris.Web.ViewModels.Identity;
+using Utilities;
 
 namespace Iris.Web.Areas.ShoppingCart.Controllers
 {
@@ -70,6 +71,7 @@ namespace Iris.Web.Areas.ShoppingCart.Controllers
                 ViewBag.LastName = user.LastName;
                 ViewBag.Mobile = user.Mobile;
                 ViewBag.Address = user.Address;
+                ViewBag.PostalCode = user.PostalCode;
             }
             return View();
         }
@@ -112,27 +114,26 @@ namespace Iris.Web.Areas.ShoppingCart.Controllers
         public virtual async Task<string> Peymen(CreateFactorViewModel factorViewModel)
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            int factorId;
+            Guid PublicId;
             if (user == null)
             {
                 return null;
             }
-            else
-            {
-                if (string.IsNullOrEmpty(user.FirstName) && string.IsNullOrEmpty(user.LastName) && string.IsNullOrEmpty(user.Mobile) && string.IsNullOrEmpty(user.Address))
-                {
-                    user.FirstName = factorViewModel.Name;
-                    user.LastName = factorViewModel.LastName;
-                    user.Mobile = factorViewModel.PhoneNumber;
-                    user.Address = factorViewModel.Address;
-                }
 
-                factorId = await _shoppingCartService.CreateFactor(factorViewModel);
+            if (string.IsNullOrEmpty(user.FirstName) && string.IsNullOrEmpty(user.LastName) && string.IsNullOrEmpty(user.Mobile) && string.IsNullOrEmpty(user.Address))
+            {
+                user.FirstName = factorViewModel.Name;
+                user.LastName = factorViewModel.LastName;
+                user.Mobile = factorViewModel.PhoneNumber;
+                user.Address = factorViewModel.Address;
+                user.PostalCode = factorViewModel.PostalCode;
             }
+
+            PublicId = await _shoppingCartService.CreateFactor(factorViewModel);
 
             //Peyment cal
 
-            var factorTotalPrice = (int)0;
+            var factorTotalPrice = 0;
 
             foreach (var factorProduct in factorViewModel.Products)
             {
@@ -149,7 +150,7 @@ namespace Iris.Web.Areas.ShoppingCart.Controllers
             Zarinpal.PaymentGatewayImplementationServicePortTypeClient zp = new Zarinpal.PaymentGatewayImplementationServicePortTypeClient();
             string Authority;
 
-            int Status = zp.PaymentRequest("YOUR-ZARINPAL-MERCHANT-CODE", factorTotalPrice, "تست درگاه زرین پال در راه ابریشم", "Amircpu2@gmail.com", "09217159257", $"http://localhost/shpppingcart/Verify?id="+ factorId, out Authority);
+            int Status = zp.PaymentRequest("YOUR-ZARINPAL-MERCHANT-CODE", factorTotalPrice, "تست درگاه زرین پال در راه ابریشم", "Amircpu2@gmail.com", "09217159257", $"http://localhost/shpppingcart/Verify?id="+ PublicId, out Authority);
 
             if (Status == 100)
             {
@@ -164,13 +165,18 @@ namespace Iris.Web.Areas.ShoppingCart.Controllers
         }
 
         [Route("Verify")]
-        public virtual async Task<ActionResult> Verify(int id)
+        public virtual async Task<ActionResult> Verify(Guid id)
         {
-            var order = await _shoppingCartService.GetForEdit(id);
+            ViewData["RecommendedProducts"] = (_productService.GetSuggestionProductsForce(9));
+
+            var order = await _shoppingCartService.GetForEditByGuId(id);
             order.Status = Iris.DomainClasses.FactorStatus.Cancelled;
 
-            //Peyment cal
+            if (!string.IsNullOrWhiteSpace(order.RefId) || !Request.QueryString["Status"].ToString().Equals("OK") && String.IsNullOrWhiteSpace(Request.QueryString["Authority"]))
+                return View("index");
 
+
+            //Peyment cal
             var factorTotalPrice = 0;
 
             foreach (var factorProduct in order.Products)
@@ -183,38 +189,24 @@ namespace Iris.Web.Areas.ShoppingCart.Controllers
                 factorTotalPrice += ((int)selectedProduct.CurrentPrice * factorProduct.Count);
             }
 
-            if (Request.QueryString["Status"] != "" && Request.QueryString["Status"] != null && Request.QueryString["Authority"] != "" && Request.QueryString["Authority"] != null)
+            long RefID;
+            System.Net.ServicePointManager.Expect100Continue = false;
+            Zarinpal.PaymentGatewayImplementationServicePortTypeClient zp = new Zarinpal.PaymentGatewayImplementationServicePortTypeClient();
+
+            int Status = zp.PaymentVerification("YOUR-ZARINPAL-MERCHANT-CODE", Request.QueryString["Authority"].ToString(), factorTotalPrice, out RefID);
+
+            if (Status == 100)
             {
-                if (Request.QueryString["Status"].ToString().Equals("OK"))
-                {
-                    long RefID;
-                    System.Net.ServicePointManager.Expect100Continue = false;
-                    Zarinpal.PaymentGatewayImplementationServicePortTypeClient zp = new Zarinpal.PaymentGatewayImplementationServicePortTypeClient();
-
-                    int Status = zp.PaymentVerification("YOUR-ZARINPAL-MERCHANT-CODE", Request.QueryString["Authority"].ToString(), factorTotalPrice, out RefID);
-
-                    if (Status == 100)
-                    {
-                        ViewBag.IsSuccess = true;
-                        ViewBag.RefId = RefID;
-                        order.RefId = RefID.ToString();
-                        order.Status = Iris.DomainClasses.FactorStatus.Paid;
-                    }
-                    else
-                    {
-                        ViewBag.Status = Status;
-                    }
-                    ViewBag.steps = 3;
-                }
-                else
-                {
-                    Response.Write("Error! Authority: " + Request.QueryString["Authority"].ToString() + " Status: " + Request.QueryString["Status"].ToString());
-                }
+                ViewBag.IsSuccess = true;
+                ViewBag.RefId = RefID;
+                order.RefId = RefID.ToString();
+                order.Status = Iris.DomainClasses.FactorStatus.Paid;
             }
             else
             {
-                Response.Write("Invalid Input");
+                ViewBag.Status = Status;
             }
+            ViewBag.steps = 3;
 
 
             //order
@@ -222,7 +214,9 @@ namespace Iris.Web.Areas.ShoppingCart.Controllers
 
             await _unitOfWork.SaveAllChangesAsync();
 
-            return View();
+            //_shoppingCartService
+
+            return View(order);
         }
 
     }

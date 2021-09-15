@@ -33,7 +33,7 @@ namespace Iris.ServiceLayer
             _factors = unitOfWork.Set<Factor>();
         }
 
-        public async Task<int> CreateFactor(CreateFactorViewModel factorViewModel)
+        public async Task<Guid> CreateFactor(CreateFactorViewModel factorViewModel)
         {
             var factor = new Factor
             {
@@ -42,6 +42,8 @@ namespace Iris.ServiceLayer
                 UserId = Convert.ToInt32(HttpContext.Current.User.Identity.GetUserId()),
                 PhoneNumber = factorViewModel.PhoneNumber,
                 LastName = factorViewModel.LastName,
+                PostalCode = factorViewModel.PostalCode,
+                RefId = factorViewModel.RefId,
                 IssueDate = DateTime.Now
             };
 
@@ -56,7 +58,7 @@ namespace Iris.ServiceLayer
                 {
                     Count = factorProduct.Count,
                     Price =selectedProduct.Prices.OrderByDescending(x=>x.Date).FirstOrDefault().Price,
-                    Discount = selectedProduct.Discounts.OrderByDescending(x => x.StartDate).FirstOrDefault().Discount,
+                    Discount = selectedProduct?.Discounts?.FirstOrDefault(q => q.EndDate > DateTime.Now)?.Discount ?? 0,
                     ProductId = selectedProduct.Id
                 });
             }
@@ -67,7 +69,7 @@ namespace Iris.ServiceLayer
 
             await _unitOfWork.SaveAllChangesAsync();
 
-            return factor.Id;
+            return factor.PublicId;
 
         }
 
@@ -128,10 +130,42 @@ namespace Iris.ServiceLayer
                     PhoneNumber = f.PhoneNumber,
                     LastName = f.LastName,
                     Address = f.Address,
+                    PostalCode = f.PostalCode,
                     Id = f.Id,
                     Name = f.Name,
                     IssueDate = f.IssueDate,
                     Status = f.Status,
+                    RefId = f.RefId,
+                    PublicId = f.PublicId,
+                    Products = f.Products.Select(p => new ListFactorProductViewModel
+                    {
+                        Id = p.Id,
+                        Price = p.Price,
+                        Discount = p.Discount,
+                        Count = p.Count,
+                        ProductId = p.ProductId,
+                        ProductName = p.Product.Title,
+                        MaxCount = p.Product.Count
+                    }).ToList()
+                }).FirstOrDefaultAsync();
+        }
+        
+        public async Task<ListFactorViewModel> GetForEditByGuId(Guid PublicId)
+        {
+            return await _factors.Where(f => f.PublicId == PublicId)
+                .OrderByDescending(f => f.IssueDate)
+                .Select(f => new ListFactorViewModel
+                {
+                    PhoneNumber = f.PhoneNumber,
+                    LastName = f.LastName,
+                    Address = f.Address,
+                    PostalCode = f.PostalCode,
+                    Id = f.Id,
+                    Name = f.Name,
+                    IssueDate = f.IssueDate,
+                    Status = f.Status,
+                    RefId = f.RefId,
+                    PublicId = f.PublicId,
                     Products = f.Products.Select(p => new ListFactorProductViewModel
                     {
                         Id = p.Id,
@@ -155,6 +189,8 @@ namespace Iris.ServiceLayer
             selectedFactor.PhoneNumber = factorViewModel.PhoneNumber;
             selectedFactor.Name = factorViewModel.Name;
             selectedFactor.LastName = factorViewModel.LastName;
+            selectedFactor.PostalCode = factorViewModel.PostalCode;
+            selectedFactor.RefId = factorViewModel.RefId;
 
             foreach (var factorProduct in selectedFactor.Products.ToList())
             {

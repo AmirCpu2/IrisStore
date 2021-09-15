@@ -72,7 +72,15 @@
                                                                 class="plus"></button>
                                                     </div>
                                                 </td>
-                                                <td><strong>{{MaskMoney(item.price)}} تومان</strong></td>
+                                                <td>
+                                                    <span class="discountPrice" style="color: #f7858d;text-decoration-line: line-through;" ng-show="item.currentDiscount>0">
+                                                        {{MaskMoney(item.price)}}تومان
+                                                    </span>
+                                                    <span ng-show="item.currentDiscount>0">
+                                                        ,
+                                                    </span>
+                                                    <strong>{{MaskMoney(item.currentPrice)}} تومان</strong>
+                                                </td>
                                             </tr>
 
                                         </tbody>

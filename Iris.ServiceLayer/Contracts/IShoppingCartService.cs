@@ -12,7 +12,7 @@ namespace Iris.ServiceLayer.Contracts
 {
     public interface IShoppingCartService
     {
-        Task<int> CreateFactor(CreateFactorViewModel factorViewModel);
+        Task<Guid> CreateFactor(CreateFactorViewModel factorViewModel);
         Task<IList<ListFactorViewModel>> GetUserFactor(int userId);
 
         Task<DataGridViewModel<FactorDataGridViewModel>> GetDataGridSource(string orderBy, JqGridRequest request,
@@ -20,6 +20,7 @@ namespace Iris.ServiceLayer.Contracts
 
         void Delete(int id);
         Task<ListFactorViewModel> GetForEdit(int id);
+        Task<ListFactorViewModel> GetForEditByGuId(Guid id);
         Task Edit(ListFactorViewModel factorViewModel);
     }
 

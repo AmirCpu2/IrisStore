@@ -732,7 +732,8 @@
                     lastName: $scope.LastName,
                     phoneNumber: $scope.Mobile,
                     address: $scope.Address,
-                    products: $scope.product
+                    products: $scope.product,
+                    PostalCode: $scope.PostalCode
                 };
 
                 var userFactorUrl = '@Url.Action("Peymen","Home",new{area="ShoppingCart"})';
@@ -767,12 +768,12 @@
 
             $scope.UpdateAddress = function ()
             {
-                //------------------44444---------------
+                //------------------change Model params---------------
                 $scope.Address = $scope.model.EditAddress;
                 $scope.FirstName = $scope.model.EditFirstName;
                 $scope.LastName = $scope.model.EditLastName;
                 $scope.Mobile = $scope.model.EditMobile;
-
+                $scope.PostalCode = $scope.model.EditPostalCode;
             }
         });
 
