@@ -23,5 +23,10 @@ namespace Iris.Web.ViewModels.Identity
         [Display(Name = "آدرس کامل")]
         public string Address { get; set; }
 
+        [Required(ErrorMessage = "کدپستی را وارد نمائید")]
+        [Display(Name = "کد پستی")]
+        public string PostalCode { get; set; }
+
+        public string LatLong { get; set; }
     }
 }

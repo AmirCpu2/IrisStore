@@ -65,7 +65,7 @@ namespace Iris.Web.Areas.User.Controllers
         [Route("UserProfile")]
         [HttpPost]
         public virtual async Task<ActionResult> UserProfile
-            ([Bind(Include = "ID,FirstName,LastName,Mobile,Address")]ProfileViewmodel userprofile)
+            ([Bind(Include = "ID,FirstName,LastName,Mobile,Address,PostalCode")]ProfileViewmodel userprofile)
         {
             if (!ModelState.IsValid)
             {
@@ -79,6 +79,7 @@ namespace Iris.Web.Areas.User.Controllers
                 user.LastName = userprofile.LastName;
                 user.Mobile = userprofile.Mobile;
                 user.Address = userprofile.Address;
+                user.PostalCode = userprofile.PostalCode;
 
                 await _userManager.UpdateAsync(user);
                 await _unitOfWork.SaveAllChangesAsync();
