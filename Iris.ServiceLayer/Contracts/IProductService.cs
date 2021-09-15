@@ -21,8 +21,10 @@ namespace Iris.ServiceLayer.Contracts
 
         void DeleteProduct(int productId);
         Task<IList<ProductWidgetViewModel>> GetNewestProducts(int count);
+        List<ProductWidgetViewModel> GetNewestProductsForce(int count);
         Task<IList<ProductWidgetViewModel>> GetMostViewedProducts(int count);
         Task<IList<ProductWidgetViewModel>> GetSuggestionProducts(int count);
+        List<ProductWidgetViewModel> GetSuggestionProductsForce(int count);
         Task<IList<ProductWidgetViewModel>> GetPopularProducts(int count);
         Task<IList<decimal>> GetAvailableProductPrices();
         Task<decimal> GetAvailbleProductPriceMax();
@@ -35,6 +37,7 @@ namespace Iris.ServiceLayer.Contracts
         Task<IList<LueneProduct>> GetAllForLuceneIndex();
         Task<IList<string>> GetProductImages(int productId);
         Task<IList<ProductOrderViewModel>> GetProductsOrders(int[] productIds);
+        Task<ProductOrderViewModel> GetProductOrder(int productId);
     }
 
     public class LueneProduct

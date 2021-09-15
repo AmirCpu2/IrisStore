@@ -43,6 +43,7 @@
     <!-- Plugins -->
     @Styles.Render("~/Content/css/vendor/owl.carousel.min.css")
     @Styles.Render("~/Content/css/vendor/jquery.horizontalmenu.css")
+    @Styles.Render("~/Content/css/vendor/nice-select.css")
     @Styles.Render("~/Content/css/vendor/nouislider.min.css")
     <!-- Font Icon -->
     @Styles.Render("~/Content/css/vendor/materialdesignicons.min.css")
@@ -55,68 +56,69 @@
     <!--angular js-->
     <script src="~/Scripts/angular.min.js"></script>
 </head>
-    <body>
-        <div class="wrapper">
-            <!-- Start header -->
-            <header class="main-header dt-sl">
-                @{
-                    Html.RenderAction(MVC.Home.ActionNames.Header, MVC.Home.Name, new { area = "" });
-                    Html.RenderAction(MVC.Home.ActionNames.MenuBar, MVC.Home.Name, new { area = "" });
-                }
-            </header>
-
-
-            <!-- End header -->
-            <main class="main-content dt-sl mt-4 mb-3">
-                @RenderBody()
-            </main>
+<body>
+    <div class="wrapper">
+        <!-- Start header -->
+        <header class="main-header dt-sl">
             @{
-                Html.RenderAction(MVC.Home.ActionNames.Footer, MVC.Home.Name, new { area = "" });
+                Html.RenderAction(MVC.Home.ActionNames.Header, MVC.Home.Name, new { area = "" });
+                Html.RenderAction(MVC.Home.ActionNames.MenuBar, MVC.Home.Name, new { area = "" });
             }
+        </header>
 
-            <div id="authenticationModal" class="modal fade" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            <div>
-                                <p>برای ثبت سفارش احتیاج است که وارد سیستم شوید.</p>
-                                <ul class="list-inline">
-                                    <li><a href="@Url.Action("Login", "Account", new { isUser = true, area = "", returnUrl = Request.Url?.AbsolutePath })" class="btn btn-primary btn-block">ورود</a></li>
-                                    <li><a class="btn btn-sm btn-success" href="@Url.Action("Register", "Account", new { area = "", returnUrl = Request.Url?.AbsolutePath })">ثبت نام</a></li>
-                                </ul>
-                            </div>
+
+        <!-- End header -->
+        <main class="main-content dt-sl mt-4 mb-3">
+            @RenderBody()
+        </main>
+        @{
+            Html.RenderAction(MVC.Home.ActionNames.Footer, MVC.Home.Name, new { area = "" });
+        }
+
+        <div id="authenticationModal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div>
+                            <p>برای ثبت سفارش احتیاج است که وارد سیستم شوید.</p>
+                            <ul class="list-inline">
+                                <li><a href="@Url.Action("Login", "Account", new { isUser = true, area = "", returnUrl = Request.Url?.AbsolutePath })" class="btn btn-primary btn-block">ورود</a></li>
+                                <li><a class="btn btn-sm btn-success" href="@Url.Action("Register", "Account", new { area = "", returnUrl = Request.Url?.AbsolutePath })">ثبت نام</a></li>
+                            </ul>
                         </div>
+                    </div>
 
-                    </div><!-- /.modal-content -->
-                </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
-        </div>
-        @Scripts.Render("~/bundles/common")
-        @Scripts.Render("~/Scripts/jquery-ui-1.11.4.js")
-        <script>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    </div>
+    @Scripts.Render("~/bundles/common")
+    @Scripts.Render("~/Scripts/jquery-ui-1.11.4.js")
+    <script>
             var autocompleteSource = "@Url.Action(MVC.Search.ActionNames.AutoCompleteSearch, MVC.Search.Name, new {area = ""})";
-        </script>
-        @Scripts.Render("~/bundles/layout")
+    </script>
+    @Scripts.Render("~/bundles/layout")
 
-        @RenderSection("scripts", required: false)
+    @RenderSection("scripts", required: false)
 
-        <!--Begin Style Scripts-->
-        <!-- Core JS Files -->
-        <script src="~/Scripts/js/vendor/jquery-3.4.1.min.js"></script>
-        <script src="~/Scripts/js/vendor/popper.min.js"></script>
-        <script src="~/Scripts/js/vendor/bootstrap.min.js"></script>
-        <!-- Plugins -->
-        <script src="~/Scripts/js/vendor/owl.carousel.min.js"></script>
-        <script src="~/Scripts/js/vendor/jquery.horizontalmenu.js"></script>
-        <script src="~/Scripts/js/vendor/nouislider.min.js"></script>
-        <script src="~/Scripts/js/vendor/wNumb.js"></script>
-        <script src="~/Scripts/js/vendor/ResizeSensor.min.js"></script>
-        <script src="~/Scripts/js/vendor/theia-sticky-sidebar.min.js"></script>
-        <!-- Main JS File -->
-        <script src="~/Scripts/js/main.js"></script>
-        
-        <!--End Style Scripts-->
-        
+    <!--Begin Style Scripts-->
+    <!-- Core JS Files -->
+    <script src="~/Scripts/js/vendor/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/js/vendor/popper.min.js"></script>
+    <script src="~/Scripts/js/vendor/bootstrap.min.js"></script>
+    <!-- Plugins -->
+    <script src="~/Scripts/js/vendor/owl.carousel.min.js"></script>
+    <script src="~/Scripts/js/vendor/jquery.horizontalmenu.js"></script>
+    <script src="~/Scripts/js/vendor/nouislider.min.js"></script>
+    <script src="~/Scripts/js/vendor/jquery.nice-select.min.js"></script>
+    <script src="~/Scripts/js/vendor/wNumb.js"></script>
+    <script src="~/Scripts/js/vendor/ResizeSensor.min.js"></script>
+    <script src="~/Scripts/js/vendor/theia-sticky-sidebar.min.js"></script>
+    <!-- Main JS File -->
+    <script src="~/Scripts/js/main.js"></script>
 
-    </body>
+    <!--End Style Scripts-->
+
+
+</body>
 </html>

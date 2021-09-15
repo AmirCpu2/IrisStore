@@ -33,7 +33,7 @@ namespace Iris.ServiceLayer
             _factors = unitOfWork.Set<Factor>();
         }
 
-        public async Task CreateFactor(CreateFactorViewModel factorViewModel)
+        public async Task<int> CreateFactor(CreateFactorViewModel factorViewModel)
         {
             var factor = new Factor
             {
@@ -62,7 +62,13 @@ namespace Iris.ServiceLayer
             }
 
             factor.Products = factorProducts;
+
             _factors.Add(factor);
+
+            await _unitOfWork.SaveAllChangesAsync();
+
+            return factor.Id;
+
         }
 
         public async Task<IList<ListFactorViewModel>> GetUserFactor(int userId)

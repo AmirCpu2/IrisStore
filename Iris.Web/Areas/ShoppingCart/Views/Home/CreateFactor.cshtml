@@ -1,231 +1,765 @@
 ﻿@model Iris.ViewModels.CreateFactorViewModel
 @{
     ViewBag.Title = "صدور فاکتور";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "../Shared/_FactorLayout.cshtml";
 }
 
-<div class="container page-wrapper" style="background-color: #fff;">
+@section styles{
 
-    <div class="col-md-12">
-        <div class="row">
-            <h2>صدور فاکتور</h2>
+}
+
+<div class="container main-container" id="main_order">
+
+    <div class="row" id="ShoppingCart" ng-app="ShoppingCart" ng-controller="ShoppingCartCntr" ng-cloak>
+        <div class="cart-page-content col-xl-9 col-lg-8 col-12 px-0" ng-show="step==0">
+            <div class="section-title text-sm-title title-wide no-after-title-wide mb-0 px-res-1">
+                <h2>انتخاب آدرس تحویل سفارش</h2>
+            </div>
+            <section class="page-content dt-sl">
+                <div class="address-section">
+                    <div class="checkout-contact dt-sn rounded-0 px-0 pt-0 pb-0">
+                        <div class="checkout-contact-content">
+                            <ul class="checkout-contact-items">
+                                <li class="checkout-contact-item">
+                                    گیرنده:
+                                    <span class="full-name">{{FirstName+' '+LastName}}</span>
+                                    <a class="checkout-contact-btn-edit">در زمان تحویل، کالا فقط به این شخص تحویل داده میشود</a>
+                                </li>
+                                <li class="checkout-contact-item">
+                                    <div class="checkout-contact-item">
+                                        شماره تماس:
+                                        <span class="mobile-phone">{{Mobile}}</span>
+                                    </div>
+
+                                </li>
+                                <li class="checkout-contact-item">
+                                    <div class="checkout-contact-item">
+                                        آدرس:
+                                        <span class="address-part">{{Address}}</span>
+                                    </div>
+                                </li>
+                            </ul>
+                            <a class="checkout-contact-location checkout-address-btn-edit"
+                               data-toggle="modal"
+                               data-target="#modal-location-edit">
+                                تغییر آدرس
+                                ارسال
+                            </a>
+                            <div class="checkout-contact-badge">
+                                <i class="mdi mdi-check-bold"></i>
+                            </div>
+                        </div>
+                        <!-- Start Modal location edit -->
+                        <div class="modal fade" id="modal-location-edit" role="dialog"
+                             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-lg send-info modal-dialog-centered"
+                                 role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalCenterTitle">
+                                            <i class="now-ui-icons location_pin"></i>
+                                            ویرایش آدرس
+                                        </h5>
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-12">
+                                                <div class="form-ui dt-sl">
+                                                    <form class="form-account" action="">
+                                                        <div class="row">
+                                                            <div class="col-md-6 col-sm-12 mb-2">
+                                                                <div class="form-row-title">
+                                                                    <h4>
+                                                                        نام
+                                                                    </h4>
+                                                                </div>
+                                                                <div class="form-row">
+                                                                    <input class="input-ui pr-2 text-right"
+                                                                           type="text"
+                                                                           placeholder="نام خود را وارد نمایید"
+                                                                           ng-model="model.EditFirstName">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 col-sm-12 mb-2">
+                                                                <div class="form-row-title">
+                                                                    <h4>
+                                                                        نام خانوادگی
+                                                                    </h4>
+                                                                </div>
+                                                                <div class="form-row">
+                                                                    <input class="input-ui pr-2 text-right"
+                                                                           type="text"
+                                                                           placeholder="نام خانوادگی خود را وارد نمایید"
+                                                                           ng-model="model.EditLastName">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12 col-sm-12 mb-2">
+                                                                <div class="form-row-title">
+                                                                    <h4>
+                                                                        شماره موبایل
+                                                                    </h4>
+                                                                </div>
+                                                                <div class="form-row">
+                                                                    <input class="input-ui pl-2 dir-ltr text-left"
+                                                                           type="tel"
+                                                                           maxlength="11"
+                                                                           placeholder="09xxxxxxxxx"
+                                                                           ng-model="model.EditMobile">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 mb-2">
+                                                                <div class="form-row-title">
+                                                                    <h4>
+                                                                        آدرس پستی
+                                                                    </h4>
+                                                                </div>
+                                                                <div class="form-row">
+                                                                    <textarea class="input-ui pr-2 text-right"
+                                                                              placeholder=" آدرس تحویل گیرنده را وارد نمایید" ng-model="model.EditAddress"></textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 pr-4 pl-4">
+                                                                <button type="button"
+                                                                        class="btn btn-sm btn-primary btn-submit-form" data-dismiss="modal" ng-click="UpdateAddress()">
+                                                                    ثبت تغییرات
+                                                                </button>
+                                                                <button type="button" data-dismiss="modal"
+                                                                        class="btn-link-border float-left mt-2">
+                                                                    انصراف
+                                                                    و بازگشت
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-12">
+                                                <!-- Google Map Start -->
+                                                <div class="goole-map">
+                                                    <div id="map-edit" style="height:440px"></div>
+                                                </div>
+                                                <!-- Google Map End -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Modal location edit -->
+                    </div>
+                </div>
+                <form method="post" id="shipping-data-form" class="dt-sn pt-3 pb-3">
+                    <div class="section-title text-sm-title title-wide no-after-title-wide mb-0 px-res-1">
+                        <h2>انتخاب نحوه ارسال</h2>
+                    </div>
+                    <div class="checkout-shipment mb-4">
+                        <div class="custom-control custom-radio pl-0 pr-3">
+                            <input type="radio" class="custom-control-input" name="radio1" id="radio1"
+                                   value="option1" checked>
+                            <label for="radio1" class="custom-control-label">
+                                عادی
+                            </label>
+                        </div>
+                        <div class="custom-control custom-radio  pl-0 pr-3">
+                            <input type="radio" class="custom-control-input" name="radio1" id="radio2"
+                                   value="option2">
+                            <label for="radio2" class="custom-control-label">
+                                سریع‌ (مرسوله‌ها در سریع‌ترین زمان ممکن ارسال می‌شوند)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="section-title text-sm-title title-wide no-after-title-wide mb-0 px-res-1">
+                        <h2>جزئیات مرسوله</h2>
+                    </div>
+                    <div class="checkout-pack">
+                        <section class="products-compact">
+                            <!-- Start Product-Slider -->
+                            <div class="col-12">
+                                <div class="owl-carousel" id="ItemsConsole">
+
+
+                                </div>
+                            </div>
+                            <!-- End Product-Slider -->
+                        </section>
+                        <hr>
+                        <div class="row">
+                            <div class="checkout-time-table checkout-time-table-time">
+                                <div class="col-12">
+                                    <div class="radio-box custom-control custom-radio pl-0 pr-3">
+                                        <input type="radio" class="custom-control-input" name="post-pishtaz"
+                                               id="1" value="1" checked>
+                                        <label for="1" class="custom-control-label">
+                                            <img src="~/Content/img/svg/d86ea8ec.svg"
+                                                 class="checkout-additional-options-checkbox-image" />
+                                            <div class="content-box">
+                                                <div class="checkout-time-table-title-bar checkout-time-table-title-bar-city">
+                                                    بازه تحویل سفارش: زمان تقریبی تحویل بین
+                                                    <span>یک</span>
+                                                    تا
+                                                    <span>سه</span>
+                                                    روز کاری
+                                                </div>
+                                                <ul class="checkout-time-table-subtitle-bar">
+                                                    <li>
+                                                        شیوه ارسال : پست عادی
+                                                    </li>
+                                                    <li>
+                                                        هزینه ارسال:
+                                                        <span class="">رایگان</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="radio-box custom-control custom-radio pl-0 pr-3">
+                                        <input disabled type="radio" class="custom-control-input" name="post-pishtaz"
+                                               id="2" value="2">
+                                        <label for="2" class="custom-control-label">
+                                            <img src="~/Content/img/svg/d86ea8ec.svg"
+                                                 class="checkout-additional-options-checkbox-image" />
+                                            <div class="content-box">
+                                                <div class="checkout-time-table-title-bar checkout-time-table-title-bar-city">
+                                                    بازه تحویل سفارش: زمان تقریبی تحویل از
+                                                    <span>24</span>
+                                                    تا
+                                                    <span>48</span>
+                                                    ساعت
+                                                </div>
+                                                <ul class="checkout-time-table-subtitle-bar">
+                                                    <li>
+                                                        شیوه ارسال : پست پیشتاز با ظرفیت اختصاصی برای دیجی
+                                                        کالا
+                                                    </li>
+                                                    <li>
+                                                        هزینه ارسال:
+                                                        <span class=""> 150,000 تومان</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </form>
+                <div class="mt-5">
+                    <a href="@(Url.Action("Index", "Home", new {area = "ShoppingCart"}))" class="float-right border-bottom-dt">
+                        <i class="mdi mdi-chevron-double-right"></i>بازگشت به سبد خرید
+                    </a>
+                    <a href="#" class="float-left border-bottom-dt" ng-click="CreateFactor()">
+                        تایید و ادامه ثبت سفارش<i class="mdi mdi-chevron-double-left"></i>
+                    </a>
+                </div>
+            </section>
         </div>
 
-        @{if (User.Identity.IsAuthenticated && !string.IsNullOrEmpty(ViewBag.FirstName) && !string.IsNullOrEmpty(ViewBag.LastName) && !string.IsNullOrEmpty(ViewBag.Mobile) && !string.IsNullOrEmpty(ViewBag.Address))
-        {
-            using (Html.BeginForm("CreateFactor", "Home", new { area = "ShoppingCart" }, FormMethod.Post, new { id = "frmSubmitFactor" }))
-            {
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="Name">نام</label>
-                        @Html.TextBoxFor(m => Model.Name, htmlAttributes: new { @Value = ViewBag.FirstName , @class = "form-control", style = "width:45%" })
-                        @Html.ValidationMessageFor(x => x.Name)
+        <div class="cart-page-content col-xl-9 col-lg-8 col-12 px-0" ng-show="step==1" >
+            <section class="page-content dt-sl">
+                <div class="section-title text-sm-title title-wide no-after-title-wide mb-0 px-res-1">
+                    <h2>انتخاب شیوه پرداخت</h2>
+                </div>
+                <form method="post" id="shipping-data-form" class="dt-sn pt-3 pb-3 mb-4">
+                    <div class="checkout-pack">
+                        <div class="row">
+                            <div class="checkout-time-table checkout-time-table-time">
+                                <div class="col-12">
+                                    <div class="radio-box custom-control custom-radio pl-0 pr-3">
+                                        <input type="radio" class="custom-control-input" name="post-pishtaz" id="1" value="1" checked>
+                                        <label for="1" class="custom-control-label">
+                                            <i class="mdi mdi-credit-card-outline checkout-additional-options-checkbox-image"></i>
+                                            <div class="content-box">
+                                                <div class="checkout-time-table-title-bar checkout-time-table-title-bar-city">
+                                                    پرداخت اینترنتی هوشمند
+                                                    <span class="help-sn" data-toggle="tooltip" data-html="true"
+                                                          data-placement="bottom"
+                                                          title="
+                                                          <div class='help-container is-left'>
+                                                        <div class='help-arrow'></div>
+                                                        <p class='help-text'>با پرداخت اینترنتی، سفارش شما با اولویت بیشتری نسبت به پرداخت در محل پردازش و ارسال می شود. در صورت پرداخت ناموفق هزینه کسر شده حداکثر طی ۷۲ ساعت به حساب شما بازگردانده می‌شود.</p></div>">
+                                                        <span class="mdi mdi-information-outline"></span>
+                                                    </span>
+                                                </div>
+                                                <ul class="checkout-time-table-subtitle-bar">
+                                                    <li>
+                                                        آنلاین با تمامی کارت‌های بانکی
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="radio-box custom-control custom-radio pl-0 pr-3">
+                                        <input disabled type="radio" class="custom-control-input" name="post-pishtaz" id="2" value="2">
+                                        <label for="2" class="custom-control-label">
+                                            <i class="mdi mdi-credit-card-multiple-outline checkout-additional-options-checkbox-image"></i>
+                                            <div class="content-box">
+                                                <div class="checkout-time-table-title-bar checkout-time-table-title-bar-city">
+                                                    پرداخت اعتباری دیجی‌پی
+                                                </div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="LastName">نام خانوادگی</label>
-                        @Html.TextBoxFor(m => Model.LastName, htmlAttributes: new { @Value = ViewBag.LastName, @class = "form-control", style = "width:45%" })
-                        @Html.ValidationMessageFor(x => x.LastName)
-                    </div>
-                    <div class="form-group">
-                        <label for="PhoneNumber">شماره تلفن</label>
-                        @Html.TextBoxFor(m => Model.PhoneNumber, htmlAttributes: new { @Value = ViewBag.Mobile, @class = "form-control", style = "width:45%" })
-                        @Html.ValidationMessageFor(x => x.PhoneNumber)
-                    </div>
-                    <div class="form-group">
-                        <label for="Address">آدرس</label>
-                        @Html.TextBoxFor(m => Model.Address, htmlAttributes: new { @Value = ViewBag.Address, @class = "form-control", style = "width:45%" })
-                        @Html.ValidationMessageFor(x => x.Address)
+                </form>
+                <div class="section-title text-sm-title title-wide no-after-title-wide mb-0 px-res-1">
+                    <h2>خلاصه سفارش</h2>
+                </div>
+                <div class="dt-sn pt-3 pb-5">
+                    <div class="checkout-order-summary">
+                        <div class="accordion checkout-order-summary-item" id="accordionExample">
+                            <div class="card pt-sl-res">
+                                <div class="card-header checkout-order-summary-header" id="headingOne">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-link" type="button" data-toggle="collapse"
+                                                data-target="#collapseOne" aria-expanded="false"
+                                                aria-controls="collapseOne">
+                                            <div class="checkout-order-summary-row">
+                                                <div class="checkout-order-summary-col checkout-order-summary-col-post-time">
+                                                    مرسوله ۱
+                                                    از ۱
+                                                    <span class="fs-sm">({{OrderList.length}} کالا)</span>
+                                                </div>
+                                                <div class="checkout-order-summary-col checkout-order-summary-col-how-to-send">
+                                                    <span class="dl-none-sm">نحوه ارسال</span>
+                                                    <span class="dl-none-sm">
+                                                        عادی
+                                                    </span>
+                                                </div>
+                                                <div class="checkout-order-summary-col checkout-order-summary-col-how-to-send">
+                                                    <span>ارسال از</span>
+                                                    <span class="fs-sm">
+                                                        2 روز کاری
+                                                    </span>
+                                                </div>
+                                                <div class="checkout-order-summary-col checkout-order-summary-col-shipping-cost">
+                                                    <span>هزینه ارسال</span>
+                                                    <span class="fs-sm">
+                                                        رایگان
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <i class="mdi mdi-chevron-down icon-down"></i>
+                                        </button>
+                                    </h2>
+                                </div>
+
+                                <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
+                                     data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div class="box">
+                                            <div class="row">
+                                                <div class="col-lg-3 col-md-4 col-sm-6 col-12"  data-product-id="{{item.id}}" ng-repeat="item in OrderList">
+                                                    <div class="product-box-container">
+                                                        <div class="product-box product-box-compact">
+                                                            <a class="product-box-img" href="product/{{item.id}}/{{item.slugUrl}}">
+                                                                <img ng-src="{{item.images[0].url}}" alt="{{item.name}}">
+                                                            </a>
+                                                            <div class="product-box-title">
+                                                                {{item.name}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-                    <div class="row" style="padding-bottom: 25px;">
-                        <div class="col-md-4">
-                            <button id="btnSumbit" type="submit" style="width: 35%" class="btn btn-sm btn-success">
-                                <i class="fa fa-money"></i> پرداخت
-                            </button>
-                        </div>
-                    </div>
-                }
-            }
-            else
-            {
-                using (Html.BeginForm("CreateFactor", "Home", new { area = "ShoppingCart" }, FormMethod.Post, new { id = "frmSubmitFactor" }))
-                {
-                    <div class="row">
-
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="Name">نام</label>
-                                @Html.TextBoxFor(m => Model.Name, new { @class = "form-control", style = "width:45%" })
-                                @Html.ValidationMessageFor(x => x.Name)
+                <div class="row mt-4">
+                    <div class="col-sm-6 col-12">
+                        <div class="dt-sn pt-3 pb-3 px-res-1">
+                            <div class="section-title text-sm-title title-wide no-after-title-wide mb-0">
+                                <h2>
+                                    استفاده از کارت هدیه
+                                    <span class="help-sn" data-toggle="tooltip" data-html="true"
+                                          data-placement="bottom"
+                                          title="<div class='help-container is-left'><div class='help-arrow'></div><p class='help-text'>با استفاده از کد کارت هدیه، تمام یا بخشی از مبلغ سفارش توسط کارت هدیه پرداخت می‌شود.
+                                                        در صورت باقی ماندن بخشی از مبلغ کارت هدیه، امکان استفاده از باقی مانده مبلغ برای خریدهای بعدی امکان‌پذیر است.</p></div>">
+                                                    <span class="mdi mdi-information-outline"></span>
+                                                </span>
+                                </h2>
                             </div>
-                            <div class="form-group">
-                                <label for="LastName">نام خانوادگی</label>
-                                @Html.TextBoxFor(m => Model.LastName, new { @class = "form-control", style = "width:45%" })
-                                @Html.ValidationMessageFor(x => x.LastName)
-                            </div>
-                            <div class="form-group">
-                                <label for="PhoneNumber">شماره تلفن</label>
-                                @Html.TextBoxFor(m => Model.PhoneNumber, new { @class = "form-control", style = "width:45%" })
-                                @Html.ValidationMessageFor(x => x.PhoneNumber)
-                            </div>
-                            <div class="form-group">
-                                <label for="Address">آدرس</label>
-                                @Html.TextAreaFor(m => Model.Address, new { @class = "form-control", style = "width:45%", rows = 5 })
-                                @Html.ValidationMessageFor(x => x.Address)
+                            <p>با ثبت کد کارت هدیه، مبلغ کارت هدیه از “مبلغ قابل پرداخت” کسر می‌شود.</p>
+                            <div class="form-ui">
+                                <form action="">
+                                    <div class="row text-center">
+                                        <div class="col-xl-8 col-lg-12 px-0">
+                                            <div class="form-row">
+                                                <input type="text" class="input-ui pr-2" placeholder="مثلا 1234ABCD5678EFGH0123">
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-12 px-0">
+                                            <button class="btn btn-primary mt-res-1" type="button">ثبت کد هدیه</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-
                     </div>
-                    <div class="row" style="padding-bottom: 25px;">
-                        <div class="col-md-4">
-                            <button id="btnSumbit2" type="submit" style="width: 35%" class="btn btn-sm btn-success">
-                                <i class="fa fa-money"></i> پرداخت
-                            </button>
+                    <div class="col-sm-6 col-12">
+                        <div class="dt-sn pt-3 pb-3 px-res-1">
+                            <div class="section-title text-sm-title title-wide no-after-title-wide mb-0">
+                                <h2>
+                                    استفاده از کد تخفیف
+                                    <span class="help-sn" data-toggle="tooltip" data-html="true"
+                                          data-placement="bottom"
+                                          title="<div class='help-container is-left'><div class='help-arrow'></div><p class='help-text'>بعد از نهایی شدن سفارش کد تخفیف را ثبت نمایید. بعد از ثبت کد تخفیف امکان بازگشت و یا تغییر سبد وجود نخواهد داشت. در صورت تغییر سفارش، کد تخفیف از بین خواهد رفت و امکان اعمال مجدد آن وجود ندارد</p></div>">
+                                        <span class="mdi mdi-information-outline"></span>
+                                    </span>
+                                </h2>
+                            </div>
+                            <p>با ثبت کد تخفیف، مبلغ کد تخفیف از “مبلغ قابل پرداخت” کسر می‌شود.</p>
+                            <div class="form-ui">
+                                <form action="">
+                                    <div class="row text-center">
+                                        <div class="col-xl-8 col-lg-12 px-0">
+                                            <div class="form-row">
+                                                <input type="text" class="input-ui pr-2" placeholder="مثلا 837A2CS">
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-12 px-0">
+                                            <button class="btn btn-primary mt-res-1" type="button">ثبت کد تخفیف</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                }
-            }
-            <div class="row">
-                <div id="ordersListTable" class="col-md-12">
+                </div>
+                <div class="mt-5">
+                    <a href="#" class="float-right border-bottom-dt" ng-click="BackLevel()"><i class="mdi mdi-chevron-double-right"></i>بازگشت به شیوه ارسال</a>
+                    <a href="#" class="float-left border-bottom-dt">ثبت نهایی سفارش<i class="mdi mdi-chevron-double-left"></i></a>
+                </div>
+            </section>
+        </div>
 
+        <div class="col-xl-3 col-lg-4 col-12 w-res-sidebar sticky-sidebar">
+            <div class="dt-sn dt-sn--box mb-2">
+                <ul class="checkout-summary-summary">
+                    <li>
+                        <span>مبلغ کل ({{OrderList.length}} کالا)</span><span>{{MaskMoney(totalPrice)}} تومان</span>
+                    </li>
+                    <li class="checkout-summary-discount">
+                        <span>سود شما از خرید</span><span>
+                            <span>({{totalPercent.toFixed()}}٪)</span>{{MaskMoney(totalFee)}}
+                            تومان
+                        </span>
+                    </li>
+                    <li>
+                        <span>
+                            هزینه ارسال<span class="help-sn" data-toggle="tooltip"
+                                             data-html="true" data-placement="bottom"
+                                             title="<div class='help-container is-right'><div class='help-arrow'></div><p class='help-text'>هزینه ارسال مرسولات می‌تواند وابسته به شهر و آدرس گیرنده متفاوت باشد. در صورتی که هر یک از مرسولات حداقل ارزشی برابر با ۱۵۰هزار تومان داشته باشد، آن مرسوله بصورت رایگان ارسال می‌شود.<br>'حداقل ارزش هر مرسوله برای ارسال رایگان، می تواند متغیر باشد.'</p></div>">
+                                <span class="mdi mdi-information-outline"></span>
+                            </span>
+                        </span><span class="">رایگان</span>
+                    </li>
+                </ul>
+                <div class="checkout-summary-devider">
+                    <div></div>
+                </div>
+                <div class="checkout-summary-content">
+                    <div class="checkout-summary-price-title">مبلغ قابل پرداخت:</div>
+                    <div class="checkout-summary-price-value">
+                        <span class="checkout-summary-price-value-amount">{{MaskMoney(totalPriceOrder)}}</span>
+                        تومان
+                    </div>
+                    <div class="mb-2 d-block" ng-hide="OrderList.length < 1">
+                        <a href="#" id="linkCreateFactor" class="btn-primary-cm btn-with-icon w-100 text-center pr-0" type="button" ng-click="CreateFactor()">
+                            <i class="mdi mdi-arrow-left"></i>
+                            تایید و ادامه ثبت سفارش
+                        </a>
+                    </div>
+                    <div class="mb-2 d-block" ng-show="OrderList.length < 1">
+                        <button disabled class="btn-primary-cm btn-with-icon w-100 text-center pr-0 bkGray" type="button">
+                            <i class="mdi mdi-arrow-left"></i>
+                            تایید و ادامه ثبت سفارش
+                        </button>
+                    </div>
+                    <div>
+                        <span>
+                            کالاهای موجود در سبد شما ثبت و رزرو نشده‌اند، برای ثبت سفارش
+                            مراحل بعدی را تکمیل کنید.
+                        </span><span class="help-sn" data-toggle="tooltip" data-html="true"
+                                     data-placement="bottom"
+                                     title="<div class='help-container is-right'><div class='help-arrow'></div><p class='help-text'>محصولات موجود در سبد خرید شما تنها در صورت ثبت و پرداخت سفارش برای شما رزرو می‌شوند. در صورت عدم ثبت سفارش، دیجی‌کالا هیچگونه مسئولیتی در قبال تغییر قیمت یا موجودی این کالاها ندارد.</p></div>">
+                            <span class="mdi mdi-information-outline"></span>
+                        </span>
+                    </div>
                 </div>
             </div>
-        }
+            <div class="dt-sn dt-sn--box checkout-feature-aside pt-4">
+                <ul>
+                    <li class="checkout-feature-aside-item">
+                        <img src="~/Content/img/svg/return-policy.svg" alt="">
+                        هفت روز ضمانت تعویض
+                    </li>
+                    <li class="checkout-feature-aside-item">
+                        <img src="~/Content/img/svg/payment-terms.svg" alt="">
+                        پرداخت در محل با کارت بانکی
+                    </li>
+                    <li class="checkout-feature-aside-item">
+                        <img src="~/Content/img/svg/delivery.svg" alt="">
+                        تحویل اکسپرس
+                    </li>
+                </ul>
+            </div>
+        </div>
+
     </div>
+
 </div>
+
+
 
 @section scripts
 {
     <script>
 
-        (function() {
-            function setCountMaxValue() {
-                $('input#count').each(function () {
-                    $(this).on('keyup',
-                        function (data) {
-                            var max = parseInt($(this).attr('max'));
-                            var min = 1;
+        var app = angular.module("ShoppingCart", []);
 
-                            if ($(this).val() > max) {
-                                $(this).val(max);
-                            } else if ($(this).val() < min) {
-                                $(this).val(min);
-                            }
+        app.controller("ShoppingCartCntr", function ($scope, $http) {
 
-                        });
-                });
+            /**
+            * initilize value
+            */
+            var initilize = function () {
+                $scope.totalPrice = 0;
+                $scope.totalFee = 0;
+                $scope.totalPercent = 0;
+                $scope.totalPriceOrder = 0;
+                $scope.OrderList = [];
+                $scope.product = JSON.parse(localStorage.getItem('order_list'));
+                //--- set Address Value
+                $scope.Address = `@(ViewBag.Address != null ? ViewBag.Address : "")`;
+                $scope.FirstName = `@(ViewBag.FirstName != null ? ViewBag.FirstName : "")`;
+                $scope.LastName = `@( ViewBag.LastName != null ? ViewBag.LastName: "")`;
+                $scope.Mobile = `@(ViewBag.Mobile != null ? ViewBag.Mobile : "")`;
 
-                $('button#btnRemoveProductOrder').on('click',
-                    function () {
+                $scope.model = {
+                    EditAddress : $scope.Address,
+                    EditFirstName : $scope.FirstName,
+                    EditLastName : $scope.LastName,
+                    EditMobile : $scope.Mobile
+                };
 
-                        var productId = $(this).closest('tr').attr('data-product-id');
-
-                        var productIds = JSON.parse(localStorage.getItem('shopping_carts'));
-
-                        if (productIds.length == 1) {
-                            toastr.warning('باید حداقل یک کالا در فاکتور موجود بماند.');
-                            return;
-                        }
-
-                        for (var i = 0; i < productIds.length; i++) {
-
-                            if (productIds[i] == productId) {
-                                productIds.splice(i, 1);
-                                localStorage.setItem('shopping_carts', JSON.stringify(productIds));
-                                $('#shoppingCartIcon').attr('data-count', +($('#shoppingCartIcon').attr('data-count')) - 1);
-                            }
-                        }
-
-                        $(this).closest('tr').remove();
-                    }
-                );
-
-                $('a#linkCreateFactor').on('click',
-                    function (event) {
-                        if (!@User.Identity.IsAuthenticated.ToString().ToLower()) {
-                            $('#authenticationModal').modal();
-                            event.preventDefault();
-                            return;
-                        }
+                $scope.step = 0;
 
 
-                    });
+                var productIds = JSON.parse(localStorage.getItem('order_list')).map(q=>q["productId"]);
+                var getProductListUrl = '@Url.Action("GetProductList", "Home", new {area = "ShoppingCart"})';
+                var cartEmptyUrl = '@Url.Action("GetCartEmpty", "Home", new {area = "ShoppingCart"})';
 
-                $('form#frmSubmitFactor').on('submit',
-                    function (event) {
-                        event.preventDefault();
-                        if (!$(this).valid()) {
-                            event.preventDefault(); //prevent the default action
-                            return false;
-                        }
-                        var data = JSON.parse(JSON.stringify($(this).serializeArray()));
+                if (productIds.length > 0)
+                {
 
-                        var factor = {
-                            Name: data[0].value,
-                            lastName: data[1].value,
-                            phoneNumber: data[2].value,
-                            address: data[3].value
-                        }
-                        factor.products = [];
-                        $("#ordersListTable tbody tr").each(function () {
-                            var productId = $(this).attr('data-product-id');
-                            var count = $(this).find('input#count').val();
-                            factor.products.push({ productId: productId, count: count });
-                        }
-                           );
+                    $http({
+                        url: getProductListUrl,
+                        method: "post",
+                        data: { productIds: productIds }
+                    }).then(function (response) {
+                        $scope.OrderList = response.data;
+                        CalCulator();
 
+                        for(var i=0;i<response.data.length;i++){
+                            $("#ItemsConsole").append(
+                                `
+                                    <div class="item">
+                                        <div class="product-card mb-3">
+                                            <a class="product-thumb" href="product/${response.data[i].id}/${response.data[i].slugUrl}">
+                                                <img src="${response.data[i].images[0].url}" alt="${response.data[i].name}" />
+                                            </a>
+                                            <div class="product-card-body">
+                                                <h5 class="product-title">
+                                                    <a href="shop-single.html">${response.data[i].name}</a>
+                                                </h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `);
+                        };
 
-                            var userFactorUrl = '@Url.Action("CreateFactor","Home",new{area="ShoppingCart"})';
-                            $.ajax({
-                                url: userFactorUrl,
-                                type: 'post',
-                                //dataType: 'json',
-                                data: JSON.stringify(factor),
-                                contentType: "application/json; charset=utf-8",
-                                //traditional: true
-                            }).done(function () {
-                                localStorage.removeItem('shopping_carts');
-                                localStorage.removeItem('order_list');
-                                localStorage.clear();
-                                window.location = '/shpppingcart/userfactor';
-                            });
+                        var owl = $("#ItemsConsole");
 
-                            return false;
+                        owl.owlCarousel({
+                            items: 4,
+                            navigation: true,
                         });
 
-
-                    $("#ordersListTable tr").each(function () {
-                        var productId = $(this).attr('data-product-id');
-                        var count = $(this).find('input#count').val();
-                        var items = JSON.parse( localStorage.getItem('order_list'));
-                        for (var i = 0; i < items.length; i++) {
-                            if (productId == items[i].productId) {
-                                $(this).find('input#count').val(items[i].count);
-                            }
-                        }
                     });
+                }
+                else
+                {
+                    $http({
+                        url: cartEmptyUrl,
+                        method: "get",
+                    }).then(response => {
+                        $('#main_order').html(response.data);
+                    });
+                }
+
             }
 
+            function CalCulator()
+            {
 
-                var productIds = JSON.parse(localStorage.getItem('shopping_carts'));
+                //----------totalPrice------------
+                var sumPrice = 0;
+                var priceOrders = 0; // sod
+                var sumDist = 0;
 
-                var getOrdersListUrl = '@Url.Action("GetOrdersList", "Home", new {area = "ShoppingCart"})';
+                $scope.OrderList.forEach(function (item) {
 
-                $.post(getOrdersListUrl, { productIds: productIds }).done(function(data) {
-                        $("#ordersListTable").html(data);
-                        setCountMaxValue();
-                    })
-                    .fail(function() {
-                    })
-                    .always(function() {
+                    var count = parseInt($scope.product.find(q => q["productId"] == item["id"])["count"]);
+
+                    sumPrice += item["price"] * (count > 0 ? count : 1);
+
+                    sumDist += item["currentDiscountFee"] * (count > 0 ? count : 1);
+
+                    priceOrders += item["currentPrice"] * (count > 0 ? count : 1);
+
+                });
+
+                $scope.totalPrice = sumPrice;
+                $scope.totalFee = sumDist;
+                $scope.totalPercent = ((sumDist*100)/sumPrice);
+                $scope.totalPriceOrder = priceOrders;
+
+            }
+
+            initilize();
+
+            $scope.MaskMoney = function (value) {
+                var result = value.toString();
+                var splitArray = [];
+                var numberLength = result.length;
+                while (numberLength - 3 > 0) {
+                    splitArray.push(numberLength - 3);
+                    numberLength -= 3;
+                }
+
+                for (var item in splitArray) {
+                    result = [result.slice(0, splitArray[item]), ",", result.slice(splitArray[item])].join('');
+
+                }
+                return result;
+            }
+
+            $scope.SumArray = function (value, selector) {
+                var sum = 0;
+                try {
+                    value.forEach(function (item) {
+                        sum += item[selector] * parseInt( $(`[data-product-id="${item["id"]}"] input`).val() );
                     });
-            })
-            ();
+                }
+                catch (ex) {
+                    console.log(ex+" for "+ value);
+                }
+                return sum;
+            };
+
+            $scope.CalCulator = function ()
+            {
+                CalCulator();
+            }
+
+            $scope.CreateFactor = function ()
+            {
+
+                //Step Payment
+                if ($scope.step == 0)
+                {
+                    $scope.step = 1;
+                    event.preventDefault();
+
+                    $('li.steps2').addClass("active");
+                    $('li.steps2>a').addClass("active");
+
+                    return;
+                }
+
+                if ($scope.product.length === 0) {
+                    toastr.warning('باید حداقل یک کالا در فاکتور موجود باشد');
+                    event.preventDefault();
+                    return;
+                }
+
+                if (!@User.Identity.IsAuthenticated.ToString().ToLower()) {
+                    //$('#authenticationModal').modal();
+
+                    location.href = `@Url.Action("Login", "Account", new { isUser = true, area = "", returnUrl = Request.Url?.AbsolutePath })`;
+                    event.preventDefault();
+                    return;
+                }
+
+                var factor = {
+                    Name: $scope.FirstName,
+                    lastName: $scope.LastName,
+                    phoneNumber: $scope.Mobile,
+                    address: $scope.Address,
+                    products: $scope.product
+                };
+
+                var userFactorUrl = '@Url.Action("Peymen","Home",new{area="ShoppingCart"})';
+                $.ajax({
+                    url: userFactorUrl,
+                    type: 'post',
+                    //dataType: 'json',
+                    data: JSON.stringify(factor),
+                    contentType: "application/json; charset=utf-8",
+                    //traditional: true
+                }).done(function (e) {
+                    localStorage.removeItem('shopping_carts');
+                    localStorage.removeItem('order_list');
+                    localStorage.clear();
+                    window.location = e;
+                });
+
+
+
+
+            }
+
+            $scope.BackLevel = function ()
+            {
+                $scope.step = 0;
+                event.preventDefault();
+
+                $('li.steps2').removeClass("active");
+                $('li.steps2>a').removeClass("active");
+
+            }
+
+            $scope.UpdateAddress = function ()
+            {
+                //------------------44444---------------
+                $scope.Address = $scope.model.EditAddress;
+                $scope.FirstName = $scope.model.EditFirstName;
+                $scope.LastName = $scope.model.EditLastName;
+                $scope.Mobile = $scope.model.EditMobile;
+
+            }
+        });
 
     </script>
 }
-
 
 
 

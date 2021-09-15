@@ -268,4 +268,6 @@ $(document).ready(function (l) {
         $(this).toggleClass("favorites");
     });
 
+    
+
 });

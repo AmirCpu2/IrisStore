@@ -1,0 +1,259 @@
+﻿@using Utilities
+
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <title>@SeoHelpers.GeneratePageTitle(ViewBag.Title, ViewBag.SiteName)</title>
+    <link rel="canonical" href="@(Request.Url?.AbsoluteUri)" />
+    <meta http-equiv="Content-Language" content="fa" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="application-name" content="@ViewBag.SiteName" />
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="theme-color" content="#f7858d">
+    <meta name="msapplication-navbutton-color" content="#f7858d">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#f7858d">
+
+    @if (!string.IsNullOrWhiteSpace(ViewBag.Keywords))
+    {
+        <meta name="keywords" content="@ViewBag.Keywords" />
+    }
+    @if (!string.IsNullOrWhiteSpace(ViewBag.MetaDescription))
+    {
+        <meta name="description" content="@ViewBag.MetaDescription" />
+    }
+    @if (!string.IsNullOrWhiteSpace(ViewBag.LastModified))
+    {
+        <meta http-equiv="last-modified" content="@ViewBag.LastModified" />
+    }
+    @if (!string.IsNullOrWhiteSpace(ViewBag.Author))
+    {
+        <meta name="author" content="@ViewBag.Author (@Request.Url)" />
+    }
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+
+    @Styles.Render("~/Content/themes/base/jqueryUi")
+    @Styles.Render("~/Content/css")
+    @RenderSection("styles", required: false)
+
+    <!-- Bootstrap -->
+    @Styles.Render("~/Content/css/vendor/bootstrap.min.css")
+    <!-- Plugins -->
+    @Styles.Render("~/Content/css/vendor/owl.carousel.min.css")
+    @Styles.Render("~/Content/css/vendor/jquery.horizontalmenu.css")
+    @Styles.Render("~/Content/css/vendor/nice-select.css")
+    @Styles.Render("~/Content/css/vendor/nouislider.min.css")
+    <!-- Font Icon -->
+    @Styles.Render("~/Content/css/vendor/materialdesignicons.min.css")
+    <!-- Main CSS File -->
+    @Styles.Render("~/Content/css/main.css")
+
+    @*Styles.Render("~/Content/bootstrap")*@
+
+    <!--scripts-->
+    <!--angular js-->
+    <script src="~/Scripts/angular.min.js"></script>
+</head>
+<body>
+    <div class="wrapper shopping-page">
+        <!-- Start mini-header -->
+        <header class="header-shopping dt-sl" style="height: auto !important;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center pt-2">
+                        <div class="header-shopping-logo dt-sl">
+                            <a href="@Url.Action(MVC.Home.ActionNames.Index, MVC.Home.Name, new {area = ""})">
+                                <img src="~/Content/img/logoType.svg" alt="@ViewBag.SiteName" style="width:180px;margin-top:-8px;">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-12 text-center">
+                        <ul class="checkout-steps">
+                            <li class="steps1">
+                                <a href="#" class="active">
+                                    <span>اطلاعات ارسال</span>
+                                </a>
+                            </li>
+                            <li class="steps2  @(ViewBag.steps > 1 ? "active" : "")">
+                                <a href="#" class="@(ViewBag.steps > 1 ? "active" : "")">
+                                    <span>پرداخت</span>
+                                </a>
+                            </li>
+                            <li class="steps3 @(ViewBag.steps > 2 ? "active" : "")">
+                                <a href="#" class="@(ViewBag.steps > 2 ? "active" : "")">
+                                    <span>اتمام خرید و ارسال</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </header>
+        <div>
+
+        </div>
+        <!-- End mini-header -->
+        <!-- Start main-content -->
+        <main class="main-content dt-sl mt-4 mb-3">
+            @RenderBody()
+        </main>
+        <!-- End main-content -->
+        <!-- Start mini-footer -->
+        @{
+            Html.RenderAction(MVC.Home.ActionNames.FooterMini, MVC.Home.Name, new { area = "" });
+        }
+        <!-- End mini-footer -->
+
+    </div>
+
+    @Scripts.Render("~/bundles/common")
+    @Scripts.Render("~/Scripts/jquery-ui-1.11.4.js")
+    <script>
+            var autocompleteSource = "@Url.Action(MVC.Search.ActionNames.AutoCompleteSearch, MVC.Search.Name, new {area = ""})";
+    </script>
+    @Scripts.Render("~/bundles/layout")
+
+    @RenderSection("scripts", required: false)
+
+    <!--Begin Style Scripts-->
+    <!-- Core JS Files -->
+    <script src="~/Scripts/js/vendor/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/js/vendor/popper.min.js"></script>
+    <script src="~/Scripts/js/vendor/bootstrap.min.js"></script>
+    <!-- Plugins -->
+    <script src="~/Scripts/js/vendor/owl.carousel.min.js"></script>
+    <script src="~/Scripts/js/vendor/jquery.horizontalmenu.js"></script>
+    <script src="~/Scripts/js/vendor/nouislider.min.js"></script>
+    <script src="~/Scripts/js/vendor/jquery.nice-select.min.js"></script>
+    <script src="~/Scripts/js/vendor/wNumb.js"></script>
+    <script src="~/Scripts/js/vendor/ResizeSensor.min.js"></script>
+    <script src="~/Scripts/js/vendor/theia-sticky-sidebar.min.js"></script>
+
+    <!-- google map js -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAq7MrCR1A2qIShmjbtLHSKjcEIEBEEwM"></script>
+    <!--End Style Scripts-->
+
+    <script>
+        // When the window has finished loading create our google map below
+        google.maps.event.addDomListener(window, 'load', init);
+
+        function init() {
+            // Basic options for a simple Google Map
+            // For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
+            var mapOptions = {
+                // How zoomed in you want the map to start at (always required)
+                zoom: 11,
+
+                scrollwheel: false,
+
+                // The latitude and longitude to center the map (always required)
+                center: new google.maps.LatLng(23.761226, 90.420766), // New York
+
+                // How you would like to style the map.
+                // This is where you would paste any style found on Snazzy Maps.
+                styles: [{
+                    "featureType": "administrative",
+                    "elementType": "labels.text.fill",
+                    "stylers": [{
+                        "color": "#444444"
+                    }]
+                },
+                {
+                    "featureType": "landscape",
+                    "elementType": "all",
+                    "stylers": [{
+                        "color": "#f2f2f2"
+                    }]
+                },
+                {
+                    "featureType": "poi",
+                    "elementType": "all",
+                    "stylers": [{
+                        "visibility": "off"
+                    }]
+                },
+                {
+                    "featureType": "road",
+                    "elementType": "all",
+                    "stylers": [{
+                        "saturation": -100
+                    },
+                    {
+                        "lightness": 45
+                    }
+                    ]
+                },
+                {
+                    "featureType": "road.highway",
+                    "elementType": "all",
+                    "stylers": [{
+                        "visibility": "simplified"
+                    }]
+                },
+                {
+                    "featureType": "road.arterial",
+                    "elementType": "labels.icon",
+                    "stylers": [{
+                        "visibility": "off"
+                    }]
+                },
+                {
+                    "featureType": "transit",
+                    "elementType": "all",
+                    "stylers": [{
+                        "visibility": "off"
+                    }]
+                },
+                {
+                    "featureType": "water",
+                    "elementType": "all",
+                    "stylers": [{
+                        "color": "#314453"
+                    },
+                    {
+                        "visibility": "on"
+                    }
+                    ]
+                },
+                {
+                    "featureType": "water",
+                    "elementType": "geometry.fill",
+                    "stylers": [{
+                        "lightness": "-12"
+                    },
+                    {
+                        "saturation": "0"
+                    },
+                    {
+                        "color": "#4bc7e9"
+                    }
+                    ]
+                }
+                ]
+            };
+
+            // Get the HTML DOM element that will contain your map
+            // We are using a div with id="map" seen below in the <body>
+            var mapNew = document.getElementById('map-edit');
+            var mapEdit = document.getElementById('map-edit');
+
+            // Create the Google Map using our element and options defined above
+            var map = new google.maps.Map(mapNew, mapOptions);
+            var mapEdit = new google.maps.Map(mapEdit, mapOptions);
+
+            // Let's also add a marker while we're at it
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(23.761226, 90.420766),
+                map: map,
+                title: 'Snazzy!'
+            });
+        }
+    </script>
+    <!-- Main JS File -->
+    <script src="~/Scripts/js/main.js"></script>
+</body>
+</html>
+

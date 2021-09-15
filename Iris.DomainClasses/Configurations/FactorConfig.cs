@@ -11,10 +11,13 @@ namespace Iris.DomainClasses.Configurations
     {
         public FactorConfig()
         {
-            HasRequired(f=>f.User)
-                .WithMany(u=>u.Factors)
-                .HasForeignKey(f=>f.UserId)
+            HasRequired(f => f.User)
+                .WithMany(u => u.Factors)
+                .HasForeignKey(f => f.UserId)
                 .WillCascadeOnDelete(false);
+
+            Property(q=>q.PublicId)
+                .IsRequired().
         }
     }
 }

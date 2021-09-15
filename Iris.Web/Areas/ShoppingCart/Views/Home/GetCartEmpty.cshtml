@@ -1,0 +1,152 @@
+﻿@using Iris.DomainClasses
+@using Iris.ViewModels
+@using Iris.Web.ViewModels
+<div class="container main-container">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="dt sl dt-sn pt-3 pb-5">
+                <div class="cart-page cart-empty">
+                    <div class="circle-box-icon">
+                        <i class="mdi mdi-cart-remove"></i>
+                    </div>
+                    <p class="cart-empty-title">سبد خرید شما خالیست!</p>
+                    <p>می‌توانید برای مشاهده محصولات بیشتر به صفحات زیر بروید:</p>
+                    <div class="cart-empty-links mb-5">
+                        <a href="~/" class="border-bottom-dt">لیست مورد علاقه من</a>
+                        <a href="~/" class="border-bottom-dt">محصولات شگفت‌انگیز</a>
+                        <a href="~/" class="border-bottom-dt">محصولات پرفروش روز</a>
+                    </div>
+                    <a href="~/product/search" class="btn-primary-cm">ادامه خرید در فروشگاه</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dt-sn mt-4">
+        <div class="row">
+            <!-- Start Product-Slider -->
+            <div class="col-12">
+                <div class="features-checkout-slider carousel-md owl-carousel owl-theme owl-rtl owl-loaded owl-drag">
+
+
+                    <div class="owl-stage-outer">
+                        <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 1230px;">
+                            <div class="owl-item active" style="width: 236px; margin-left: 10px;">
+                                <div class="item">
+                                    <a href="#">
+                                        <img src="~/Content/img/svg/delivery.svg" class="img-fluid" alt="">
+                                        <div class="title-feature-checkout-slider">تحویل اکسپرس</div>
+                                    </a>
+                                </div>
+                            </div><div class="owl-item active" style="width: 236px; margin-left: 10px;">
+                                <div class="item">
+                                    <a href="#">
+                                        <img src="~/Content/img/svg/contact-us.svg" class="img-fluid" alt="">
+                                        <div class="title-feature-checkout-slider">پشتیبانی ۲۴ ساعته</div>
+                                    </a>
+                                </div>
+                            </div><div class="owl-item active" style="width: 236px; margin-left: 10px;">
+                                <div class="item">
+                                    <a href="#">
+                                        <img src="~/Content/img/svg/payment-terms.svg" class="img-fluid" alt="">
+                                        <div class="title-feature-checkout-slider">پرداخت در محل</div>
+                                    </a>
+                                </div>
+                            </div><div class="owl-item active" style="width: 236px; margin-left: 10px;">
+                                <div class="item">
+                                    <a href="#">
+                                        <img src="~/Content/img/svg/return-policy.svg" class="img-fluid" alt="">
+                                        <div class="title-feature-checkout-slider">۷ روز ضمانت بازگشت</div>
+                                    </a>
+                                </div>
+                            </div><div class="owl-item" style="width: 236px; margin-left: 10px;">
+                                <div class="item">
+                                    <a href="#">
+                                        <img src="~/Content/img/svg/origin-guarantee.svg" class="img-fluid" alt="">
+                                        <div class="title-feature-checkout-slider">ضمانت اصل بودن کالا</div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div><div class="owl-nav"><button type="button" role="presentation" class="owl-prev disabled"><i class="mdi mdi mdi-chevron-right"></i></button><button type="button" role="presentation" class="owl-next"><i class="mdi mdi mdi-chevron-left"></i></button></div><div class="owl-dots"><button role="button" class="owl-dot active"><span></span></button><button role="button" class="owl-dot"><span></span></button></div>
+                </div>
+            </div>
+            <!-- End Product-Slider -->
+        </div>
+    </div>
+
+    <!-- Start Banner -->
+    <div class="row mt-3 mt-5 mb-4">
+        <div class="col-sm-3 col-6 mb-2">
+            <div class="widget-banner">
+                <a href="#">
+                    <img src="~/Content/img/banner/small-banner-1.jpg" alt="">
+                </a>
+            </div>
+        </div>
+        <div class="col-sm-3 col-6 mb-2">
+            <div class="widget-banner">
+                <a href="#">
+                    <img src="~/Content/img/banner/small-banner-2.jpg" alt="">
+                </a>
+            </div>
+        </div>
+        <div class="col-sm-3 col-6 mb-2">
+            <div class="widget-banner">
+                <a href="#">
+                    <img src="~/Content/img/banner/small-banner-3.jpg" alt="">
+                </a>
+            </div>
+        </div>
+        <div class="col-sm-3 col-6 mb-2">
+            <div class="widget-banner">
+                <a href="#">
+                    <img src="~/Content/img/banner/small-banner-4.jpg" alt="">
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- End Banner -->
+    @*<!-- Start Product-Slider -->
+    @if (((List<ProductWidgetViewModel>)ViewData["NewProducts"]).Any())
+    {
+        <!-- Start Product-Slider -->
+        <div>
+            @{
+                Html.RenderPartial(MVC.Widgets.Views.ContainerSliderWidget, new ProductSliderWidgetViewModel
+                {
+                    Title = "کالا‌های جدید",
+                    CarouselId = "NewProductCarousel",
+                    Products = ViewData["NewProducts"] as List<ProductWidgetViewModel>,
+                    LinkText = "مشاهده همه",
+                    Link = $"{Url.Action(MVC.Product.SearchProduct.ActionNames.Index, MVC.Product.SearchProduct.Name, new { area = MVC.Product.Name })}#/page/all/empty/1/ViewNumber/desc",
+                    ShowCount = 20
+                });
+            }
+        </div>
+        <!-- End Product-Slider -->
+    }
+    <!-- End Product-Slider -->
+    <!-- Start Product-Slider -->
+    @if (((List<ProductWidgetViewModel>)ViewData["RecommendedProducts"]).Any())
+    {
+        <!-- Start Product-Slider -->
+        <div>
+            @{
+                Html.RenderPartial(MVC.Widgets.Views.ContainerSliderWidget, new ProductSliderWidgetViewModel
+                {
+                    Title = "محصولات پیشنهادی برای شما",
+                    CarouselId = "RecommendedProductCarousel",
+                    Products = ViewData["RecommendedProducts"] as List<ProductWidgetViewModel>,
+                    LinkText = "مشاهده همه",
+                    Link = $"{Url.Action(MVC.Product.SearchProduct.ActionNames.Index, MVC.Product.SearchProduct.Name, new { area = MVC.Product.Name })}#/page/all/empty/1/ViewNumber/desc",
+                    ShowCount = 20
+                });
+            }
+        </div>
+        <!-- End Product-Slider -->
+    }
+    <!-- End Product-Slider -->*@
+
+</div>

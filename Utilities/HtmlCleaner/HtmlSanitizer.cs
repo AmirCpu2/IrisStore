@@ -134,6 +134,38 @@ namespace Utilities.HtmlCleaner
             });
         }
 
+        public static string GetDescription(string input)
+        {
+            Regex regex = new Regex("/*<*carts*>(.*?)</*carts*>*", RegexOptions.IgnoreCase);
+            return regex.Replace(input,"").Trim().Replace("  "," ");
+        }
+
+
+        public static List<Dictionary<string, string>> GetCarts(string input)
+        {
+            Regex regex = new Regex("/*<*carts*>(.*?)</*carts*>*", RegexOptions.IgnoreCase);
+            var carts = regex.Matches(input.Normalize());
+
+            //Get Name
+            Regex nameRegix = new Regex("Name:\"(.*?)\"", RegexOptions.IgnoreCase);
+            Regex bodyRegix = new Regex("body:\"(.*?)\"", RegexOptions.IgnoreCase);
+            List<Dictionary<string,string>> descList = new List<Dictionary<string, string>>();
+
+            foreach(var v in carts)
+            {
+                var str = v.ToString();
+
+                var nameCart = nameRegix.Match(str).Value.Trim().Replace("Name:\"","");
+
+                var bodyCart = bodyRegix.Match(str).Value.Trim().Replace("Body:\"", "");
+
+                descList.Add(new Dictionary<string, string>() { { "Name", nameCart }, { "Body", bodyCart } });
+            }
+
+            return descList;
+
+        }
+
         #endregion Methods
     }
 }

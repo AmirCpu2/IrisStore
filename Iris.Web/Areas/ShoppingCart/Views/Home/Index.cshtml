@@ -2,115 +2,380 @@
 @{
     ViewBag.Title = "سبد خرید";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var loginPath = Url.Action("Login", "Account", new { isUser = true, area = "", returnUrl = Request.Url?.AbsolutePath });
 }
-<div class="container page-wrapper" style="background-color: #fff;">
 
-    <div class="col-md-12">
-        <div class="row">
-            <h2>سبد خرید</h2>
+
+<div class="container main-container" id="main_order">
+
+    <div class="row"  id="ShoppingCart" ng-app="ShoppingCart" ng-controller="ShoppingCartCntr" ng-hide="OrderList.length < 1" ng-cloak>
+        <div class="col-xl-9 col-lg-8 col-md-12 col-sm-12 mb-2 px-0">
+            <nav class="tab-cart-page">
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home"
+                       role="tab" aria-controls="nav-home" aria-selected="true">
+                        سبد خرید<span class="count-cart">{{OrderList.length}}</span>
+                    </a>
+                </div>
+            </nav>
         </div>
-        <div class="row">
-            <div id="ordersListTable" class="col-md-12">
+        <div class="col-12">
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
+                        aria-labelledby="nav-home-tab" >
+                    <div class="row" >
+                        <div class="col-xl-9 col-lg-8 col-12 px-0">
+                            <div class="table-responsive checkout-content dt-sl">
+                                <div class="checkout-header checkout-header--express">
+                                    <span class="checkout-header-title">ارسال عادی</span>
+                                    <span class="checkout-header-extra-info">(<span class="count-cart"> {{OrderList.length}} </span> کالا)</span>
+                                </div>
+                                <div id="ordersListTable">
+                                    <table class="table table-cart">
+                                        <tbody>
+                                            
+                                            <tr class="checkout-item" data-product-id="{{item.id}}" ng-repeat="item in OrderList">
+                                                <td>
+                                                    <a href="product/{{item.id}}/{{item.slugUrl}}">
+                                                        <img ng-src="{{item.images[0].url}}" alt="{{item.name}}" width="150">
+                                                    </a>
+                                                    <button class="checkout-btn-remove" ng-click="RemoveProductOrder(item.id)" id="btnRemoveProductOrder">&times;</button>
+                                                </td>
+                                                <td class="text-right">
+                                                    <a href="product/{{item.id}}/{{item.slugUrl}}">
+                                                        <h3 class="checkout-title">
+                                                            {{item.name}}
+                                                        </h3>
+                                                    </a>
+                                                    <p class="checkout-dealer">
+                                                        فروشنده:  {{item.sellers}}
+                                                    </p>
+                                                    <p class="checkout-guarantee">
+                                                        برند: {{item.brand}}
+                                                    </p>
+                                                    <div class="checkout-variant checkout-variant--color">
+                                                        <span class="checkout-variant-title">رنگ :</span>
+                                                        <span class="checkout-variant-value">
+                                                            {{item.productColor}}
+                                                            <!--div class="checkout-variant-shape"
+                                                                style="background-color:#212121"></div-->
+                                                        </span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <p class="mb-0">تعداد</p>
+                                                    <div class="number-input">
+                                                        <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" ng-click="CalCulator()"></button>
+                                                        <input id="count" class="quantity" min="1" max="{{item.count}}" name="quantity"
+                                                               value="1" type="number">
+                                                        <button onclick="this.parentNode.querySelector('input[type=number]').stepUp();" ng-click="CalCulator()"
+                                                                class="plus"></button>
+                                                    </div>
+                                                </td>
+                                                <td><strong>{{MaskMoney(item.price)}} تومان</strong></td>
+                                            </tr>
 
-            </div>
+                                        </tbody>
+                                    </table>
 
-            <div id="btnCreateForm" style="display: none;">
-                <a href="@Url.Action("CreateFactor","Home")" id="linkCreateFactor" class="btn btn-sm btn-primary" style="margin-bottom: 35px;">
-                    <i class="fa fa-check"></i> تایید و ایجاد فاکتور با حساب کاربری
-                </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-4 col-12 w-res-sidebar sticky-sidebar">
+                            <div class="dt-sn dt-sn--box mb-2">
+                                <ul class="checkout-summary-summary">
+                                    <li>
+                                        <span>مبلغ کل ({{OrderList.length}} کالا)</span><span>{{MaskMoney(totalPrice)}} تومان</span>
+                                    </li>
+                                    <li class="checkout-summary-discount">
+                                        <span>سود شما از خرید</span><span>
+                                            <span>({{totalPercent.toFixed()}}٪)</span>{{MaskMoney(totalFee)}}
+                                            تومان
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span>
+                                            هزینه ارسال<span class="help-sn" data-toggle="tooltip"
+                                                             data-html="true" data-placement="bottom"
+                                                             title="<div class='help-container is-right'><div class='help-arrow'></div><p class='help-text'>هزینه ارسال مرسولات می‌تواند وابسته به شهر و آدرس گیرنده متفاوت باشد. در صورتی که هر یک از مرسولات حداقل ارزشی برابر با ۱۵۰هزار تومان داشته باشد، آن مرسوله بصورت رایگان ارسال می‌شود.<br>'حداقل ارزش هر مرسوله برای ارسال رایگان، می تواند متغیر باشد.'</p></div>">
+                                                <span class="mdi mdi-information-outline"></span>
+                                            </span>
+                                        </span><span>وابسته به آدرس</span>
+                                    </li>
+                                </ul>
+                                <div class="checkout-summary-devider">
+                                    <div></div>
+                                </div>
+                                <div class="checkout-summary-content">
+                                    <div class="checkout-summary-price-title">مبلغ قابل پرداخت:</div>
+                                    <div class="checkout-summary-price-value">
+                                        <span class="checkout-summary-price-value-amount">{{MaskMoney(totalPriceOrder)}}</span>
+                                        تومان
+                                    </div>
+                                    <div class="mb-2 d-block" ng-hide="OrderList.length < 1">
+                                        <a href="@Url.Action("CreateFactor","Home")" id="linkCreateFactor" class="btn-primary-cm btn-with-icon w-100 text-center pr-0" type="button" ng-click="CreateFactor()">
+                                            <i class="mdi mdi-arrow-left"></i>
+                                            ادامه ثبت سفارش
+                                        </a>
+                                    </div>
+                                    <div class="mb-2 d-block" ng-show="OrderList.length < 1">
+                                        <button disabled id="linkCreateFactor" class="btn-primary-cm btn-with-icon w-100 text-center pr-0 bkGray" type="button">
+                                            <i class="mdi mdi-arrow-left"></i>
+                                            ادامه ثبت سفارش
+                                        </button>
+                                    </div>
+                                    <div>
+                                        <span>
+                                            کالاهای موجود در سبد شما ثبت و رزرو نشده‌اند، برای ثبت سفارش
+                                            مراحل بعدی را تکمیل کنید.
+                                        </span><span class="help-sn" data-toggle="tooltip" data-html="true"
+                                                     data-placement="bottom"
+                                                     title="<div class='help-container is-right'><div class='help-arrow'></div><p class='help-text'>محصولات موجود در سبد خرید شما تنها در صورت ثبت و پرداخت سفارش برای شما رزرو می‌شوند. در صورت عدم ثبت سفارش، دیجی‌کالا هیچگونه مسئولیتی در قبال تغییر قیمت یا موجودی این کالاها ندارد.</p></div>">
+                                            <span class="mdi mdi-information-outline"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dt-sn dt-sn--box checkout-feature-aside pt-4">
+                                <ul>
+                                    <li class="checkout-feature-aside-item">
+                                        <img src="~/Content/img/svg/return-policy.svg" alt="">
+                                        هفت روز ضمانت تعویض
+                                    </li>
+                                    <li class="checkout-feature-aside-item">
+                                        <img src="~/Content/img/svg/payment-terms.svg" alt="">
+                                        پرداخت در محل با کارت بانکی
+                                    </li>
+                                    <li class="checkout-feature-aside-item">
+                                        <img src="~/Content/img/svg/delivery.svg" alt="">
+                                        تحویل اکسپرس
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
 </div>
+
+
 
 @section scripts
 {
     <script>
 
-        (function() {
-                function setCountMaxValue() {
-                    $('input#count').each(function() {
-                        $(this).on('keyup',
-                            function(data) {
-                                var max = parseInt($(this).attr('max'));
-                                var min = 1;
+    var app = angular.module("ShoppingCart", []);
 
-                                if ($(this).val() > max) {
-                                    $(this).val(max);
-                                } else if ($(this).val() < min) {
-                                    $(this).val(min);
-                                }
+    app.controller("ShoppingCartCntr", function ($scope, $http) {
 
-                            });
-                    });
+        /**
+        * initilize value
+        */
+        var initilize = function () {
+            $scope.totalPrice = 0;
+            $scope.totalFee = 0;
+            $scope.totalPercent = 0;
+            $scope.totalPriceOrder = 0;
+            $scope.OrderList = [];
 
-                    $('button#btnRemoveProductOrder').on('click',
-                        function(event) {
+            var productIds = JSON.parse(localStorage.getItem('shopping_carts'));
+            var getProductListUrl = '@Url.Action("GetProductList", "Home", new {area = "ShoppingCart"})';
+            var cartEmptyUrl = '@Url.Action("GetCartEmpty", "Home", new {area = "ShoppingCart"})';
 
-                            var productId = $(this).closest('tr').attr('data-product-id');
+            if (productIds != undefined && productIds.length > 0) {
 
-                            var productIds = JSON.parse(localStorage.getItem('shopping_carts'));
+                $http({
+                    url: getProductListUrl,
+                    method: "post",
+                    data: { productIds: productIds }
+                }).then(function (response) {
+                    $scope.OrderList = response.data;
+                    CalCulator();
+                });
+            }
+            else {
+                $http({
+                    url: cartEmptyUrl,
+                    method: "get",
+                }).then(response => {
+                    $('#main_order').html(response.data);
+                });
+            }
 
-                            for (var i = 0; i < productIds.length; i++) {
+        }
 
-                                if (productIds[i] == productId) {
-                                    productIds.splice(i, 1);
-                                    localStorage.setItem('shopping_carts', JSON.stringify(productIds));
-                                    $('#shoppingCartIcon').attr('data-count', +($('#shoppingCartIcon').attr('data-count')) - 1);
-                                    $('#shoppingCartIcon').text($('#shoppingCartIcon').attr('data-count'));
-                                }
-                            }
+        function setCountMaxValue()
+        {
+            $('input#count').each(function () {
+                $(this).on('keyup',
+                    function (data) {
+                        var max = parseInt($(this).attr('max'));
+                        var min = 1;
 
-                            $(this).closest('tr').remove();
+                        if ($(this).val() > max) {
+                            $(this).val(max);
+                        } else if ($(this).val() < min) {
+                            $(this).val(min);
                         }
-                    );
 
-                    $('a#linkCreateFactor').on('click',
-                        function (event) {
-
-                            if ($('#ordersListTable tbody tr').length === 0) {
-                                toastr.warning('باید حداقل یک کالا در فاکتور موجود باشد');
-                                event.preventDefault();
-                                return;
-                            }
-
-                            if (!@User.Identity.IsAuthenticated.ToString().ToLower()) {
-                                $('#authenticationModal').modal();
-                                event.preventDefault();
-                                return;
-                            }
-                            var lst = [];
-                            $("#ordersListTable tbody tr").each(function () {
-                                var productId = $(this).attr('data-product-id');
-                                var count = $(this).find('input#count').val();
-                                lst.push({ productId: productId, count: count });
-                            });
-                            localStorage.setItem('order_list', JSON.stringify(lst));
-                        });
-
-
-                }
-
-
-                var productIds = JSON.parse(localStorage.getItem('shopping_carts'));
-
-                var getOrdersListUrl = '@Url.Action("GetOrdersList", "Home", new {area = "ShoppingCart"})';
-
-                $.post(getOrdersListUrl, { productIds: productIds }).done(function(data) {
-                        $("#ordersListTable").html(data);
-                        $('#btnCreateForm').fadeIn();
-                        setTimeout(function() {
-                                setCountMaxValue();
-                            },
-                            20);
-
-                    })
-                    .fail(function() {
-                    })
-                    .always(function() {
                     });
-            })
-            ();
+            });
+
+            $('#linkCreateFactor').on('click',
+                function (event) {
+
+                    if ($('#ordersListTable tbody tr').length === 0) {
+                        toastr.warning('باید حداقل یک کالا در فاکتور موجود باشد');
+                        event.preventDefault();
+                        return;
+                    }
+
+                    if (!@User.Identity.IsAuthenticated.ToString().ToLower()) {
+                        //$('#authenticationModal').modal();
+                        location.href = "@loginPath".replace("amp;","");
+
+                        event.preventDefault();
+                        return;
+                    }
+                    var lst = [];
+                    $("#ordersListTable tbody tr").each(function () {
+                        var productId = $(this).attr('data-product-id');
+                        var count = $(this).find('input#count').val();
+                        lst.push({ productId: productId, count: count });
+                    });
+                    localStorage.setItem('order_list', JSON.stringify(lst));
+                });
+        }
+
+        function CalCulator()
+        {
+
+            //----------totalPrice------------
+            var sumPrice = 0;
+            var priceOrders = 0; // sod
+            var sumDist = 0;
+
+            $scope.OrderList.forEach(function (item) {
+
+                var count = parseInt($(`[data-product-id="${item["id"]}"] input`).val());
+
+                sumPrice += item["price"] * (count > 0 ? count : 1);
+
+                sumDist += item["currentDiscountFee"] * (count > 0 ? count : 1);
+
+                priceOrders += item["currentPrice"] * (count > 0 ? count : 1);
+
+            });
+
+            $scope.totalPrice = sumPrice;
+            $scope.totalFee = sumDist;
+            $scope.totalPercent = ((sumDist*100)/sumPrice);
+            $scope.totalPriceOrder = priceOrders;
+
+        }
+
+        initilize();
+
+        $scope.RemoveProductOrder = async function (productId) {
+
+            var productIds = JSON.parse(localStorage.getItem('shopping_carts'));
+
+            for (var i = 0; i < productIds.length; i++) {
+
+                if (productIds[i] == productId) {
+                    productIds.splice(i, 1);
+
+                    localStorage.setItem('shopping_carts', JSON.stringify(productIds));
+                    $('#shoppingCartIcon').attr('data-count', +($('#shoppingCartIcon').attr('data-count')) - 1);
+                    $('#shoppingCartIcon').text($('#shoppingCartIcon').attr('data-count'));
+                }
+            }
+
+            $scope.OrderList.splice($scope.OrderList.findIndex(q => q.id == productId),1);
+
+            if ($scope.OrderList.length < 1) {
+                var cartEmptyUrl = '@Url.Action("GetCartEmpty", "Home", new {area = "ShoppingCart"})';
+                $http({
+                    url: cartEmptyUrl,
+                    method: "get",
+                }).then(response => {
+                    $('#main_order').html(response.data);
+
+                });
+
+            }
+
+            CalCulator();
+        };
+
+        $scope.MaskMoney = function (value) {
+            var result = value.toString();
+            var splitArray = [];
+            var numberLength = result.length;
+            while (numberLength - 3 > 0) {
+                splitArray.push(numberLength - 3);
+                numberLength -= 3;
+            }
+
+            for (var item in splitArray) {
+                result = [result.slice(0, splitArray[item]), ",", result.slice(splitArray[item])].join('');
+
+            }
+            return result;
+        }
+
+        $scope.SumArray = function (value, selector) {
+            var sum = 0;
+            try {
+                value.forEach(function (item) {
+                    sum += item[selector] * parseInt( $(`[data-product-id="${item["id"]}"] input`).val() );
+                });
+            }
+            catch (ex) {
+                console.log(ex+" for "+ value);
+            }
+            return sum;
+        };
+
+        $scope.CalCulator = function ()
+        {
+            CalCulator();
+        }
+
+        $scope.CreateFactor = function ()
+        {
+
+            if ($('#ordersListTable tbody tr').length === 0) {
+                toastr.warning('باید حداقل یک کالا در فاکتور موجود باشد');
+                event.preventDefault();
+                return;
+            }
+
+            if (!@User.Identity.IsAuthenticated.ToString().ToLower()) {
+                //$('#authenticationModal').modal();
+                location.href = "@loginPath".replace("amp;","");
+                event.preventDefault();
+                return;
+            }
+            var lst = [];
+            $("#ordersListTable tbody tr").each(function () {
+                var productId = $(this).attr('data-product-id');
+                var count = $(this).find('input#count').val();
+                lst.push({ productId: productId, count: count });
+            });
+
+            localStorage.setItem('order_list', JSON.stringify(lst));
+
+
+
+        }
+
+    });
 
 
     </script>

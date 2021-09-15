@@ -157,6 +157,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -243,6 +245,8 @@
     <Compile Include="Areas\AdminPanel\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Items\Controllers\AdminController.cs" />
     <Compile Include="Areas\ItemType\Controllers\AdminController.cs" />
+    <Compile Include="Areas\Lucene\Controllers\ManagerController.cs" />
+    <Compile Include="Areas\Lucene\LuceneAreaRegistration.cs" />
     <Compile Include="Areas\Page\Controllers\AdminController.cs" />
     <Compile Include="Areas\PostCategory\Controllers\AdminController.cs" />
     <Compile Include="Areas\Post\Controllers\AdminController.cs" />
@@ -260,6 +264,11 @@
     <Compile Include="AutoMapperConvertor\ProductStatusToStringConvertor.cs" />
     <Compile Include="Caching\CacheService.cs" />
     <Compile Include="Caching\ICacheService.cs" />
+    <Compile Include="Connected Services\Zarinpal\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LuceneIndexingController.cs" />
@@ -427,6 +436,31 @@
     <Content Include="500.html" />
     <Content Include="App_Data\ErrorsLog\tmp.txt" />
     <Content Include="App_Data\Lucene_Index\tmp.txt" />
+    <Content Include="Areas\ShoppingCart\Views\Home\Verify.cshtml" />
+    <None Include="Connected Services\Zarinpal\configuration91.svcinfo" />
+    <None Include="Connected Services\Zarinpal\configuration.svcinfo" />
+    <Content Include="Connected Services\Zarinpal\Iris.Web.Zarinpal.GetUnverifiedTransactionsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\Zarinpal\Iris.Web.Zarinpal.PaymentRequestResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\Zarinpal\Iris.Web.Zarinpal.PaymentRequestWithExtraResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\Zarinpal\Iris.Web.Zarinpal.PaymentVerificationResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\Zarinpal\Iris.Web.Zarinpal.PaymentVerificationWithExtraResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\Zarinpal\Iris.Web.Zarinpal.RefreshAuthorityResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Connected Services\Zarinpal\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Content\admin.css" />
     <Content Include="Content\AdminLTE\AdminLTE.css" />
     <Content Include="Content\AdminLTE\AdminLTE.min2.css" />
@@ -701,6 +735,9 @@
     <Content Include="Areas\ItemType\Views\Admin\Index.cshtml" />
     <Content Include="Areas\Items\Views\web.config" />
     <Content Include="Areas\Items\Views\Admin\Index.cshtml" />
+    <Content Include="Areas\Lucene\Views\web.config" />
+    <Content Include="Areas\ShoppingCart\Views\Home\GetCartEmpty.cshtml" />
+    <None Include="Connected Services\Zarinpal\PaymentGatewayImplementationService.wsdl" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap-confirmation.js" />
     <Content Include="Scripts\bootstrap-editable.js" />
@@ -2555,21 +2592,24 @@
     <Content Include="Views\Widgets\Listwidget.cshtml" />
     <Content Include="Views\Widgets\SuggestionSliderWidger.cshtml" />
     <Content Include="Views\Home\_FooterMini.cshtml" />
+    <Content Include="Areas\ShoppingCart\Views\Shared\_FactorLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\AdminPanel\Views\Shared\" />
     <Folder Include="Areas\Items\Views\Shared\" />
     <Folder Include="Areas\ItemType\Views\Shared\" />
+    <Folder Include="Areas\Lucene\Views\Manager\" />
+    <Folder Include="Areas\Lucene\Views\Shared\" />
     <Folder Include="Areas\PostCategory\Views\Shared\" />
     <Folder Include="Areas\Post\Views\Shared\" />
     <Folder Include="Areas\ProductCategory\Models\" />
     <Folder Include="Areas\ProductCategory\Views\Shared\" />
-    <Folder Include="Areas\ShoppingCart\Models\" />
     <Folder Include="Areas\SiteSetting\Models\" />
     <Folder Include="Areas\SiteSetting\Views\Shared\" />
     <Folder Include="Areas\SlideShow\Models\" />
     <Folder Include="Areas\User\Models\" />
     <Folder Include="Areas\User\Views\Shared\" />
+    <Folder Include="Scripts\publicFunctions\" />
     <Folder Include="Scripts\RoxyFileManager\tmp\" />
     <Folder Include="Scripts\RoxyFileManager\Uploads\Documents\" />
     <Folder Include="Scripts\RoxyFileManager\Uploads\FLV\" />
@@ -2615,6 +2655,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\Zarinpal\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

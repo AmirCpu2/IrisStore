@@ -218,6 +218,16 @@ namespace Iris.ServiceLayer
                                 .Cacheable().ToListAsync();
         }
 
+        public List<ProductWidgetViewModel> GetNewestProductsForce(int count)
+        {
+            var products = _products.AsNoTracking().OrderBy(product => product.ProductStatus).ThenByDescending(product => product.PostedDate)
+                .Take(count)
+                             .ProjectTo<ProductWidgetViewModel>(parameters: null, mappingEngine: _mappingEngine)
+                                .Cacheable().ToList();
+
+            return products;
+        }
+
         public async Task<IList<ProductWidgetViewModel>> GetMostViewedProducts(int count)
         {
             return await _products.AsNoTracking().OrderBy(product => product.ProductStatus).ThenByDescending(product => product.ViewNumber)
@@ -231,6 +241,13 @@ namespace Iris.ServiceLayer
             return await _products
                            .ProjectTo<ProductWidgetViewModel>(parameters: null, mappingEngine: _mappingEngine)
                               .Cacheable().ToListAsync();
+        }
+        
+        public List<ProductWidgetViewModel> GetSuggestionProductsForce(int count)
+        {
+            return _products
+                           .ProjectTo<ProductWidgetViewModel>(parameters: null, mappingEngine: _mappingEngine)
+                              .Cacheable().ToList();
         }
 
         public async Task<IList<ProductWidgetViewModel>> GetPopularProducts(int count)
@@ -403,6 +420,14 @@ namespace Iris.ServiceLayer
                                     .ProjectTo<ProductOrderViewModel>()
                                     .ToListAsync();
         }
+
+        public async Task<ProductOrderViewModel> GetProductOrder(int productId)
+        {
+            return await _products.Where(p => productId.Equals(p.Id))
+                                    .ProjectTo<ProductOrderViewModel>()
+                                    .FirstOrDefaultAsync();
+        }
+
     }
 
 }

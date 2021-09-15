@@ -1,88 +1,233 @@
 ﻿@model IEnumerable<Iris.ViewModels.ProductOrderViewModel>
-<table class="table table-bordered table-hover">
-    <thead>
-        <tr>
-            <th>
-                نام کالا
-            </th>
-            <th>
-                قیمت واحد
-            </th>
-            <th>
-                تخفیف واحد
-            </th>
-            <th>
-                تعداد
-            </th>
-            <th>
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var orderItem in Model)
-        {
 
-            foreach (var item in orderItem.Discounts.OrderByDescending(d=>d.EndDate))
-            {
-                if (orderItem.Discount > 0 && item.EndDate>=DateTime.Now)
-                {
-                    <tr data-product-id="@orderItem.Id">
-                        <td>
-                            @orderItem.Name
-                        </td>
-                        <td>
-                            @orderItem.Price.ToString("#,##0")
-                        </td>
-                        <td>
-                            @orderItem.CalcDiscountFee.ToString("#,##0")
-                        </td>
-                        <td>
-                            @Html.TextBox("count", 1, new
-                   {
-                       @class = "form-control col-md-4",
-                       type = "number",
-                       max = orderItem.Count,
-                       style = "direction:ltr"
-                   })
-                        </td>
-                        <td>
-                            <button class="btn btn-sm btn-danger" id="btnRemoveProductOrder">
-                                <i class="fa fa-remove"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    break;
-                }
-                else
-                {
-                    <tr data-product-id="@orderItem.Id">
-                        <td>
-                            @orderItem.Name
-                        </td>
-                        <td>
-                            @orderItem.Price.ToString("#,##0")
-                        </td>
-                        <td>
-                            بدون تخفیف
-                        </td>
-                        <td>
-                            @Html.TextBox("count", 1, new
-                       {
-                           @class = "form-control col-md-4",
-                           type = "number",
-                           max = orderItem.Count,
-                           style = "direction:ltr"
-                       })
-                        </td>
-                        <td>
-                            <button class="btn btn-sm btn-danger" id="btnRemoveProductOrder">
-                                <i class="fa fa-remove"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    break;
+@{
+    var cnt = Model.Count().ToString();
+
+    decimal totalPrice = 0;
+    decimal totalFee = 0;
+    decimal totalPercent = 0;
+
+
+}
+
+<div class="row" id="ShoppingCart" ng-app="ShoppingCart" ng-controller="ShoppingCartCntr">
+    <div class="col-xl-9 col-lg-8 col-12 px-0">
+        <div class="table-responsive checkout-content dt-sl">
+            <div class="checkout-header checkout-header--express">
+                <span class="checkout-header-title">ارسال عادی</span>
+                <span class="checkout-header-extra-info">(<span class="count-cart"> {{count}} </span> کالا)</span>
+            </div>
+            <div id="ordersListTable">
+                <table class="table table-cart">
+                    <tbody>
+                        @foreach (var orderItem in Model)
+                        {
+
+                            foreach (var item in orderItem.Discounts.OrderByDescending(d => d.EndDate))
+                            {
+                                if (orderItem.Discount > 0 && item.EndDate >= DateTime.Now)
+                                {
+
+                                    {
+                                        totalPrice += (orderItem.CalcDiscount);
+                                        totalFee += (orderItem.CalcDiscountFee);
+                                        totalPercent += orderItem.Discount;
+                                    }
+
+                                    <tr data-product-id="@orderItem.Id">
+                                        <td>
+                                            @orderItem.Name
+                                        </td>
+                                        <td>
+                                            @orderItem.Price.ToString("#,##0")
+                                        </td>
+                                        <td>
+                                            @orderItem.CalcDiscountFee.ToString("#,##0")
+                                        </td>
+                                        <td>
+                                            @Html.TextBox("count", 1, new
+                                       {
+                                           @id = "count",
+                                           @class = "form-control col-md-4",
+                                           type = "number",
+                                           max = orderItem.Count,
+                                           style = "direction:ltr"
+                                       })
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-sm btn-danger" ng-click="RemoveProductOrder(@(orderItem.Id))" id="btnRemoveProductOrder">
+                                                <i class="fa fa-remove"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    break;
+                                }
+                                else
+                                {
+                                    {
+                                        totalPrice += (orderItem.Price);
+                                    }
+
+                                    <tr class="checkout-item" data-product-id="@orderItem.Id">
+                                        <td>
+                                            <img src="@orderItem.Images.First().Url" alt="@orderItem.Name" width="150">
+                                            <button class="checkout-btn-remove" ng-click="RemoveProductOrder(@(orderItem.Id))" id="btnRemoveProductOrder">&times;</button>
+                                        </td>
+                                        <td class="text-right">
+                                            <a href="product/@orderItem.Id/@orderItem.SlugUrl">
+                                                <h3 class="checkout-title">
+                                                    @orderItem.Name
+                                                </h3>
+                                            </a>
+                                            <p class="checkout-dealer">
+                                                فروشنده:  @orderItem.Sellers
+                                            </p>
+                                            <p class="checkout-guarantee">
+                                                برند: @orderItem.Brand
+                                            </p>
+                                            <div class="checkout-variant checkout-variant--color">
+                                                <span class="checkout-variant-title">رنگ :</span>
+                                                <span class="checkout-variant-value">
+                                                    @orderItem.ProductColor
+                                                    <!--div class="checkout-variant-shape"
+                                                style="background-color:#212121"></div-->
+                                                </span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p class="mb-0">تعداد</p>
+                                            <div class="number-input">
+                                                <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"></button>
+                                                <input id="count" class="quantity" min="1" max="@orderItem.Count" name="quantity"
+                                                        value="1" type="number">
+                                                <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                                        class="plus"></button>
+                                            </div>
+                                        </td>
+                                        <td><strong>@orderItem.Price.ToString("#,##0") تومان</strong></td>
+                                    </tr>
+                                    break;
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-4 col-12 w-res-sidebar sticky-sidebar">
+        <div class="dt-sn dt-sn--box mb-2">
+            <ul class="checkout-summary-summary">
+                <li>
+                    <span>مبلغ کل (@cnt کالا)</span><span>@Model.Sum(q => q.Price).ToString("#,##0") تومان</span>
+                </li>
+                <li class="checkout-summary-discount">
+                    <span>سود شما از خرید</span><span>
+                        <span>(@((totalPercent / Model.Count()).ToString())٪)</span>@totalFee.ToString("#,##0")
+                        تومان
+                    </span>
+                </li>
+                <li>
+                    <span>
+                        هزینه ارسال<span class="help-sn" data-toggle="tooltip"
+                                            data-html="true" data-placement="bottom"
+                                            title="<div class='help-container is-right'><div class='help-arrow'></div><p class='help-text'>هزینه ارسال مرسولات می‌تواند وابسته به شهر و آدرس گیرنده متفاوت باشد. در صورتی که هر یک از مرسولات حداقل ارزشی برابر با ۱۵۰هزار تومان داشته باشد، آن مرسوله بصورت رایگان ارسال می‌شود.<br>'حداقل ارزش هر مرسوله برای ارسال رایگان، می تواند متغیر باشد.'</p></div>">
+                            <span class="mdi mdi-information-outline"></span>
+                        </span>
+                    </span><span>وابسته به آدرس</span>
+                </li>
+            </ul>
+            <div class="checkout-summary-devider">
+                <div></div>
+            </div>
+            <div class="checkout-summary-content">
+                <div class="checkout-summary-price-title">مبلغ قابل پرداخت:</div>
+                <div class="checkout-summary-price-value">
+                    <span class="checkout-summary-price-value-amount">@totalPrice.ToString("#,##0")</span>
+                    تومان
+                </div>
+                <div class="mb-2 d-block">
+                    <a href="@Url.Action("CreateFactor","Home")" id="linkCreateFactor" class="btn-primary-cm btn-with-icon w-100 text-center pr-0" type="button">
+                        <i class="mdi mdi-arrow-left"></i>
+                        ادامه ثبت سفارش
+                    </a>
+                </div>
+                <div>
+                    <span>
+                        کالاهای موجود در سبد شما ثبت و رزرو نشده‌اند، برای ثبت سفارش
+                        مراحل بعدی را تکمیل کنید.
+                    </span><span class="help-sn" data-toggle="tooltip" data-html="true"
+                                    data-placement="bottom"
+                                    title="<div class='help-container is-right'><div class='help-arrow'></div><p class='help-text'>محصولات موجود در سبد خرید شما تنها در صورت ثبت و پرداخت سفارش برای شما رزرو می‌شوند. در صورت عدم ثبت سفارش، دیجی‌کالا هیچگونه مسئولیتی در قبال تغییر قیمت یا موجودی این کالاها ندارد.</p></div>">
+                        <span class="mdi mdi-information-outline"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="dt-sn dt-sn--box checkout-feature-aside pt-4">
+            <ul>
+                <li class="checkout-feature-aside-item">
+                    <img src="~/Content/img/svg/return-policy.svg" alt="">
+                    هفت روز ضمانت تعویض
+                </li>
+                <li class="checkout-feature-aside-item">
+                    <img src="~/Content/img/svg/payment-terms.svg" alt="">
+                    پرداخت در محل با کارت بانکی
+                </li>
+                <li class="checkout-feature-aside-item">
+                    <img src="~/Content/img/svg/delivery.svg" alt="">
+                    تحویل اکسپرس
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+</div>
+
+<script>
+    var app = angular.module("ShoppingCart", []);
+
+    app.controller("ShoppingCartCntr", function ($scope, $http) {
+
+        /**
+            * initilize value
+            */
+        var initilize = function () {
+
+            $scope.count = (eval(localStorage.getItem('shopping_carts')).length);
+        }
+
+        initilize();
+
+        $scope.RemoveProductOrder = function (productId) {
+
+            var productIds = JSON.parse(localStorage.getItem('shopping_carts'));
+
+            for (var i = 0; i < productIds.length; i++) {
+
+                if (productIds[i] == productId) {
+                    productIds.splice(i, 1);
+                    localStorage.setItem('shopping_carts', JSON.stringify(productIds));
+                    $('#shoppingCartIcon').attr('data-count', +($('#shoppingCartIcon').attr('data-count')) - 1);
+                    $('#shoppingCartIcon').text($('#shoppingCartIcon').attr('data-count'));
                 }
             }
+
+            $(this).closest('tr').remove();
+
+            $scope.count--;
+        };
+
+    });
+
+    $(function () {
+        try {
+            angular.bootstrap($("#ShoppingCart"), ['ShoppingCart']);
         }
-    </tbody>
-</table>
+        catch (ex) {
+            console.log(ex);
+        }
+    });
+</script>

@@ -23,7 +23,7 @@ namespace Iris.ViewModels
         public string Address { get; set; }
         public DateTime IssueDate { get; set; } = DateTime.Now;
         [Required]
-        public FactorStatus Status { get; set; } = FactorStatus.Paid;
+        public FactorStatus Status { get; set; } = FactorStatus.Paying;
         public IList<ListFactorProductViewModel> Products { get; set; }
     }
 

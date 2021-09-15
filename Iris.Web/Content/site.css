@@ -1395,3 +1395,7 @@ ul.ui-autocomplete {
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
     display: none !important;
 }
+
+.bkGray {
+    background-color: #6f7479 !important;
+}
