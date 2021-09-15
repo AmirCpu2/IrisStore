@@ -21,6 +21,7 @@ namespace Iris.DomainClasses
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
         public string Address { get; set; }
+        public string PostalCode { get; set; }
         public string RefId { get; set; }
         public DateTime IssueDate { get; set; } = DateTime.Now;
 

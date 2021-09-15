@@ -16,8 +16,8 @@ namespace Iris.DomainClasses.Configurations
                 .HasForeignKey(f => f.UserId)
                 .WillCascadeOnDelete(false);
 
-            Property(q=>q.PublicId)
-                .IsRequired().
+            Property(q => q.PublicId)
+                .IsRequired();
         }
     }
 }
