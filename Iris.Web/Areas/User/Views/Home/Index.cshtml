@@ -47,7 +47,13 @@
 
                 @Html.Partial("~/Areas/User/Views/Widget/_UserInfoMiniWidget.cshtml")
 
-                @Html.Partial("~/Areas/Product/Views/Widget/_LovelyProductsWidget.cshtml")
+                @if (((List<FavoriteProductMiniWidget>)ViewData["FavoriteProducts"]).Any())
+                {
+                    <!-- Start Product-Slider -->
+
+                    Html.RenderPartial("~/Areas/Favorite/Views/Widget/_FavoriteProductsMiniWidget.cshtml", ViewData["FavoriteProducts"] as List<FavoriteProductMiniWidget>);
+                    <!-- End Product-Slider -->
+                }
 
             </div>
             <div class="row mt-5">

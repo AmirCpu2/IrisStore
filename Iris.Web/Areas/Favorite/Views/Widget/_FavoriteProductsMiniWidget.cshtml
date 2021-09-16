@@ -1,0 +1,64 @@
+﻿@model List<Iris.ViewModels.FavoriteProductMiniWidget>
+
+@{
+
+}
+
+<div class="col-xl-6 col-lg-12">
+    <div class="px-3">
+        <div class="section-title text-sm-title title-wide mb-1 no-after-title-wide dt-sl mb-2">
+            <h2>لیست آخرین علاقه‌مندی‌ها</h2>
+        </div>
+        <div class="profile-section dt-sl">
+            <ul class="list-favorites" id="FavoriteProducts">
+
+                @foreach (var item in Model)
+                {
+                    <li id="FavoriteProducts@(item.Id)">
+                        <a href="@Url.Action(MVC.Product.Home.ActionNames.Index, MVC.Product.Home.Name, new { area = MVC.Product.Name, id=item.Id, slugUrl = item.SlugUrl})">
+                            <img src="@item.Images.FirstOrDefault().ThumbnailUrl" alt="@item.Title">
+                            <span>@item.Title</span>
+                        </a>
+                        <button onclick="removeFavoriteProduct(@item.Id)">
+                            <i class="mdi mdi-trash-can-outline"></i>
+                        </button>
+                    </li>
+                }
+            </ul>
+            <div class="profile-section-link">
+                <a href="#" class="border-bottom-dt">
+                    <i class="mdi mdi-square-edit-outline"></i>
+                    مشاهده و ویرایش لیست مورد علاقه
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    var removeFavoriteProduct = function (id) {
+
+        progressBar.progressBarStart();
+        $(`#FavoriteProducts${id} button`).attr("disabled","");
+        $.post(`@Url.Action("RemoveProductFavorite", "Home",new { area = "Favorite" })`, { id: id }).done(function (response) {
+
+            progressBar.progressBarStop();
+
+            if (response) {
+                toastr.success("کالا با موفقیت از لیست علاقه مندی های شما حذف شد");
+
+                $(`#FavoriteProducts${id}`).remove();
+
+            }
+            else {
+                toastr.error("کالا با موفقیت از لیست علاقه مندی های شما حذف نشد");
+
+                $(`#FavoriteProducts${id}`).removeAttr("disabled");
+            }
+
+        });
+
+    }
+
+</script>

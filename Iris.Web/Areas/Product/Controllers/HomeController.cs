@@ -14,11 +14,15 @@ namespace Iris.Web.Areas.Product.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IProductService _productService;
+        private readonly IFavoriteService _favoriteService;
+        private readonly IApplicationUserManager _userManager;
 
-        public HomeController(IUnitOfWork unitOfWork, IProductService productService)
+        public HomeController(IUnitOfWork unitOfWork, IProductService productService, IFavoriteService favoriteService, IApplicationUserManager userManager)
         {
             _unitOfWork = unitOfWork;
             _productService = productService;
+            _favoriteService = favoriteService;
+            _userManager = userManager;
         }
 
         [Route("{id:int?}/{slugUrl?}")]
@@ -43,6 +47,10 @@ namespace Iris.Web.Areas.Product.Controllers
             ViewBag.Keywords = keywords;
 
             ViewBag.MetaDescription = model.MetaDescription;
+
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+
+            ViewBag.IsFavorite = await _favoriteService.GetFavoriteProductState(user?.Id??0, id);
 
             return View(model);
         }

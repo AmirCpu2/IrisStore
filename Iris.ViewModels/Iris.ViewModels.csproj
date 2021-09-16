@@ -117,6 +117,7 @@
     <Compile Include="DataGridViewModel.cs" />
     <Compile Include="EditSettingViewModel.cs" />
     <Compile Include="FactorDataGridViewModel.cs" />
+    <Compile Include="FavoriteProductMiniWidget.cs" />
     <Compile Include="FooterViewModel.cs" />
     <Compile Include="GroupViewModel.cs" />
     <Compile Include="HomePageViewModel.cs" />
@@ -150,6 +151,7 @@
     <Compile Include="SlideShowViewModel.cs" />
     <Compile Include="SlideShowWidgetViewModel.cs" />
     <Compile Include="UserDataGridViewModel.cs" />
+    <Compile Include="UserFavoriteProductViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

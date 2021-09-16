@@ -133,7 +133,7 @@ namespace Iris.Web.Areas.User.Controllers
         partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Iris.Web.ViewModels.Identity.ManageMessageId? message);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Index(Iris.Web.ViewModels.Identity.ManageMessageId? message)
+        public override async Task<ActionResult> Index(Iris.Web.ViewModels.Identity.ManageMessageId? message)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "message", message);

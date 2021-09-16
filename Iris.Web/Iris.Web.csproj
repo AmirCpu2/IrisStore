@@ -243,6 +243,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\StructuremapMvc.cs" />
     <Compile Include="Areas\AdminPanel\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\Favorite\Controllers\HomeController.cs" />
     <Compile Include="Areas\Items\Controllers\AdminController.cs" />
     <Compile Include="Areas\ItemType\Controllers\AdminController.cs" />
     <Compile Include="Areas\Lucene\Controllers\ManagerController.cs" />
@@ -439,8 +440,9 @@
     <Content Include="Areas\ShoppingCart\Views\Home\Verify.cshtml" />
     <Content Include="Areas\User\Views\Widget\_ProfileSidebarWidget.cshtml" />
     <Content Include="Areas\User\Views\Widget\_UserInfoMiniWidget.cshtml" />
-    <Content Include="Areas\Product\Views\Widget\_LovelyProductsWidget.cshtml" />
     <Content Include="Areas\ShoppingCart\Views\Widget\_FactorListPortableWidget.cshtml" />
+    <Content Include="Areas\Favorite\Views\web.config" />
+    <Content Include="Areas\Favorite\Views\Widget\_FavoriteProductsMiniWidget.cshtml" />
     <None Include="Connected Services\Zarinpal\configuration91.svcinfo" />
     <None Include="Connected Services\Zarinpal\configuration.svcinfo" />
     <Content Include="Connected Services\Zarinpal\Iris.Web.Zarinpal.GetUnverifiedTransactionsResponse.datasource">
@@ -2601,6 +2603,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\AdminPanel\Views\Shared\" />
+    <Folder Include="Areas\Favorite\Views\Home\" />
+    <Folder Include="Areas\Favorite\Views\Shared\" />
     <Folder Include="Areas\Items\Views\Shared\" />
     <Folder Include="Areas\ItemType\Views\Shared\" />
     <Folder Include="Areas\Lucene\Views\Manager\" />

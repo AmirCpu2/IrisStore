@@ -5,6 +5,7 @@ using System.Linq;
 using AutoMapper;
 using AutoMapperContracts;
 using Iris.DomainClasses;
+using Microsoft.AspNet.Identity;
 
 namespace Iris.ViewModels
 {
@@ -27,6 +28,8 @@ namespace Iris.ViewModels
         public int ViewNumber { get; set; }
         public int Count { get; set; }
         public IList<CategoryViewModel> Categories { get; set; }
+        public int UserFavoriteCount { get; set; }
+
 
         public void CreateMappings(IConfiguration configuration)
         {
@@ -54,7 +57,11 @@ namespace Iris.ViewModels
                     opt => opt.MapFrom(product => product.Images.OrderBy(image => image.Order)))
 
                 .ForMember(productModel => productModel.Prices,
-                    opt => opt.MapFrom(product => product.Prices.OrderBy(price => price.Date)));
+                    opt => opt.MapFrom(product => product.Prices.OrderBy(price => price.Date)))
+
+                .ForMember(productModel => productModel.UserFavoriteCount, opt => opt.MapFrom(product => product.UserFavoriteProducts.Count()))
+
+                ;//.ForMember(productModel => productModel.UserFavoriteCount, opt => opt.MapFrom(product => product.UserFavoriteProducts.Where(q=>q.User.UserName == User.Identity.Name));
 
         }
 

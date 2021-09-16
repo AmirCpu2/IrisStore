@@ -22,11 +22,13 @@ namespace Iris.Web.Areas.User.Controllers
         private readonly IApplicationSignInManager _signInManager;
         private readonly IAuthenticationManager _authenticationManager;
         private readonly IProductService _productService;
+        private readonly IFavoriteService _favoriteService;
 
 
-        public HomeController(IProductService productService, IUnitOfWork unitOfWork, IApplicationUserManager userManager, IApplicationSignInManager applicationSignInManager,
+        public HomeController(IFavoriteService favoriteService, IProductService productService, IUnitOfWork unitOfWork, IApplicationUserManager userManager, IApplicationSignInManager applicationSignInManager,
             IAuthenticationManager authenticationManager)
         {
+            _favoriteService = favoriteService;
             _productService = productService;
             _unitOfWork = unitOfWork;
             _userManager = userManager;
@@ -35,7 +37,7 @@ namespace Iris.Web.Areas.User.Controllers
         }
 
         [Route]
-        public virtual ActionResult Index(ManageMessageId? message)
+        public virtual async Task<ActionResult> Index(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
                message == ManageMessageId.UserProfileSuccessfully ? "اطلاعات شما با موفقیت بروز رسانی شد!"
@@ -46,6 +48,14 @@ namespace Iris.Web.Areas.User.Controllers
              : "";
 
             ViewData["RecommendedProducts"] = (_productService.GetSuggestionProductsForce(9));
+
+
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+
+            if (user?.Id == null)
+                return null;
+
+            ViewData["FavoriteProducts"] = (await _favoriteService.GetAllFavoriteProduct(user?.Id??0, 3));
 
             return View();
         }

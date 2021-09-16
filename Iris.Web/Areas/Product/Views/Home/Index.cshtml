@@ -19,6 +19,8 @@
     var desc = Utilities.HtmlCleaner.HtmlSanitizer.GetDescription(Model.Description);
 
     var carts = Utilities.HtmlCleaner.HtmlSanitizer.GetCarts(Model.Description);
+
+    var isFavorite = (bool) ViewBag.IsFavorite;
 }
 @section styles{
     <style>
@@ -45,170 +47,6 @@
     <link href="~/Content/css/vendor/fancybox.min.css" rel="stylesheet" />
     @Styles.Render("~/Content/product-page")
 }
-@*<div id="productPage" class="container page-wrapper" style="background-color: transparent;">
-        <div class="row product-section" style="padding-top: 10px; ">
-            <div class="col-md-7 col-md-push-5">
-                <div class="well well-sm product-name">
-                    <h1 style="font-size: 26px;">@Model.Name</h1>
-                </div>
-                <div class="product-price">
-                    @if (Model.Discount > 0)
-                    {
-                        foreach (var discount in Model.Discounts)
-                        {
-                            var discountEndDate = discount.EndDate;
-
-                            if (Model.ProductStatus == ProductStatus.Available)
-                            {
-                                if (Model.Discount > 0 && discount.EndDate >= DateTime.Now)
-                                {
-                                    <span class="product-price-name">قـیمـت:</span>
-                                    <strong class="product-price">@Html.DisplayFor(model => model.CalcDiscount)</strong>
-                                        <strong class="product-price-currency">تومان</strong>
-                                        <br />
-                                        <strike class="product-price" style="color:gray">@Html.DisplayFor(model => model.Price)</strike>
-                                        <strike class="product-price-currency" style="color:gray">تومان</strike>
-                                    break;
-                                }
-                                else if (discount.EndDate < DateTime.Now && Model.Discount <= 0)
-                                {
-                                    if (Model.Price > 0)
-                                    {
-                                        <span class="product-price-name">قـیمـت:</span>
-                                        <span class="product-price">@Html.DisplayFor(model => model.Price)</span>
-                                            <span class="product-price-currency">تومان</span>
-                                    }
-                                    break;
-
-                                }
-                            }
-
-                            else if (Model.ProductStatus == ProductStatus.NotAvailable)
-                            {
-                                <label class="label label-danger product-status">نا موجود</label>
-                                break;
-                            }
-                            else if (Model.ProductStatus == ProductStatus.ComingSoon)
-                            {
-                                <label class="label label-danger product-status">نا موجود</label>
-                                break;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        switch (Model.ProductStatus)
-                        {
-                            case ProductStatus.Available:
-                                <span class="product-price-name">قـیمـت:</span>
-                                <span class="product-price">@Html.DisplayFor(model => model.Price)</span>
-                                <span class="product-price-currency">تومان</span>
-                                break;
-                            case ProductStatus.NotAvailable:
-                                <label class="label label-danger" style="font-size: 26px;">نا‌موجود</label>
-                                break;
-                            case ProductStatus.ComingSoon:
-                                <label class="label label-info" style="font-size: 26px;">به زودی</label>
-                                break;
-                        }
-                    }
-
-                </div>
-                <div style="direction: ltr;" class="text-right">
-                    <div class="col-md-6">
-                        <input class="rating" id="rate-@Model.Id" data-show-clear="false" data-show-caption="false" value="@Model.AverageRating" data-size="xs" style="display: none;">
-                    </div>
-                    @if (Model.Count > 0)
-                    {
-                        <div class="col-md-5 text-left pull-left" style="direction: rtl; padding: 15px;">
-                            <button id="btnAddToShoppingCart" data-product-id="@Model.Id" class="btn btn-success">
-                                <i class="fa fa-shopping-cart" aria-hidden="true"></i> افزودن به سبد خرید
-                            </button>
-                        </div>
-                    }
-                </div>
-            </div>
-            <div id="productImages" class="col-md-5 col-md-pull-7" style="padding-bottom: 15px;">
-                <div class="product-images  product-images-gallery">
-                    <a href="@thubmnailImage.Url" class="product-thumbnail">
-                        <img src="@thubmnailImage.Url" alt="@Model.Name">
-                    </a>
-                </div>
-                @if (productImages.Any())
-                {
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div>
-                                <div id="productImagesCarousel" class="carousel slide product-images-gallery">
-                                    <!-- Carousel items -->
-                                    <div class="carousel-inner">
-                                        @for (int i = 0; i < productImages.Count(); i += 4)
-                                        {
-                                            <div class="item @if (i < 4){ <text>active</text> }">
-                                                <div class="row">
-                                                    @foreach (var product in productImages.Skip(i).Take(4))
-                                                    {
-                                                        <div class="col-md-3 col-sm-3 col-xs-3">
-                                                            <a href="@product.Url">
-                                                                <img src="@product.ThumbnailUrl" alt="@Model.Name" />
-                                                            </a>
-                                                        </div>
-                                                    }
-                                                </div>
-                                            </div>
-                                        }
-                                    </div>
-                                </div>
-                                <a class="right carousel-control" href="#productImagesCarousel" data-slide="next">‹</a>
-                                <a class="left carousel-control" href="#productImagesCarousel" data-slide="prev">›</a>
-                            </div>
-                        </div>
-                    </div>
-                }
-            </div>
-        </div>
-        <div class="row product-section">
-            <div class="col-md-12" style="padding-left: 0; padding-right: 1px; ">
-                <div class="product-tabs">
-                    <!-- Nav tabs -->
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab"> <i class="fa fa-list"></i> مشخصات </a></li>
-                        <li role="presentation"><a id="chartTabLink" href="#chartTab" aria-controls="profile" role="tab" data-toggle="tab"> <i class="fa fa-line-chart"></i> تغییرات قیمت</a></li>
-                    </ul>
-                    <!-- Tab panes -->
-                    <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane active" id="home">
-                            @Html.Raw(Model.Description)
-                        </div>
-                        <div role="tabpanel" class="tab-pane" id="chartTab">
-                            <div class="row">
-                                <div id="chart" class="col-md-12" style="direction: ltr;"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @if (((IList<ProductWidgetViewModel>)ViewData["SimilarProducts"]).Any())
-        {
-            <div class="row product-section">
-                <div class="col-md-12" style="padding: 0;">
-                    <div>
-                        @{Html.RenderPartial(MVC.Widgets.Views.SimilarProductsWidget, new ProductSliderWidgetViewModel
-                            {
-                                Title = "کالا‌های مشابه",
-                                CarouselId = "similarProductCarousel",
-                                Products = ViewData["SimilarProducts"] as IList<ProductWidgetViewModel>
-                            }); }
-                    </div>
-                </div>
-            </div>
-                            }
-    </div>*@
-
-
-
-
 
 <div class="container main-container">
     <!-- Start title - breadcrumb -->
@@ -250,8 +88,17 @@
                 <!-- Product Options-->
                 <ul class="gallery-options">
                     <li>
-                        <button class="add-favorites"><i class="mdi mdi-heart"></i></button>
-                        <span class="tooltip-option">افزودن به علاقمندی</span>
+                        @if (isFavorite)
+                        {
+
+                            <button disabled class="add-favorites favorites"><i class="mdi mdi-heart"></i></button>
+                            <span class="tooltip-option">شما به این کالا علاقه مندید</span>
+                        }
+                        else
+                        {
+                            <button class="add-favorites" onclick="addFavorites()"><i class="mdi mdi-heart"></i></button>
+                            <span class="tooltip-option">افزودن به علاقمندی</span>
+                        }
                     </li>
                 </ul>
                 @if (Model.ProductStatus != ProductStatus.Available)
@@ -1291,41 +1138,24 @@
 </div>
 
 
-
-
-
-
-
-
-
 @section scripts{
-    @*<script>
-            var productName = "@Model.Name";
-            var pricesVal = @JsonConvert.SerializeObject(Model.Prices.Select(price => price.Price), new JsonSerializerSettings()
-                            {
-                                ContractResolver = new CamelCasePropertyNamesContractResolver(),
-                            });
+    <script>
 
-            var dateVals = @Html.Raw(JsonConvert.SerializeObject(Model.Prices.Select(price => price.DateTime.ToPersianDate()).ToList(), new JsonSerializerSettings()
-                           {
-                               ContractResolver = new CamelCasePropertyNamesContractResolver(),
-                           }));
-            var discountsVal = @JsonConvert.SerializeObject(Model.Discounts.Select(discount => discount.Discount), new JsonSerializerSettings()
-                            {
-                                ContractResolver = new CamelCasePropertyNamesContractResolver(),
-                            });
+        var addFavorites = function () {
 
-            var startdateVals = @Html.Raw(JsonConvert.SerializeObject(Model.Discounts.Select(discount => discount.StartDate.ToPersianDate()).ToList(), new JsonSerializerSettings()
-                           {
-                               ContractResolver = new CamelCasePropertyNamesContractResolver(),
-                           }));
-            var enddateVals = @Html.Raw(JsonConvert.SerializeObject(Model.Discounts.Select(discount => discount.EndDate.ToPersianDate()).ToList(), new JsonSerializerSettings()
-                           {
-                               ContractResolver = new CamelCasePropertyNamesContractResolver(),
-                           }));
+            $.post(`@Url.Action("AddProductFavorite", "Home",new { area = "Favorite" })`, { id: `@Model.Id` }).done(function (response) {
+                
+                toastr.success("کالا با موفقیت به لیست علاقه مندی های شما اضافه شد");
 
-            var postInfoUrl = '@Url.Action(MVC.Product.Home.ActionNames.SaveRatings, MVC.Product.Home.Name, new {area = MVC.Product.Name})';
-        </script>*@
+                $('button.add-favorites').attr("disabled", "");
+
+                $('span.tooltip-option').text("شما به این کالا علاقه مندید");
+
+            });
+
+        }
+
+    </script>
     <script src="~/Scripts/js/vendor/jquery.fancybox.min.js"></script>
     <script src="~/Scripts/js/vendor/countdown.min.js"></script>
     @Scripts.Render("~/bundles/product-page")

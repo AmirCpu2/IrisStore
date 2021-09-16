@@ -132,6 +132,7 @@
     <Compile Include="Contracts\ICategoryService.cs" />
     <Compile Include="Contracts\ICustomRoleStore.cs" />
     <Compile Include="Contracts\ICustomUserStore.cs" />
+    <Compile Include="Contracts\IFavoriteService.cs" />
     <Compile Include="Contracts\IItemsService.cs" />
     <Compile Include="Contracts\IItemTypeService.cs" />
     <Compile Include="Contracts\IPageService.cs" />
@@ -146,6 +147,7 @@
     <Compile Include="CustomRoleStore.cs" />
     <Compile Include="CustomUserStore.cs" />
     <Compile Include="EmailService.cs" />
+    <Compile Include="FavoriteService.cs" />
     <Compile Include="ItemsService.cs" />
     <Compile Include="ItemTypeService.cs" />
     <Compile Include="PostCategoryService.cs" />
