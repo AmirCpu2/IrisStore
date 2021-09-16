@@ -59,11 +59,14 @@
   <ItemGroup>
     <Compile Include="ApplicationUser.cs" />
     <Compile Include="Color.cs" />
+    <Compile Include="Comment.cs" />
     <Compile Include="Configurations\ColorConfig.cs" />
+    <Compile Include="Configurations\CommentConfig.cs" />
     <Compile Include="Configurations\DiscountConfig.cs" />
     <Compile Include="Configurations\FactorConfig.cs" />
     <Compile Include="Configurations\ItemConfig.cs" />
     <Compile Include="Configurations\ItemTypeConfig.cs" />
+    <Compile Include="Configurations\ProductQuestionAnswerConfig.cs" />
     <Compile Include="Configurations\PropertyTypeConfig.cs" />
     <Compile Include="Configurations\SlideShowConfig.cs" />
     <Compile Include="Configurations\SiteOptionConfig.cs" />
@@ -86,7 +89,6 @@
     <Compile Include="CustomUserRole.cs" />
     <Compile Include="Page.cs" />
     <Compile Include="Post.cs" />
-    <Compile Include="PostComment.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="ProductDiscount.cs" />
     <Compile Include="ProductImage.cs" />

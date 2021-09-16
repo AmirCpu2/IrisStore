@@ -14,9 +14,9 @@ namespace Iris.DomainClasses.Configurations
 
             Property(post => post.SlugUrl).HasMaxLength(300);
 
-            this.HasMany(e => e.PostComments)
-                .WithRequired(e => e.Post)
-                .WillCascadeOnDelete(false);
+            //this.HasMany(e => e.PostComments)
+            //    .WithRequired(e => e.Post)
+            //    .WillCascadeOnDelete(false);
 
             this.HasMany(e => e.UserFavoritePosts)
                 .WithRequired(e => e.Post)

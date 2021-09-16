@@ -26,6 +26,7 @@ namespace Iris.DomainClasses
             UserFavoriteProducts = new HashSet<UserFavoriteProduct>();
             Colors = new HashSet<Color>();
             Properties = new HashSet<Property>();
+            Comments = new HashSet<Comment>();
         }
 
         public string Title { get; set; }
@@ -67,5 +68,7 @@ namespace Iris.DomainClasses
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Property> Properties { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

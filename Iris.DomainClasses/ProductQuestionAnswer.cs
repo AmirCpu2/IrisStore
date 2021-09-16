@@ -16,6 +16,8 @@ namespace Iris.DomainClasses
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int CommentId { get; set; }
 
+        public virtual Comment Comment { get; set; }
+
         public virtual Product Product { get; set; }
     }
 }
