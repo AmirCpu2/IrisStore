@@ -21,11 +21,13 @@ namespace Iris.Web.Areas.User.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IApplicationSignInManager _signInManager;
         private readonly IAuthenticationManager _authenticationManager;
+        private readonly IProductService _productService;
 
 
-        public HomeController(IUnitOfWork unitOfWork, IApplicationUserManager userManager, IApplicationSignInManager applicationSignInManager,
+        public HomeController(IProductService productService, IUnitOfWork unitOfWork, IApplicationUserManager userManager, IApplicationSignInManager applicationSignInManager,
             IAuthenticationManager authenticationManager)
         {
+            _productService = productService;
             _unitOfWork = unitOfWork;
             _userManager = userManager;
             _signInManager = applicationSignInManager;
@@ -42,6 +44,8 @@ namespace Iris.Web.Areas.User.Controllers
              : message == ManageMessageId.SetTwoFactorSuccess ? "احراز هویت دو مرحله ای بازنشانی شد."
              : message == ManageMessageId.Error ? "یک خطا رخ داده است."
              : "";
+
+            ViewData["RecommendedProducts"] = (_productService.GetSuggestionProductsForce(9));
 
             return View();
         }

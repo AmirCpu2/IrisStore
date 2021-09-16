@@ -737,6 +737,7 @@
                 };
 
                 var userFactorUrl = '@Url.Action("Peymen","Home",new{area="ShoppingCart"})';
+                progressBar.progressBarStart();
                 $.ajax({
                     url: userFactorUrl,
                     type: 'post',
@@ -749,6 +750,7 @@
                     localStorage.removeItem('order_list');
                     localStorage.clear();
                     window.location = e;
+                    progressBar.progressBarStop();
                 });
 
 

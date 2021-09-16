@@ -16,7 +16,8 @@ namespace Iris.Web
 
             bundles.Add(new ScriptBundle("~/bundles/layout").Include(
                        "~/Scripts/layout.js",
-                       "~/Scripts/toastr.js"));
+                       "~/Scripts/toastr.js",
+                       "~/Scripts/ProgressBar/progressbar.js"));
 
 
             bundles.Add(new ScriptBundle("~/bundles/adminlayout").Include(
@@ -81,6 +82,9 @@ namespace Iris.Web
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
+
+            //bundles.Add(new ScriptBundle("~/bundles/layout").Include(
+            //  "~/Scripts/ProgressBar/progressbar.js"));
 
 
             bundles.Add(new StyleBundle("~/Content/bootstrap").Include(

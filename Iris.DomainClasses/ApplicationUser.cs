@@ -7,6 +7,12 @@ namespace Iris.DomainClasses
     {
         public virtual ICollection<Factor> Factors { get; set; }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserFavoritePost> UserFavoritePosts { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserFavoriteProduct> UserFavoriteProducts { get; set; }
+
         public virtual string FirstName { get; set; }
 
         public virtual string LastName { get; set; }

@@ -28,6 +28,20 @@ namespace Iris.DomainClasses.Configurations
             Property(entity => entity.MetaDescription).HasMaxLength(400);
 
             Property(entity => entity.SlugUrl).HasMaxLength(300);
+
+            HasMany(e => e.ProductQuestionAnswers)
+                .WithRequired(e => e.Product)
+                .WillCascadeOnDelete(false);
+
+            HasMany(e => e.UserFavoriteProducts)
+                .WithRequired(e => e.Product)
+                .WillCascadeOnDelete(false);
+
+            HasMany(e => e.Properties)
+                .WithMany(e => e.Products)
+                .Map(m => m.ToTable("ProductProperty").MapLeftKey("ProductId").MapRightKey("PropertyId"));
+
+
         }
     }
 }

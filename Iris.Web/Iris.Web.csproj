@@ -437,6 +437,10 @@
     <Content Include="App_Data\ErrorsLog\tmp.txt" />
     <Content Include="App_Data\Lucene_Index\tmp.txt" />
     <Content Include="Areas\ShoppingCart\Views\Home\Verify.cshtml" />
+    <Content Include="Areas\User\Views\Widget\_ProfileSidebarWidget.cshtml" />
+    <Content Include="Areas\User\Views\Widget\_UserInfoMiniWidget.cshtml" />
+    <Content Include="Areas\Product\Views\Widget\_LovelyProductsWidget.cshtml" />
+    <Content Include="Areas\ShoppingCart\Views\Widget\_FactorListPortableWidget.cshtml" />
     <None Include="Connected Services\Zarinpal\configuration91.svcinfo" />
     <None Include="Connected Services\Zarinpal\configuration.svcinfo" />
     <Content Include="Connected Services\Zarinpal\Iris.Web.Zarinpal.GetUnverifiedTransactionsResponse.datasource">
@@ -1511,6 +1515,7 @@
     <Content Include="Scripts\js\vendor\ResizeSensor.min.js" />
     <Content Include="Scripts\js\vendor\theia-sticky-sidebar.min.js" />
     <Content Include="Scripts\js\vendor\wNumb.js" />
+    <Content Include="Scripts\ProgressBar\progressbar.js" />
     <Content Include="Scripts\sitemap.xml" />
     <Content Include="Scripts\test-bundles\angular-aria.js" />
     <Content Include="Scripts\test-bundles\angular-cookies.js" />

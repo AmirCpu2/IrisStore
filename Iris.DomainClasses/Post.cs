@@ -8,6 +8,8 @@ namespace Iris.DomainClasses
         public Post()
         {
             PostedDate = DateTime.Now;
+            PostComments = new HashSet<PostComment>();
+            UserFavoritePosts = new HashSet<UserFavoritePost>();
         }
 
         public string Title { get; set; }
@@ -23,6 +25,12 @@ namespace Iris.DomainClasses
         public string Image { get; set; }
         public int? CategoryId { get; set; }
         public virtual PostCategory Category { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PostComment> PostComments { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserFavoritePost> UserFavoritePosts { get; set; }
 
     }
 }

@@ -22,6 +22,10 @@ namespace Iris.DomainClasses
             Discounts = new HashSet<ProductDiscount>();
             Categories = new HashSet<Category>();
             Images = new HashSet<ProductImage>();
+            ProductQuestionAnswers = new HashSet<ProductQuestionAnswer>();
+            UserFavoriteProducts = new HashSet<UserFavoriteProduct>();
+            Colors = new HashSet<Color>();
+            Properties = new HashSet<Property>();
         }
 
         public string Title { get; set; }
@@ -47,5 +51,21 @@ namespace Iris.DomainClasses
         public virtual ICollection<ProductImage> Images { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Item> Items { get; set; }
+
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductPrice> ProductPrices { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductQuestionAnswer> ProductQuestionAnswers { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserFavoriteProduct> UserFavoriteProducts { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Color> Colors { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Property> Properties { get; set; }
     }
 }

@@ -1,40 +1,78 @@
 ﻿@model Iris.Web.ViewModels.Identity.RegisterViewModel
 @{
     ViewBag.Title = "ثبت نام";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
 }
-<div style="background: #fff; padding-bottom: 25px; min-height: 70vh;" class="container page-wrapper">
-    <div class="col-md-6 center-block" style="float: none;">
-        <div>
-            <h3>ثبت نام</h3>
-        </div>
-        @using (Html.BeginForm(MVC.Account.ActionNames.Register, MVC.Account.Name, new { area = "", ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form", id = "frmLogin" }))
-        {
-            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
-            @Html.AntiForgeryToken()
-            <div class="form-group has-feedback">
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "پست الکترونیکی", style = "direction:ltr", type = "email" })
-                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-            </div>
-            <div class="form-group has-feedback">
-                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "نام کاربری", style = "direction:ltr", type = "text" })
-                <span class="glyphicon glyphicon-user form-control-feedback"></span>
-            </div>
-            <div class="form-group has-feedback">
-                @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "کلمه عبور", style = "direction: ltr;" })
-                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-            </div>
-            <div class="form-group has-feedback">
-                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "تکرار کلمه عبور", style = "direction: ltr;" })
-                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-            </div>
-            @Html.Hidden("returnUrl", ViewBag.ReturnUrl as string, null)
-            <div class="row">
-                <!-- /.col -->
-                <div class="col-xs-4">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">ثبت نام</button>
+
+<div class="container main-container">
+
+    <div class="row">
+        <div class="col-xl-4 col-lg-5 col-md-7 col-12 mx-auto">
+            <div class="form-ui dt-sl dt-sn pt-4">
+
+                <div class="section-title title-wide mb-1 no-after-title-wide">
+                    <h2 class="font-weight-bold">ثبت نام در @ViewBag.SiteName</h2>
                 </div>
-                <!-- /.col -->
+
+                <div class="message-light">
+                    اگر قبلا با ایمیل ثبت‌نام کرده‌اید، نیاز به ثبت‌نام مجدد با شماره همراه ندارید
+                </div>
+
+                @using (Html.BeginForm(MVC.Account.ActionNames.Register, MVC.Account.Name, new { area = "", ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form", id = "frmLogin" }))
+                {
+                    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                    @Html.AntiForgeryToken()
+                    <div class="form-row-title">
+                        <h3>ایمیل</h3>
+                    </div>
+                    <div class="form-row with-icon">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "input-ui pr-2", placeholder = "پست الکترونیکی", type = "email" })
+                        <i class="mdi mdi-email-open-outline"></i>
+                    </div>
+                    <div class="form-row-title">
+                        <h3>نام کاربری</h3>
+                    </div>
+                    <div class="form-row with-icon">
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "input-ui pr-2", placeholder = "نام کاربری", type = "text" })
+                        <i class="mdi mdi-account-circle-outline"></i>
+                    </div>
+                    <div class="form-row-title">
+                        <h3>رمز عبور</h3>
+                    </div>
+                    <div class="form-row with-icon">
+                        @Html.PasswordFor(m => m.Password, new { @class = "input-ui pr-2", placeholder = "کلمه عبور" })
+                        <i class="mdi mdi-lock-open-variant-outline"></i>
+                    </div>
+                    <div class="form-row-title">
+                        <h3>تکرار کلمه عبور</h3>
+                    </div>
+                    <div class="form-row with-icon">
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "input-ui pr-2", placeholder = "تکرار کلمه عبور" })
+                        <i class="mdi mdi-lock-open-variant-outline"></i>
+                    </div>
+                    <div class="form-row mt-2">
+                        <div class="custom-control custom-checkbox float-right mt-2">
+                            <input type="checkbox" class="custom-control-input" id="customCheck3">
+                            <label class="custom-control-label text-justify" for="customCheck3">
+                                <a href="#">حریم خصوصی</a> و <a href="#">شرایط و قوانین</a> استفاده از سرویس های سایت دیدیکالا را مطالعه نموده و با کلیه موارد آن موافقم.
+                            </label>
+                        </div>
+                    </div>
+                    @Html.Hidden("returnUrl", ViewBag.ReturnUrl as string, null)
+                    <div class="form-row mt-3">
+                        <button class="btn-primary-cm btn-with-icon mx-auto w-100">
+                            <i class="mdi mdi-account-circle-outline"></i>
+                            ثبت نام در @ViewBag.SiteName
+                        </button>
+                    </div>
+                    <div class="form-footer text-right mt-3">
+                        <span class="d-block font-weight-bold">قبلا ثبت نام کرده اید؟</span>
+                        <a href="@Url.Action("Login", "Account", new { area = "", returnUrl = Request.Url?.AbsolutePath })" class="d-inline-block mr-3 mt-2">وارد شوید</a>
+                    </div>
+                }
+
             </div>
-        }
+        </div>
     </div>
+
 </div>
