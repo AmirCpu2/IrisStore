@@ -10,7 +10,7 @@ using AutoMapperContracts;
 
 namespace Iris.ViewModels
 {
-    public class ListFactorViewModel 
+    public class ListFactorViewModel : IHaveCustomMappings
     {
         public int Id { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "لطفا نام را وارد کنید")]
@@ -30,9 +30,20 @@ namespace Iris.ViewModels
         public IList<ListFactorProductViewModel> Products { get; set; }
         [DisplayFormat(DataFormatString = "{0:###,###}", ApplyFormatInEditMode = true)]
         public decimal TotalPrice => Products.Select(q => q.CalcDiscount * q.Count).Sum();
+        [DisplayFormat(DataFormatString = "{0:###,###}", ApplyFormatInEditMode = true)]
+        public decimal TotalPriceNormal => Products.Select(q => q.Price * q.Count).Sum();
+
+
+        public void CreateMappings(IConfiguration configuration)
+        {
+            configuration.CreateMap<Factor, ListFactorViewModel>()
+                .ForMember(Factor => Factor.Products, opt => opt.MapFrom(VMFactor => VMFactor.Products.Select(Mapper.Map<ListFactorProductViewModel>)  ));
+            ;
+        }
+
     }
 
-    public class ListFactorProductViewModel 
+    public class ListFactorProductViewModel : IHaveCustomMappings
     {
         public int Id { get; set; }
         public decimal Price { get; set; }
@@ -51,5 +62,11 @@ namespace Iris.ViewModels
         [DisplayFormat(DataFormatString = "{0:###,###}", ApplyFormatInEditMode = true)]
         public decimal CalcDiscountFee { get { return (((Price * Discount) / 100)); } }
         #endregion
+
+
+        public void CreateMappings(IConfiguration configuration)
+        {
+            configuration.CreateMap<FactorProduct, ListFactorProductViewModel>();
+        }
     }
 }

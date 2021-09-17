@@ -1,4 +1,6 @@
-﻿<div class="col-xl-6 col-lg-12">
+﻿@model Iris.ViewModels.UserInfoWidgetViewModel
+
+<div class="col-xl-6 col-lg-12">
     <div class="px-3">
         <div class="section-title text-sm-title title-wide mb-1 no-after-title-wide dt-sl mb-2">
             <h2>اطلاعات شخصی</h2>
@@ -10,7 +12,7 @@
                         <span>نام و نام خانوادگی:</span>
                     </div>
                     <div class="value-info">
-                        <span>جلال بهرامی راد</span>
+                        @Html.DisplayTextFor(model => model.FirstName) @Html.DisplayTextFor(model => model.LastName)
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-12">
@@ -18,7 +20,7 @@
                         <span>پست الکترونیک:</span>
                     </div>
                     <div class="value-info">
-                        <span>info@gmail.com</span>
+                        @Html.DisplayTextFor(model => model.Email)
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-12">
@@ -26,31 +28,23 @@
                         <span>شماره تلفن همراه:</span>
                     </div>
                     <div class="value-info">
-                        <span>۰۹۰۳۰۸۱۳۷۴۲</span>
+                        @Html.DisplayTextFor(model => model.Mobile)
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <div class="label-info">
-                        <span>کد ملی:</span>
+                        <span>کد پستی:</span>
                     </div>
                     <div class="value-info">
-                        <span>-</span>
+                        <span>@Html.DisplayTextFor(model => model.PostalCode)</span>
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <div class="label-info">
-                        <span>دریافت خبرنامه:</span>
+                        <span>آدرس:</span>
                     </div>
                     <div class="value-info">
-                        <span>خیر</span>
-                    </div>
-                </div>
-                <div class="col-md-6 col-sm-12">
-                    <div class="label-info">
-                        <span>شماره کارت:</span>
-                    </div>
-                    <div class="value-info">
-                        <span>-</span>
+                        <span>@Html.DisplayTextFor(model => model.Address)</span>
                     </div>
                 </div>
             </div>

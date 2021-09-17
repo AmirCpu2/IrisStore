@@ -23,11 +23,13 @@ namespace Iris.Web.Areas.User.Controllers
         private readonly IAuthenticationManager _authenticationManager;
         private readonly IProductService _productService;
         private readonly IFavoriteService _favoriteService;
+        private readonly IFactorService _factorService;
 
 
-        public HomeController(IFavoriteService favoriteService, IProductService productService, IUnitOfWork unitOfWork, IApplicationUserManager userManager, IApplicationSignInManager applicationSignInManager,
+        public HomeController(IFactorService factorService, IFavoriteService favoriteService, IProductService productService, IUnitOfWork unitOfWork, IApplicationUserManager userManager, IApplicationSignInManager applicationSignInManager,
             IAuthenticationManager authenticationManager)
         {
+            _factorService = factorService;
             _favoriteService = favoriteService;
             _productService = productService;
             _unitOfWork = unitOfWork;
@@ -47,15 +49,28 @@ namespace Iris.Web.Areas.User.Controllers
              : message == ManageMessageId.Error ? "یک خطا رخ داده است."
              : "";
 
-            ViewData["RecommendedProducts"] = (_productService.GetSuggestionProductsForce(9));
+
+            if (!User.Identity.IsAuthenticated)
+                return null;
 
 
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
-            if (user?.Id == null)
-                return null;
+            ViewData["UserInfoWidgetViewModel"] = new Iris.ViewModels.UserInfoWidgetViewModel() {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Mobile = user.Mobile,
+                Address = user.Address,
+                PostalCode = user.PostalCode,
+                Email = user.Email
+            };
+
+
+            ViewData["RecommendedProducts"] = (_productService.GetSuggestionProductsForce(9));
 
             ViewData["FavoriteProducts"] = (await _favoriteService.GetAllFavoriteProduct(user?.Id??0, 3));
+
+            ViewData["ListFactorViewModel"] = (await _factorService.GetListFactorsByUserId(user?.Id ?? 0, 5));
 
             return View();
         }

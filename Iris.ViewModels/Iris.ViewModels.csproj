@@ -152,6 +152,7 @@
     <Compile Include="SlideShowWidgetViewModel.cs" />
     <Compile Include="UserDataGridViewModel.cs" />
     <Compile Include="UserFavoriteProductViewModel.cs" />
+    <Compile Include="UserInfoWidgetViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -120,6 +120,7 @@ namespace Iris.Web.DependencyResolution
             For<IItemTypeService>().Use<ItemTypeService>();
             For<IItemsService>().Use<ItemsService>();
             For<IFavoriteService>().Use<FavoriteService>();
+            For<IFactorService>().Use<FactorService>();
         }
 
         #endregion

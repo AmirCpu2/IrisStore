@@ -2616,7 +2616,6 @@
     <Folder Include="Areas\SiteSetting\Models\" />
     <Folder Include="Areas\SiteSetting\Views\Shared\" />
     <Folder Include="Areas\SlideShow\Models\" />
-    <Folder Include="Areas\User\Models\" />
     <Folder Include="Areas\User\Views\Shared\" />
     <Folder Include="Scripts\publicFunctions\" />
     <Folder Include="Scripts\RoxyFileManager\tmp\" />

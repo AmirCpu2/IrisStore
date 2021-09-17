@@ -24,5 +24,10 @@ namespace Iris.DomainClasses
         public virtual string PostalCode { get; set; }
 
         public virtual string LatLong { get; set; }
+
+        public virtual string ImageUrl { get; set; }
+
+        public virtual string ThumbnailUrl { get; set; }
+
     }
 }

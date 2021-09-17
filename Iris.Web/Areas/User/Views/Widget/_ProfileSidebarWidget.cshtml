@@ -1,18 +1,18 @@
-﻿
+﻿@model Iris.ViewModels.UserInfoWidgetViewModel
 <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12 sticky-sidebar">
     <div class="profile-sidebar dt-sl">
         <div class="dt-sl dt-sn mb-3">
             <div class="profile-sidebar-header dt-sl">
                 <div class="profile-avatar float-right">
-                    <img src="~/Content/img/theme/avatar.png" alt="">
+                    <img src="@Model.ThumbnailUrl" alt="">
                 </div>
                 <div class="profile-header-content mr-3 mt-2 float-right">
-                    <span class="d-block profile-username">جلال بهرامی راد</span>
-                    <span class="d-block profile-phone">09030813742</span>
+                    <span class="d-block profile-username">@Html.DisplayTextFor(model => model.FirstName) @Html.DisplayTextFor(model => model.LastName)</span>
+                    <span class="d-block profile-phone">@Html.DisplayTextFor(model => model.Mobile)</span>
                 </div>
                 <div class="profile-point mt-3 mb-2 dt-sl">
                     <span class="float-right label-profile-point">امتیاز شما:</span>
-                    <span class="float-left value-profile-point">120</span>
+                    <span class="float-left value-profile-point">غییر فعال است</span>
                 </div>
                 <div class="profile-link mt-2 dt-sl">
                     <div class="row">

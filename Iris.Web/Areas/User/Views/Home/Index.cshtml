@@ -8,46 +8,22 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@*<div>
-        <div>
-            <h3 color:blue">@ViewBag.Title</h3>
-            <p class="text-success">@ViewBag.StatusMessage</p>
-            <p class="text-success">@TempData["Message"]</p>
-            <hr />
-            <div class="row">
-                <div class="col-md-8 ">
-                    <p class="btn btn-effect" style="color:black;border:solid 1px red">
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            @Html.ActionLink("تغییر گذرواژه", "ChangeUserPassword", "Account", routeValues: new { Area = "" }, htmlAttributes: new { title = "" })
-                        }
-                        else
-                        {
-                            @Html.ActionLink("بازنشانی گذرواژه", "ResetPassword", "Account", routeValues: new { Area = "" }, htmlAttributes: new { title = "" })
-                        }
-                    </p>
-                    <hr />
-                    <p class="btn btn-effect" style="color:black;border:solid 1px green">
-                        @Html.ActionLink("درج اطلاعات حساب کاربری", "UserProfile")
-                    </p>
-                    <hr />
-                </div>
-            </div>
-        </div>
-    </div>*@
-
 <div class="container main-container">
     <div class="row">
         <!-- Start Sidebar -->
-        @Html.Partial("~/Areas/User/Views/Widget/_ProfileSidebarWidget.cshtml")
+        @{
+            Html.RenderPartial("~/Areas/User/Views/Widget/_ProfileSidebarWidget.cshtml", ViewData["UserInfoWidgetViewModel"] as UserInfoWidgetViewModel);
+        }
         <!-- End Sidebar -->
         <!-- Start Content -->
         <div class="col-xl-9 col-lg-8 col-md-8 col-sm-12">
             <div class="row">
 
-                @Html.Partial("~/Areas/User/Views/Widget/_UserInfoMiniWidget.cshtml")
+                @{
+                    Html.RenderPartial("~/Areas/User/Views/Widget/_UserInfoMiniWidget.cshtml", ViewData["UserInfoWidgetViewModel"] as UserInfoWidgetViewModel);
+                }
 
-                @if (((List<FavoriteProductMiniWidget>)ViewData["FavoriteProducts"]).Any())
+                @if (ViewData["FavoriteProducts"].ToString().Any() && ((List<FavoriteProductMiniWidget>)ViewData["FavoriteProducts"]).Any())
                 {
                     <!-- Start Product-Slider -->
 
@@ -57,7 +33,15 @@
 
             </div>
             <div class="row mt-5">
-                @Html.Partial("~/Areas/ShoppingCart/Views/Widget/_FactorListPortableWidget.cshtml")
+
+                
+                @if (ViewData["ListFactorViewModel"].ToString().Any() && ((List<Iris.ViewModels.ListFactorViewModel>)ViewData["ListFactorViewModel"]).Any())
+                {
+                    <!-- Start Product-Slider -->
+
+                    Html.RenderPartial("~/Areas/ShoppingCart/Views/Widget/_FactorListPortableWidget.cshtml", ViewData["ListFactorViewModel"] as List<Iris.ViewModels.ListFactorViewModel>);
+                    <!-- End Product-Slider -->
+                }
             </div>
         </div>
         <!-- End Content -->
