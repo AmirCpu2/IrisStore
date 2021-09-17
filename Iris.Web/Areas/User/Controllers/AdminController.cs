@@ -90,6 +90,12 @@ namespace Iris.Web.Areas.User.Controllers
         [HttpPost]
         public virtual async Task<ActionResult> Add(RegisterViewModel userViewModel, HttpPostedFileBase userImage)
         {
+
+            var dateTimeStringCoding = DateTime.Now.ToString("yyyyMMddHHmmss");
+
+            var ImageFileFormat = "";
+
+
             if (userViewModel.Id.HasValue)
             {
                 ModelState.Remove("Password");
@@ -101,14 +107,36 @@ namespace Iris.Web.Areas.User.Controllers
                 return View(userViewModel);
             }
 
+
+            if (userImage != null)
+            {
+                var img = new WebImage(userImage.InputStream);
+
+                var imgT = img;
+
+                ImageFileFormat = img.ImageFormat;
+
+                img.Save(Server.MapPath("~/UploadedFiles/Avatars/" + userViewModel.UserName + dateTimeStringCoding + "." + img.ImageFormat));
+
+                imgT.Resize(161, 161, true, false).Crop(1, 1);
+
+                imgT.Save(Server.MapPath("~/UploadedFiles/Avatars/Thumbnail" + userViewModel.UserName + dateTimeStringCoding + "." + imgT.ImageFormat));
+            }
+
             if (!userViewModel.Id.HasValue)
             {
                 var user = new ApplicationUser
                 {
                     UserName = userViewModel.UserName,
                     Email = userViewModel.Email,
-                    EmailConfirmed = true
+                    EmailConfirmed = true,
+                    
                 };
+
+                if (userImage != null) {
+                    user.ImageUrl = "/UploadedFiles/Avatars/" + userViewModel.UserName + dateTimeStringCoding + "." + ImageFileFormat;
+                    user.ThumbnailUrl = "/UploadedFiles/Avatars/Thumbnail" + userViewModel.UserName + dateTimeStringCoding + "." + ImageFileFormat;
+                }
 
                 var adminresult = await _userManager.CreateAsync(user, userViewModel.Password);
 
@@ -142,6 +170,11 @@ namespace Iris.Web.Areas.User.Controllers
 
                 user.UserName = userViewModel.UserName;
                 user.Email = userViewModel.Email;
+                if (userImage != null) {
+                    user.ImageUrl = "/UploadedFiles/Avatars/" + userViewModel.UserName + dateTimeStringCoding +"."+ ImageFileFormat;
+                    user.ThumbnailUrl = "/UploadedFiles/Avatars/Thumbnail" + userViewModel.UserName + dateTimeStringCoding + "." + ImageFileFormat;
+                }
+
 
                 await _unitOfWork.SaveAllChangesAsync();
 
@@ -149,13 +182,7 @@ namespace Iris.Web.Areas.User.Controllers
 
             }
 
-            if (userImage != null)
-            {
-                var img = new WebImage(userImage.InputStream);
-                img.Resize(161, 161, true, false).Crop(1, 1);
-
-                img.Save(Server.MapPath("~/UploadedFiles/Avatars/" + userViewModel.UserName + ".png"));
-            }
+            
 
 
             return RedirectToAction(MVC.User.Admin.ActionNames.Index);

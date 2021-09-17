@@ -11,6 +11,8 @@ using Microsoft.AspNet.Identity;
 using Iris.Web.ViewModels.Identity;
 using Iris.ServiceLayer;
 using Microsoft.Owin.Security;
+using AutoMapper;
+using AutoMapperContracts;
 
 namespace Iris.Web.Areas.User.Controllers
 {
@@ -55,16 +57,8 @@ namespace Iris.Web.Areas.User.Controllers
 
 
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
-
-            ViewData["UserInfoWidgetViewModel"] = new Iris.ViewModels.UserInfoWidgetViewModel() {
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Mobile = user.Mobile,
-                Address = user.Address,
-                PostalCode = user.PostalCode,
-                Email = user.Email
-            };
-
+            
+            ViewData["UserInfoWidgetViewModel"] = Mapper.Map<UserInfoWidgetViewModel>(user);
 
             ViewData["RecommendedProducts"] = (_productService.GetSuggestionProductsForce(9));
 
@@ -94,7 +88,7 @@ namespace Iris.Web.Areas.User.Controllers
         [Route("UserProfile")]
         [HttpPost]
         public virtual async Task<ActionResult> UserProfile
-            ([Bind(Include = "ID,FirstName,LastName,Mobile,Address,PostalCode")]ProfileViewmodel userprofile)
+            ([Bind(Include = "ID,FirstName,LastName,Mobile,Address,PostalCode,ImageUrl,ThumbnailUrl")]ProfileViewmodel userprofile)
         {
             if (!ModelState.IsValid)
             {
@@ -109,6 +103,8 @@ namespace Iris.Web.Areas.User.Controllers
                 user.Mobile = userprofile.Mobile;
                 user.Address = userprofile.Address;
                 user.PostalCode = userprofile.PostalCode;
+                user.ImageUrl = userprofile.ImageUrl;
+                user.ThumbnailUrl = userprofile.ThumbnailUrl;
 
                 await _userManager.UpdateAsync(user);
                 await _unitOfWork.SaveAllChangesAsync();

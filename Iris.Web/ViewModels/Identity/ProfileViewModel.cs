@@ -28,5 +28,10 @@ namespace Iris.Web.ViewModels.Identity
         public string PostalCode { get; set; }
 
         public string LatLong { get; set; }
+
+        public virtual string ImageUrl { get; set; }
+
+        public virtual string ThumbnailUrl { get; set; }
+
     }
 }

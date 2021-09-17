@@ -101,6 +101,10 @@
     <Compile Include="Migrations\202109161028574_insertComment.Designer.cs">
       <DependentUpon>202109161028574_insertComment.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202109171352151_insertImageFromUser.cs" />
+    <Compile Include="Migrations\202109171352151_insertImageFromUser.Designer.cs">
+      <DependentUpon>202109171352151_insertImageFromUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ApplicationDbConfiguration.cs" />
@@ -141,6 +145,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202109161028574_insertComment.resx">
       <DependentUpon>202109161028574_insertComment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109171352151_insertImageFromUser.resx">
+      <DependentUpon>202109171352151_insertImageFromUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

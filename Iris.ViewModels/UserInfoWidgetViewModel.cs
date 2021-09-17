@@ -39,7 +39,7 @@ namespace Iris.ViewModels
 
         public void CreateMappings(IConfiguration configuration)
         {
-            configuration.CreateMap<ApplicationUser, UserDataGridViewModel>();
+            configuration.CreateMap<ApplicationUser, UserInfoWidgetViewModel>();
         }
     }
 
