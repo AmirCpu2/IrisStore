@@ -1,0 +1,186 @@
+﻿
+@using Utilities
+@model  Iris.ViewModels.ListFactorViewModel
+@{
+    ViewBag.Title = "فهرست سفارشات";
+    Layout = "~/Areas/User/Views/Shared/_ProfileLayout.cshtml";
+    var i = 1;
+}
+
+<!-- Start Content -->
+<div class="col-xl-9 col-lg-8 col-md-8 col-sm-12">
+    <div class="row">
+        <div class="col-12">
+            <div class="profile-navbar">
+                <a href="@(Url.Action("userfactor","Home", new { area = "ShoppingCart" }))" class="profile-navbar-btn-back">بازگشت</a>
+                <h4>
+                    سفارش 
+                    <span class="font-en">DDC-@Model.PublicId.ToString().Split('-').FirstOrDefault()</span>
+                    <span>
+                        ثبت شده در تاریخ @(new PersianDateTime(Model.IssueDate).ToString(PersianDateTimeFormat.FullDate))
+                        
+                    </span>
+                </h4>
+            </div>
+        </div>
+        <div class="col-12 mb-4">
+            <div class="dt-sl dt-sn">
+                <div class="row table-draught px-3">
+                    <div class="col-md-6 col-sm-12">
+                        <span class="title">تحویل گیرنده:</span>
+                        <span class="value">@Model.Name @Model.LastName</span>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <span class="title">شماره تماس تحویل گیرنده:</span>
+                        <span class="value">@Model.PhoneNumber</span>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <span class="title">کد مرسوله:</span>
+                        <span class="value">@Model.PublicId.ToString().Split('-').LastOrDefault()</span>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <span class="title">نحوه ارسال سفارش:</span>
+                        <span class="value">پست عادی</span>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <span class="title">هزینه ارسال:</span>
+                        <span class="value">رایگان</span>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <span class="title">زمان تحویل:</span>
+                        <span class="value">
+                            بازه
+                            @(new PersianDateTime(Model.IssueDate).AddDays(1).ToString(PersianDateTimeFormat.FullDate))
+                            -
+                            @(new PersianDateTime(Model.IssueDate).AddDays(4).ToString(PersianDateTimeFormat.FullDate))
+
+                        </span>
+                        @*<button class="btn btn-light">
+                            تغییر زمان ارسال
+                        </button>*@
+                    </div>
+                    <div class="col-12 text-center pb-0">
+                        <span class="title">مبلغ این مرسوله:</span>
+                        <span class="value">@Model.TotalPrice.ToString("###,###") تومان</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 mb-4">
+            <section class="slider-section dt-sl mb-5">
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <div class="section-title text-sm-title title-wide no-after-title-wide">
+                            <h2>مرسوله 1 از 1</h2>
+                            <a href="#">لغو دریافت مرسوله</a>
+                        </div>
+                    </div>
+
+                    <!-- Start Profile-order-step-Slider -->
+                    <div class="col-12">
+                        <div class="profile-order-steps carousel-lg owl-carousel owl-theme">
+
+                            @if (Model.Status == Iris.DomainClasses.FactorStatus.Cancelled)
+                            {
+                                <div class="item profile-order-steps-item is-active">
+                                    <img src="~/Content/img/svg/0eab59b0.svg">
+                                    <span>لغو شده</span>
+                                </div>
+                            }
+                            
+                            <div class="item profile-order-steps-item @((int)Model.Status >= (int)Iris.DomainClasses.FactorStatus.Paid ? "is-active next" :"")">
+                                <img src="~/Content/img/svg/d5d5e1d2.svg">
+                                <span>تایید سفارش</span>
+                            </div>
+
+                            <div class="item profile-order-steps-item @((int)Model.Status >= (int)Iris.DomainClasses.FactorStatus.OrderPreparation ? "is-active next" :"")">
+                                <img src="~/Content/img/svg/3db3cdeb.svg">
+                                <span>آماده‌سازی سفارش</span>
+                            </div>
+                            <div class="item profile-order-steps-item @((int)Model.Status >= (int)Iris.DomainClasses.FactorStatus.ExitProcessingCenter ? "is-active next" :"")">
+                                <img src="~/Content/img/svg/332b9ff1.svg">
+                                <span>خروج از مرکز پردازش</span>
+                            </div>
+                            <div class="item profile-order-steps-item @((int)Model.Status >= (int)Iris.DomainClasses.FactorStatus.PostDelivery ? "is-active next" :"")">
+                                <img src="~/Content/img/svg/07a0808a.svg">
+                                <span>تحویل به پست</span>
+                            </div>
+                            <div class="item profile-order-steps-item @((int)Model.Status >= (int)Iris.DomainClasses.FactorStatus.PostProcessingCenter ? "is-active next" :"")">
+                                <img src="~/Content/img/svg/dbab74ce.svg">
+                                <span>مرکز مبادلات پست</span>
+                            </div>
+                            <div class="item profile-order-steps-item @((int)Model.Status >= (int)Iris.DomainClasses.FactorStatus.Delivered ? "is-active next" :"")">
+                                <img src="~/Content/img/svg/50450a73.svg">
+                                <span>تحویل به مشتری</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Profile-order-step-Slider -->
+
+                </div>
+            </section>
+        </div>
+        <div class="col-12">
+            <div class="section-title text-sm-title title-wide mb-1 no-after-title-wide dt-sl mb-2 px-res-1">
+                <h2>همه سفارش‌ها</h2>
+            </div>
+            <div class="dt-sl">
+                <div class="table-responsive">
+                    <table class="table table-order table-order-details">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>نام محصول</th>
+                                <th>تعداد</th>
+                                <th>قیمت واحد</th>
+                                <th>قیمت کل</th>
+                                <th>تخفیف</th>
+                                <th>قیمت نهایی</th>
+                                <th>عملیات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model.Products)
+                            {
+                                <tr>
+                                    <td>@(i++)</td>
+                                    <td>
+                                        <div class="details-product-area">
+                                            <img src="@item.ThumbnailUrl"
+                                                 class="thumbnail-product" alt="">
+                                            <h5 class="details-product">
+                                                <span>
+                                                    @item.Title
+                                                </span>
+                                                @*ویژگیهای محصول مانند نام با اسپن لیست شود*@
+                                            </h5>
+                                        </div>
+                                    </td>
+                                    <td>@item.Count</td>
+                                    <td>@((item.Price).ToString("###,###")) تومان</td>
+                                    <td>@((item.Price * item.Count).ToString("###,###")) تومان</td>
+                                    <td>@(((int)item.Discount).ToString())%</td>
+                                    <td>@((item.CalcDiscount * item.Count).ToString("###,###")) تومان</td>
+                                    <td>
+                                        <a class="btn btn-info d-block w-100 mb-2" href="@Url.Action(MVC.Product.Home.ActionNames.Index, MVC.Product.Home.Name, new { area = MVC.Product.Name, id=item.ProductId})" data-productId="@item.ProductId">
+                                            خرید
+                                            مجدد
+                                        </a>
+                                        <button class="btn text-light bg-secondary d-block w-100" type="button" data-productId="@item.ProductId">
+                                            ثبت
+                                            نظر
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Content -->
+
+      

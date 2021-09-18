@@ -20,11 +20,13 @@ namespace Iris.Web.Areas.ShoppingCart.Controllers
         private readonly IShoppingCartService _shoppingCartService;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IApplicationUserManager _userManager;
+        private readonly IFactorService _factorService;
 
 
-        public HomeController(IProductService productService, IApplicationUserManager userManager, IShoppingCartService shoppingCartService,
+        public HomeController(IFactorService factorService, IProductService productService, IApplicationUserManager userManager, IShoppingCartService shoppingCartService,
             IUnitOfWork unitOfWork)
         {
+            _factorService = factorService;
             _productService = productService;
             _shoppingCartService = shoppingCartService;
             _unitOfWork = unitOfWork;
@@ -109,6 +111,26 @@ namespace Iris.Web.Areas.ShoppingCart.Controllers
             return View(await _shoppingCartService.GetUserFactor(Convert.ToInt32(User.Identity.GetUserId())));
         }
 
+        [Route("DetailFactor")]
+        [HttpGet]
+        public virtual async Task<ActionResult> DetailFactor(int id)
+        {
+
+            var factor = await _factorService.GetFactorById(id);
+
+            for (var i = 0; i < factor.Products.Count(); i++)
+            {
+                var product = await _productService.GetProductForEdit(factor.Products[i].ProductId);
+
+               factor.Products[i].Title = product?.Name ?? "";
+               factor.Products[i].ThumbnailUrl = product?.Images.FirstOrDefault().ThumbnailUrl ?? "" ;
+
+            }
+
+
+            return View(factor);
+        }
+
         [Route("Peymen")]
         [HttpPost]
         public virtual async Task<string> Peymen(CreateFactorViewModel factorViewModel)
@@ -164,6 +186,39 @@ namespace Iris.Web.Areas.ShoppingCart.Controllers
 
         }
 
+        [Route("RePeymen")]
+        [HttpGet]
+        public virtual async Task<ActionResult> RePeymen(Guid publicId)
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            var factorProduct = await _shoppingCartService.GetForEditByGuId(publicId);
+
+            System.Net.ServicePointManager.Expect100Continue = false;
+            Zarinpal.PaymentGatewayImplementationServicePortTypeClient zp = new Zarinpal.PaymentGatewayImplementationServicePortTypeClient();
+            string Authority;
+
+            int Status = zp.PaymentRequest("YOUR-ZARINPAL-MERCHANT-CODE", (int)factorProduct.TotalPrice, "تست درگاه زرین پال در راه ابریشم", "Amircpu2@gmail.com", "09217159257", $"http://localhost/shpppingcart/Verify?id=" + publicId, out Authority);
+
+            if (Status == 100)
+            {
+                Response.Redirect("https://sandbox.zarinpal.com/pg/StartPay/" + Authority);
+            }
+            else
+            {
+                ViewBag.Error = "Error : " + Status;
+            }
+
+            return View("index");
+
+        }
+
+
         [Route("Verify")]
         public virtual async Task<ActionResult> Verify(Guid id)
         {
@@ -172,8 +227,8 @@ namespace Iris.Web.Areas.ShoppingCart.Controllers
             var order = await _shoppingCartService.GetForEditByGuId(id);
             order.Status = Iris.DomainClasses.FactorStatus.Cancelled;
 
-            if (!string.IsNullOrWhiteSpace(order.RefId) || !Request.QueryString["Status"].ToString().Equals("OK") && String.IsNullOrWhiteSpace(Request.QueryString["Authority"]))
-                return View("index");
+            //if (!string.IsNullOrWhiteSpace(order.RefId) || !Request.QueryString["Status"].ToString().Equals("OK") && String.IsNullOrWhiteSpace(Request.QueryString["Authority"]))
+            //    return View("index");
 
 
             //Peyment cal

@@ -37,8 +37,7 @@ namespace Iris.ViewModels
         public void CreateMappings(IConfiguration configuration)
         {
             configuration.CreateMap<Factor, ListFactorViewModel>()
-                .ForMember(Factor => Factor.Products, opt => opt.MapFrom(VMFactor => VMFactor.Products.Select(Mapper.Map<ListFactorProductViewModel>)  ));
-            ;
+                .ForMember(Factor => Factor.Products, opt => opt.MapFrom(VMFactor => VMFactor.Products.Select(Mapper.Map<FactorProduct, ListFactorProductViewModel>)  ));
         }
 
     }
@@ -51,7 +50,8 @@ namespace Iris.ViewModels
         public int Count { get; set; }
         public int MaxCount { get; set; } = 0;
         public int ProductId { get; set; }
-        public string ProductName { get; set; }
+        public string Title { get; set; }
+        public string ThumbnailUrl { get; set; }
         
         #region Calculator Properties
         /// <summary>
@@ -66,7 +66,10 @@ namespace Iris.ViewModels
 
         public void CreateMappings(IConfiguration configuration)
         {
-            configuration.CreateMap<FactorProduct, ListFactorProductViewModel>();
+            configuration.CreateMap<FactorProduct, ListFactorProductViewModel>()
+                .ForMember(q=>q.ThumbnailUrl, op=>op.MapFrom(p=>p.Product.Images.FirstOrDefault().ThumbnailUrl))
+                .ForMember(q=>q.Title, op=>op.MapFrom(p=>p.Product.Title))
+                ;
         }
     }
 }

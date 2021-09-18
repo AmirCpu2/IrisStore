@@ -55,6 +55,22 @@ namespace Iris.Web.Areas.Product.Controllers
             return View(model);
         }
 
+        [Route("RecommendedProductCarousel")]
+        public virtual ActionResult RecommendedProductCarousel()
+        {
+            var recommendedProducts = (_productService.GetSuggestionProductsForce(9));
+
+            return View(MVC.Widgets.Views.ContainerSliderWidget, new Iris.Web.ViewModels.ProductSliderWidgetViewModel
+            {
+                Title = "محصولات پیشنهادی برای شما",
+                CarouselId = "RecommendedProductCarousel",
+                Products = recommendedProducts,
+                LinkText = "مشاهده همه",
+                Link = $"{Url.Action(MVC.Product.SearchProduct.ActionNames.Index, MVC.Product.SearchProduct.Name, new { area = MVC.Product.Name })}#/page/all/empty/1/ViewNumber/desc",
+                ShowCount = 20
+            });
+        }
+
         [Route("SaveRatings")]
         [OutputCache(Location = OutputCacheLocation.None, NoStore = true)]
         public virtual async Task<ActionResult> SaveRatings(int id, double value)
@@ -70,6 +86,9 @@ namespace Iris.Web.Areas.Product.Controllers
 
             return Content("ok"); //اعلام موفقیت آمیز بودن ثبت اطلاعات
         }
+
+
+
 
     }
 }

@@ -443,6 +443,8 @@
     <Content Include="Areas\ShoppingCart\Views\Widget\_FactorListPortableWidget.cshtml" />
     <Content Include="Areas\Favorite\Views\web.config" />
     <Content Include="Areas\Favorite\Views\Widget\_FavoriteProductsMiniWidget.cshtml" />
+    <Content Include="Areas\ShoppingCart\Views\Home\DetailFactor.cshtml" />
+    <Content Include="Areas\User\Views\Shared\_ProfileLayout.cshtml" />
     <None Include="Connected Services\Zarinpal\configuration91.svcinfo" />
     <None Include="Connected Services\Zarinpal\configuration.svcinfo" />
     <Content Include="Connected Services\Zarinpal\Iris.Web.Zarinpal.GetUnverifiedTransactionsResponse.datasource">
@@ -2616,7 +2618,6 @@
     <Folder Include="Areas\SiteSetting\Models\" />
     <Folder Include="Areas\SiteSetting\Views\Shared\" />
     <Folder Include="Areas\SlideShow\Models\" />
-    <Folder Include="Areas\User\Views\Shared\" />
     <Folder Include="Scripts\publicFunctions\" />
     <Folder Include="Scripts\RoxyFileManager\tmp\" />
     <Folder Include="Scripts\RoxyFileManager\Uploads\Documents\" />

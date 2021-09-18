@@ -33,7 +33,7 @@
                                 <td>@item.TotalPriceNormal.ToString("###,###")</td>
                                 <td>@(Utilities.EnumExtensions.GetEnumDescription(item.Status))</td>
                                 <td class="details-link">
-                                    <a href="@Url.Action("userfactor","Home", new { area = "ShoppingCart" })">
+                                    <a href="@Url.Action("DetailFactor","Home", new { area = "ShoppingCart", id = item?.Id??0 })">
                                         <i class="mdi mdi-chevron-left"></i>
                                     </a>
                                 </td>

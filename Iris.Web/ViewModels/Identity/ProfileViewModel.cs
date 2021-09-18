@@ -27,6 +27,10 @@ namespace Iris.Web.ViewModels.Identity
         [Display(Name = "کد پستی")]
         public string PostalCode { get; set; }
 
+        [Required(ErrorMessage = "آدرس صندوق الکترونیکی را وارد نمائید")]
+        [Display(Name = "آدرس صندوق الکترونیکی")]
+        public string Email { get; set; }
+
         public string LatLong { get; set; }
 
         public virtual string ImageUrl { get; set; }

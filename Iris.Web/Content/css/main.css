@@ -4123,7 +4123,7 @@ a.border-bottom-dt {
     z-index: 1;
 }
 
-.profile-order-steps-item.is-active::after {
+.profile-order-steps-item.is-active.next::after {
     content: "";
     position: absolute;
     right: 55%;

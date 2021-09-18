@@ -63,6 +63,11 @@ namespace Iris.ServiceLayer
             return _users.Find(userId);
         }
 
+        public ApplicationUser FindByName(string username)
+        {
+            return _users.Where( q=> q.UserName == username).FirstOrDefault();
+        }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(ApplicationUser applicationUser)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -216,6 +221,9 @@ namespace Iris.ServiceLayer
 
             return dataGridModel;
         }
+
+
+
     }
 
 

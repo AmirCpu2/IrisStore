@@ -60,8 +60,6 @@ namespace Iris.Web.Areas.User.Controllers
             
             ViewData["UserInfoWidgetViewModel"] = Mapper.Map<UserInfoWidgetViewModel>(user);
 
-            ViewData["RecommendedProducts"] = (_productService.GetSuggestionProductsForce(9));
-
             ViewData["FavoriteProducts"] = (await _favoriteService.GetAllFavoriteProduct(user?.Id??0, 3));
 
             ViewData["ListFactorViewModel"] = (await _factorService.GetListFactorsByUserId(user?.Id ?? 0, 5));
@@ -83,6 +81,18 @@ namespace Iris.Web.Areas.User.Controllers
                 ViewBag.PostalCode = user.PostalCode;
             }
             return View();
+        }
+
+        [Route("ProfileSidebar")]
+        [HttpGet]
+        public virtual  ActionResult ProfileSidebar()
+        {
+            if (!User.Identity.IsAuthenticated)
+                return null;
+
+            var user = _userManager.FindByName(User.Identity.Name);
+
+            return View("../Widget/_ProfileSidebarWidget",Mapper.Map<UserInfoWidgetViewModel>(user));
         }
 
         [Route("UserProfile")]

@@ -75,27 +75,9 @@ namespace Iris.ServiceLayer
 
         public async Task<IList<ListFactorViewModel>> GetUserFactor(int userId)
         {
-            return await _factors.Where(f => f.UserId == userId)
-                .OrderByDescending(f => f.IssueDate)
-                .Select(f => new ListFactorViewModel
-                {
-                    PhoneNumber = f.PhoneNumber,
-                    LastName = f.LastName,
-                    Address = f.Address,
-                    Id = f.Id,
-                    Name = f.Name,
-                    IssueDate = f.IssueDate,
-                    Status = f.Status,
-                    Products = f.Products.Select(p=>new ListFactorProductViewModel
-                    {
-                        Id = p.Id,
-                        Price = p.Price,
-                        Discount = p.Discount,
-                        Count = p.Count,
-                        ProductId = p.ProductId,
-                        ProductName = p.Product.Title
-                    }).ToList()
-                }).ToListAsync();
+            var factors = await _factors.Where(f => f.UserId == userId)
+                .OrderByDescending(f => f.IssueDate).ToListAsync();
+              return  factors.Select(Mapper.Map<Iris.ViewModels.ListFactorViewModel>).ToList();
         }
 
         public async Task<DataGridViewModel<FactorDataGridViewModel>> GetDataGridSource(string orderBy, JqGridRequest request, NameValueCollection form, DateTimeType dateTimeType,
@@ -144,8 +126,9 @@ namespace Iris.ServiceLayer
                         Discount = p.Discount,
                         Count = p.Count,
                         ProductId = p.ProductId,
-                        ProductName = p.Product.Title,
-                        MaxCount = p.Product.Count
+                        Title = p.Product.Title,
+                        MaxCount = p.Product.Count,
+                        ThumbnailUrl = p.Product.Images.FirstOrDefault().ThumbnailUrl
                     }).ToList()
                 }).FirstOrDefaultAsync();
         }
@@ -173,8 +156,9 @@ namespace Iris.ServiceLayer
                         Discount = p.Discount,
                         Count = p.Count,
                         ProductId = p.ProductId,
-                        ProductName = p.Product.Title,
-                        MaxCount = p.Product.Count
+                        Title = p.Product.Title,
+                        MaxCount = p.Product.Count,
+                        ThumbnailUrl = p.Product.Images.FirstOrDefault().ThumbnailUrl
                     }).ToList()
                 }).FirstOrDefaultAsync();
         }

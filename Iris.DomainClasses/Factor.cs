@@ -35,15 +35,23 @@ namespace Iris.DomainClasses
 
     public enum FactorStatus
     {
-        [Description("در حال پرداخت")]
-        Paying,
-        [Description("پرداخت شده")]
-        Paid,
         [Description("لغو شده")]
-        Cancelled,
-        [Description("ارسال شده")]
-        Sent,
+        Cancelled = -1,
+        [Description("در حال پرداخت")]
+        Paying = 0,
+        [Description("در انتظار پرداخت")]
+        AwaitingPayment = 1,
+        [Description("پرداخت شده")]
+        Paid = 2,
+        [Description("آماده سازی سفارش")]
+        OrderPreparation = 3,
+        [Description("خروج از مرکز پردازش")]
+        ExitProcessingCenter = 4,
+        [Description("تحویل به پست")]
+        PostDelivery = 5,
+        [Description("مرکز مبادلات پست")]
+        PostProcessingCenter = 6,
         [Description("تحویل شده")]
-        Delivered
+        Delivered = 7
     }
 }

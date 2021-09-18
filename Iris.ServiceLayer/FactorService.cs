@@ -33,5 +33,13 @@ namespace Iris.ServiceLayer
 
             return factorList.Select(Mapper.Map<Iris.ViewModels.ListFactorViewModel>).ToList();
         }
+
+        public virtual async Task<Iris.ViewModels.ListFactorViewModel> GetFactorById(int id)
+        {
+
+            var factor = await _Factor.Where(q => q.Id.Equals(id)).Include(q=>q.Products).FirstOrDefaultAsync();
+
+            return Mapper.Map<Iris.ViewModels.ListFactorViewModel>(factor);
+        }
     }
 }

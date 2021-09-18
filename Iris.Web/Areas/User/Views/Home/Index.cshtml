@@ -5,64 +5,33 @@
 @using Iris.Web.ViewModels
 @{
     ViewBag.Title = "حساب کاربری";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Areas/User/Views/Shared/_ProfileLayout.cshtml";
 }
 
-<div class="container main-container">
+<div class="col-xl-9 col-lg-8 col-md-8 col-sm-12">
     <div class="row">
-        <!-- Start Sidebar -->
+
         @{
-            Html.RenderPartial("~/Areas/User/Views/Widget/_ProfileSidebarWidget.cshtml", ViewData["UserInfoWidgetViewModel"] as UserInfoWidgetViewModel);
+            Html.RenderPartial("~/Areas/User/Views/Widget/_UserInfoMiniWidget.cshtml", ViewData["UserInfoWidgetViewModel"] as UserInfoWidgetViewModel);
         }
-        <!-- End Sidebar -->
-        <!-- Start Content -->
-        <div class="col-xl-9 col-lg-8 col-md-8 col-sm-12">
-            <div class="row">
 
-                @{
-                    Html.RenderPartial("~/Areas/User/Views/Widget/_UserInfoMiniWidget.cshtml", ViewData["UserInfoWidgetViewModel"] as UserInfoWidgetViewModel);
-                }
-
-                @if (ViewData["FavoriteProducts"].ToString().Any() && ((List<FavoriteProductMiniWidget>)ViewData["FavoriteProducts"]).Any())
-                {
-                    <!-- Start Product-Slider -->
-
-                    Html.RenderPartial("~/Areas/Favorite/Views/Widget/_FavoriteProductsMiniWidget.cshtml", ViewData["FavoriteProducts"] as List<FavoriteProductMiniWidget>);
-                    <!-- End Product-Slider -->
-                }
-
-            </div>
-            <div class="row mt-5">
-
-                
-                @if (ViewData["ListFactorViewModel"].ToString().Any() && ((List<Iris.ViewModels.ListFactorViewModel>)ViewData["ListFactorViewModel"]).Any())
-                {
-                    <!-- Start Product-Slider -->
-
-                    Html.RenderPartial("~/Areas/ShoppingCart/Views/Widget/_FactorListPortableWidget.cshtml", ViewData["ListFactorViewModel"] as List<Iris.ViewModels.ListFactorViewModel>);
-                    <!-- End Product-Slider -->
-                }
-            </div>
-        </div>
-        <!-- End Content -->
-    </div>
-    <div class="mt-5">
-        <!-- Start Product-Slider -->
-        @if (((List<ProductWidgetViewModel>)ViewData["RecommendedProducts"]).Any())
+        @if (ViewData["FavoriteProducts"].ToString().Any() && ((List<FavoriteProductMiniWidget>)ViewData["FavoriteProducts"]).Any())
         {
             <!-- Start Product-Slider -->
 
-            Html.RenderPartial(MVC.Widgets.Views.ContainerSliderWidget, new ProductSliderWidgetViewModel
-            {
-                Title = "محصولات پیشنهادی برای شما",
-                CarouselId = "RecommendedProductCarousel",
-                Products = ViewData["RecommendedProducts"] as List<ProductWidgetViewModel>,
-                LinkText = "مشاهده همه",
-                Link = $"{Url.Action(MVC.Product.SearchProduct.ActionNames.Index, MVC.Product.SearchProduct.Name, new { area = MVC.Product.Name })}#/page/all/empty/1/ViewNumber/desc",
-                ShowCount = 20
-            });
+            Html.RenderPartial("~/Areas/Favorite/Views/Widget/_FavoriteProductsMiniWidget.cshtml", ViewData["FavoriteProducts"] as List<FavoriteProductMiniWidget>);
             <!-- End Product-Slider -->
         }
-        <!-- End Product-Slider -->
+
+    </div>
+    <div class="row mt-5">
+
+
+        @if (ViewData["ListFactorViewModel"].ToString().Any() && ((List<Iris.ViewModels.ListFactorViewModel>)ViewData["ListFactorViewModel"]).Any())
+        {
+            <!-- Start Product-Slider -->
+            Html.RenderPartial("~/Areas/ShoppingCart/Views/Widget/_FactorListPortableWidget.cshtml", ViewData["ListFactorViewModel"] as List<Iris.ViewModels.ListFactorViewModel>);
+            <!-- End Product-Slider -->
+        }
     </div>
 </div>

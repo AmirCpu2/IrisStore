@@ -10,7 +10,7 @@ namespace Iris.ServiceLayer.Contracts
     {
         Task<List<Iris.ViewModels.ListFactorViewModel>> GetListFactorsByUserId(int userId, int take);
 
-        //Queue<IEnumerable<Iris.ViewModels.ListFactorViewModel>> GetListFactorsByUserId(int userId);
+        Task<Iris.ViewModels.ListFactorViewModel> GetFactorById(int id);
 
 
     }

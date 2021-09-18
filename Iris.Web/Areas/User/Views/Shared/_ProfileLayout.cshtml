@@ -1,0 +1,28 @@
+﻿
+@{
+    //ViewBag.Title = "نمایه";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container main-container">
+    <div class="row">
+        <!-- Start Sidebar -->
+        @{
+            Html.RenderAction("ProfileSidebar", "Home", new { area = "user" });
+        }
+        <!-- End Sidebar -->
+        <!-- Start Content -->
+        @RenderBody()
+        <!-- End Content -->
+    </div>
+    <div class="mt-5">
+        <!-- Start Product-Slider -->
+        
+        @{
+            Html.RenderAction("RecommendedProductCarousel", "Home", new { area = "Product" });
+        }
+
+
+        <!-- End Product-Slider -->
+    </div>
+</div>

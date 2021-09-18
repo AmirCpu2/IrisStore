@@ -162,6 +162,13 @@ namespace Iris.ServiceLayer.Contracts
         Task<ApplicationUser> FindByNameAsync(string userName);
 
         /// <summary>
+        /// Find a user by user name
+        /// </summary>
+        /// <param name="userName"/>
+        /// <returns/>
+        ApplicationUser FindByName(string userName);
+
+        /// <summary>
         /// Create a user with the given password
         /// </summary>
         /// <param name="user"/><param name="password"/>

@@ -1,17 +1,18 @@
 ﻿@model Iris.ViewModels.UserInfoWidgetViewModel
+
 <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12 sticky-sidebar">
     <div class="profile-sidebar dt-sl">
         <div class="dt-sl dt-sn mb-3">
             <div class="profile-sidebar-header dt-sl">
                 <div class="profile-avatar float-right">
 
-                    @if(String.IsNullOrWhiteSpace(@Model.ThumbnailUrl))
+                    @if (String.IsNullOrWhiteSpace(@Model.ThumbnailUrl))
                     {
                         <img src="~/Content/img/theme/avatar.png" alt="">
                     }
                     else
                     {
-                        <img src="@Model.ThumbnailUrl" alt="">
+                        <img src="@Model.ThumbnailUrl" alt="@Model.LastName">
                     }
 
                 </div>
@@ -64,13 +65,14 @@
                 <div class="profile-menu">
                     <ul>
                         <li>
-                            <a href="#" class="active">
+
+                            <a href="@Url.Action("Index", "Home", new { area = "user" })" class="@(Request.Url.LocalPath.ToString().Equals(Url.Action("Index", "Home", new { area = "user" }))? "active": "")">
                                 <i class="mdi mdi-account-circle-outline"></i>
-                                پروفایل
+                                حساب کاربری
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="@Url.Action("userfactor","Home", new { area = "ShoppingCart" })" class="@(Request.Url.LocalPath.ToString().Equals(Url.Action("userfactor","Home", new { area = "ShoppingCart" }))? "active": "")">
                                 <i class="mdi mdi-basket"></i>
                                 همه سفارش ها
                             </a>
@@ -82,7 +84,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="@Url.Action("UserProfile", "Home", new { area = "user" })" class="@(Request.Url.LocalPath.ToString().Equals(Url.Action("UserProfile", "Home", new { area = "user" }))? "active": "")">
                                 <i class="mdi mdi-heart-outline"></i>
                                 لیست علاقمندی ها
                             </a>
@@ -106,7 +108,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="@Url.Action("UserProfile", "Home", new { area = "user" })" class="@(Request.Url.LocalPath.ToString().Equals(Url.Action("UserProfile", "Home", new { area = "user" }))? "active": "")">
                                 <i class="mdi mdi-account-edit-outline"></i>
                                 اطلاعات شخصی
                             </a>
