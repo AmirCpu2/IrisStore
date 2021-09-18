@@ -6,6 +6,8 @@ using Iris.DataLayer;
 using Iris.LuceneSearch;
 using Iris.ServiceLayer.Contracts;
 using Iris.Web.Helpers;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 
 namespace Iris.Web.Areas.Favorite.Controllers
 {
@@ -26,10 +28,14 @@ namespace Iris.Web.Areas.Favorite.Controllers
             _userManager = userManager;
         }
 
-        // GET: Favorite/Home
-        public ActionResult Index()
+        // GET: Favorite/MyProdcts
+        [Route("MyProdcts")]
+        public virtual async Task<ActionResult> MyProdcts()
         {
-            return View();
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var FP = user.UserFavoriteProducts.Select(q=> Mapper.Map<Iris.ViewModels.UserFavoriteProductViewModel>(q)).ToList();
+
+            return View(FP);
         }
 
         [Route("Add")]
@@ -63,6 +69,11 @@ namespace Iris.Web.Areas.Favorite.Controllers
 
             return true;
         }
+
+
+
+        //public virtual async Task<ActionResult> 
+
 
     }
 }

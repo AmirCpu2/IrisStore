@@ -95,7 +95,34 @@
     @Scripts.Render("~/bundles/common")
     @Scripts.Render("~/Scripts/jquery-ui-1.11.4.js")
     <script>
-            var autocompleteSource = "@Url.Action(MVC.Search.ActionNames.AutoCompleteSearch, MVC.Search.Name, new {area = ""})";
+        var autocompleteSource = "@Url.Action(MVC.Search.ActionNames.AutoCompleteSearch, MVC.Search.Name, new {area = ""})";
+        $(function () {
+            progressBar.config({
+
+                // 1: stright line progress bar 
+                // 2: progress bar width to be same as your percentage
+                // 3: fix width bar progress bar
+                // 4: recoil of pattern 3 
+                // 5: recoil of pattern 1
+                pattern: 1,
+
+                // color of progressbar
+                color: "#19bfd3",
+
+                // ms interval
+                intervalAnmation: 30,
+
+                // height of progressbar
+                height: 5,
+
+                // z-index
+                zIndex: 1000,
+
+                // width of progressbar
+                barWidth: 200
+
+            });
+        });
     </script>
     @Scripts.Render("~/bundles/layout")
 

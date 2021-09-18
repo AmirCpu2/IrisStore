@@ -445,6 +445,7 @@
     <Content Include="Areas\Favorite\Views\Widget\_FavoriteProductsMiniWidget.cshtml" />
     <Content Include="Areas\ShoppingCart\Views\Home\DetailFactor.cshtml" />
     <Content Include="Areas\User\Views\Shared\_ProfileLayout.cshtml" />
+    <Content Include="Areas\Favorite\Views\Home\MyProdcts.cshtml" />
     <None Include="Connected Services\Zarinpal\configuration91.svcinfo" />
     <None Include="Connected Services\Zarinpal\configuration.svcinfo" />
     <Content Include="Connected Services\Zarinpal\Iris.Web.Zarinpal.GetUnverifiedTransactionsResponse.datasource">
@@ -697,6 +698,7 @@
     <Content Include="Content\img\theme\star.svg" />
     <Content Include="Content\img\theme\suggestion-title.png" />
     <Content Include="Content\img\theme\title-circles.png" />
+    <Content Include="Content\JgridCustomFlat.css" />
     <Content Include="Content\video\download.mp4" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Areas\Product\Views\Widget\_HorizontalProductWidget.cshtml" />
@@ -1489,6 +1491,20 @@
     <Content Include="Scripts\i18n\angular-locale_zh.js" />
     <Content Include="Scripts\i18n\angular-locale_zu-za.js" />
     <Content Include="Scripts\i18n\angular-locale_zu.js" />
+    <Content Include="Scripts\jqGrid\css\images\animated-overlay.gif" />
+    <Content Include="Scripts\jqGrid\css\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Scripts\jqGrid\css\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Scripts\jqGrid\css\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Scripts\jqGrid\css\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Scripts\jqGrid\css\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Scripts\jqGrid\css\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Scripts\jqGrid\css\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Scripts\jqGrid\css\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Scripts\jqGrid\css\images\ui-icons_222222_256x240.png" />
+    <Content Include="Scripts\jqGrid\css\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Scripts\jqGrid\css\images\ui-icons_454545_256x240.png" />
+    <Content Include="Scripts\jqGrid\css\images\ui-icons_888888_256x240.png" />
+    <Content Include="Scripts\jqGrid\css\images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
@@ -2605,7 +2621,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\AdminPanel\Views\Shared\" />
-    <Folder Include="Areas\Favorite\Views\Home\" />
     <Folder Include="Areas\Favorite\Views\Shared\" />
     <Folder Include="Areas\Items\Views\Shared\" />
     <Folder Include="Areas\ItemType\Views\Shared\" />
