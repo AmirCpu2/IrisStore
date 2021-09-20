@@ -110,7 +110,11 @@
 
 <!--=====================================================================================================================-->
 
+<<<<<<< HEAD
 <div class="container main-container" ng-controller="myCtrl" ng-app="myApp" ng-cloak>
+=======
+<div ng-app="myApp" ng-controller="productController" class="container main-container">
+>>>>>>> db161f70d78ff8736a04b4aa2fb0fabc076678ce
 
     <div class="row">
 
@@ -363,6 +367,7 @@
                 <!--Product-->
                 <div>
                     <div class="ah-tab-content-wrapper dt-sl px-res-0">
+<<<<<<< HEAD
                         <div class="row mb-3 mx-0 px-res-0">
                             <div class="col-lg-3 col-md-4 col-sm-6 col-12 px-10 mb-1 px-res-0" ng-repeat="product in products">
                                 <div class="product-card mb-2 mx-res-0">
@@ -379,6 +384,37 @@
                                         </div>
                                         <div class="discount" ng-if="product.discount > 0">
                                             <span>{{product.discount}}%</span>
+=======
+                        <div class="ah-tab-content dt-sl" data-ah-tab-active="true">
+                            <div class="row mb-3 mx-0 px-res-0">
+                                <div class="col-lg-3 col-md-4 col-sm-6 col-12 px-10 mb-1 px-res-0" ng-repeat="product in products">
+                                    <div class="product-card mb-2 mx-res-0">
+                                        <div class="promotion-badge" ng-if="product.vip">
+                                            فروش ویژه
+                                        </div>
+                                        <div class="product-head">
+                                            <div class="rating-stars">
+                                                <input class="rate-product-custom" hidden="hidden" value="{{product.Rate}}"/>
+                                                <i class="mdi mdi-star active"></i>
+                                                <i class="mdi mdi-star active"></i>
+                                                <i class="mdi mdi-star active"></i>
+                                                <i class="mdi mdi-star active"></i>
+                                                <i class="mdi mdi-star active"></i>
+                                            </div>
+                                            <div class="discount">
+                                                <span>{{product.offer}}%</span>
+                                            </div>
+                                        </div>
+                                        <a class="product-thumb" href="shop-single.html">
+                                            <img src="{{product.image}}" alt="Product Thumbnail">
+                                        </a>
+                                        <div class="product-card-body">
+                                            <h5 class="product-title">
+                                                <a href="shop-single.html">{{product.name}}</a>
+                                            </h5>
+                                            <a class="product-meta" href="shop-categories.html">{{product.category}}</a>
+                                            <span class="product-price">{{product.mony}} تومان</span>
+>>>>>>> db161f70d78ff8736a04b4aa2fb0fabc076678ce
                                         </div>
                                     </div>
                                     <a class="product-thumb" style="height:187px; text-align:center;" href="~/product/{{product.id}}/{{product.slugUrl}}">
@@ -427,6 +463,7 @@
         var priceMin = @pricesMin;
         var sourceUrl = 'http://localhost/product/getproductsJson';
         var app = angular.module("myApp", []);
+<<<<<<< HEAD
         app.controller("myCtrl", function ($scope, $http) {
 
             /**
@@ -448,6 +485,34 @@
              */
             var initilize = function () {
                 searchParams =
+=======
+        app.controller("myCtrl", function ($scope) {
+            $scope.records =
+            [
+                {
+                    "name" : "لباس تست",
+                    "mony": "157,000",
+                    "category": "لباس زنانه",
+                    "offer": "10",
+                    "vip": false,
+                    "rate": 0,
+                    "image": ""
+                },
+                {
+                    "name" : "2لباس تست",
+                    "mony": "157,000",
+                    "category": "لباس زنانه",
+                    "offer": "10",
+                    "vip": true
+                },
+                {
+                    "name" : "لباس تست3",
+                    "mony": "157,000",
+                    "category": "لباس زنانه",
+                    "offer": "10",
+                    "vip": true
+                },
+>>>>>>> db161f70d78ff8736a04b4aa2fb0fabc076678ce
                 {
                     "PageNumber": 1,
                     "PageSize": "24",
