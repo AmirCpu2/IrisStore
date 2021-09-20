@@ -34,31 +34,31 @@
                                     <table class="table table-cart">
                                         <tbody>
                                             
-                                            <tr class="checkout-item" data-product-id="{{item.id}}" ng-repeat="item in OrderList">
+                                            <tr class="checkout-item" data-product-id="{{Order.id}}" ng-repeat="Order in OrderList">
                                                 <td>
-                                                    <a href="product/{{item.id}}/{{item.slugUrl}}">
-                                                        <img ng-src="{{item.images[0].url}}" alt="{{item.name}}" width="150">
+                                                    <a href="product/{{Order.id}}/{{Order.slugUrl}}">
+                                                        <img ng-src="{{Order.images[0].url}}" alt="{{Order.name}}" width="150">
                                                     </a>
-                                                    <button class="checkout-btn-remove" ng-click="RemoveProductOrder(item.id)" id="btnRemoveProductOrder">&times;</button>
+                                                    <button class="checkout-btn-remove" ng-click="RemoveProductOrder(Order.id)" id="btnRemoveProductOrder">&times;</button>
                                                 </td>
                                                 <td class="text-right">
-                                                    <a href="product/{{item.id}}/{{item.slugUrl}}">
+                                                    <a href="product/{{Order.id}}/{{Order.slugUrl}}">
                                                         <h3 class="checkout-title">
-                                                            {{item.name}}
+                                                            {{Order.name}}
                                                         </h3>
                                                     </a>
                                                     <p class="checkout-dealer">
-                                                        فروشنده:  {{item.sellers}}
+                                                        فروشنده:  {{Order.sellers}}
                                                     </p>
                                                     <p class="checkout-guarantee">
-                                                        برند: {{item.brand}}
+                                                        برند: {{Order.brand}}
                                                     </p>
                                                     <div class="checkout-variant checkout-variant--color">
                                                         <span class="checkout-variant-title">رنگ :</span>
                                                         <span class="checkout-variant-value">
-                                                            {{item.productColor}}
+                                                            {{Order.productColor}}
                                                             <!--div class="checkout-variant-shape"
-                                                                style="background-color:#212121"></div-->
+                                                            style="background-color:#212121"></div-->
                                                         </span>
                                                     </div>
                                                 </td>
@@ -66,20 +66,20 @@
                                                     <p class="mb-0">تعداد</p>
                                                     <div class="number-input">
                                                         <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" ng-click="CalCulator()"></button>
-                                                        <input id="count" class="quantity" min="1" max="{{item.count}}" name="quantity"
+                                                        <input id="count" class="quantity" min="1" max="{{Order.count}}" name="quantity"
                                                                value="1" type="number">
                                                         <button onclick="this.parentNode.querySelector('input[type=number]').stepUp();" ng-click="CalCulator()"
                                                                 class="plus"></button>
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <span class="discountPrice" style="color: #f7858d;text-decoration-line: line-through;" ng-show="item.currentDiscount>0">
-                                                        {{MaskMoney(item.price)}}تومان
+                                                    <span class="discountPrice" style="color: #f7858d;text-decoration-line: line-through;" ng-show="Order.currentDiscount>0">
+                                                        {{MaskMoney(Order.price)}}تومان
                                                     </span>
-                                                    <span ng-show="item.currentDiscount>0">
+                                                    <span ng-show="Order.currentDiscount>0">
                                                         ,
                                                     </span>
-                                                    <strong>{{MaskMoney(item.currentPrice)}} تومان</strong>
+                                                    <strong>{{MaskMoney(Order.currentPrice)}} تومان</strong>
                                                 </td>
                                             </tr>
 
@@ -177,213 +177,213 @@
 {
     <script>
 
-    var app = angular.module("ShoppingCart", []);
+        var app = angular.module("ShoppingCart", []);
 
-    app.controller("ShoppingCartCntr", function ($scope, $http) {
+        app.controller("ShoppingCartCntr", function ($scope, $http) {
 
-        /**
-        * initilize value
-        */
-        var initilize = function () {
-            $scope.totalPrice = 0;
-            $scope.totalFee = 0;
-            $scope.totalPercent = 0;
-            $scope.totalPriceOrder = 0;
-            $scope.OrderList = [];
+            /**
+            * initilize value
+            */
+            var initilize = function () {
+                $scope.totalPrice = 0;
+                $scope.totalFee = 0;
+                $scope.totalPercent = 0;
+                $scope.totalPriceOrder = 0;
+                $scope.OrderList = [];
 
-            var productIds = JSON.parse(localStorage.getItem('shopping_carts'));
-            var getProductListUrl = '@Url.Action("GetProductList", "Home", new {area = "ShoppingCart"})';
-            var cartEmptyUrl = '@Url.Action("GetCartEmpty", "Home", new {area = "ShoppingCart"})';
+                var productIds = JSON.parse(localStorage.getItem('shopping_carts'));
+                var getProductListUrl = '@Url.Action("GetProductList", "Home", new {area = "ShoppingCart"})';
+                var cartEmptyUrl = '@Url.Action("GetCartEmpty", "Home", new {area = "ShoppingCart"})';
 
-            if (productIds != undefined && productIds.length > 0) {
+                if (productIds != undefined && productIds.length > 0) {
 
-                $http({
-                    url: getProductListUrl,
-                    method: "post",
-                    data: { productIds: productIds }
-                }).then(function (response) {
-                    $scope.OrderList = response.data;
-                    CalCulator();
-                });
+                    $http({
+                        url: getProductListUrl,
+                        method: "post",
+                        data: { productIds: productIds }
+                    }).then(function (response) {
+                        $scope.OrderList = response.data;
+                        CalCulator();
+                    });
+                }
+                else {
+                    $http({
+                        url: cartEmptyUrl,
+                        method: "get",
+                    }).then(response => {
+                        $('#main_order').html(response.data);
+                    });
+                }
+
             }
-            else {
-                $http({
-                    url: cartEmptyUrl,
-                    method: "get",
-                }).then(response => {
-                    $('#main_order').html(response.data);
+
+            function setCountMaxValue()
+            {
+                $('input#count').each(function () {
+                    $(this).on('keyup',
+                        function (data) {
+                            var max = parseInt($(this).attr('max'));
+                            var min = 1;
+
+                            if ($(this).val() > max) {
+                                $(this).val(max);
+                            } else if ($(this).val() < min) {
+                                $(this).val(min);
+                            }
+
+                        });
                 });
-            }
 
-        }
+                $('#linkCreateFactor').on('click',
+                    function (event) {
 
-        function setCountMaxValue()
-        {
-            $('input#count').each(function () {
-                $(this).on('keyup',
-                    function (data) {
-                        var max = parseInt($(this).attr('max'));
-                        var min = 1;
-
-                        if ($(this).val() > max) {
-                            $(this).val(max);
-                        } else if ($(this).val() < min) {
-                            $(this).val(min);
+                        if ($('#ordersListTable tbody tr').length === 0) {
+                            toastr.warning('باید حداقل یک کالا در فاکتور موجود باشد');
+                            event.preventDefault();
+                            return;
                         }
 
+                        if (!@User.Identity.IsAuthenticated.ToString().ToLower()) {
+                            //$('#authenticationModal').modal();
+                            location.href = "@loginPath".replace("amp;","");
+
+                            event.preventDefault();
+                            return;
+                        }
+                        var lst = [];
+                        $("#ordersListTable tbody tr").each(function () {
+                            var productId = $(this).attr('data-product-id');
+                            var count = $(this).find('input#count').val();
+                            lst.push({ productId: productId, count: count });
+                        });
+                        localStorage.setItem('order_list', JSON.stringify(lst));
                     });
-            });
+            }
 
-            $('#linkCreateFactor').on('click',
-                function (event) {
+            function CalCulator()
+            {
 
-                    if ($('#ordersListTable tbody tr').length === 0) {
-                        toastr.warning('باید حداقل یک کالا در فاکتور موجود باشد');
-                        event.preventDefault();
-                        return;
-                    }
+                //----------totalPrice------------
+                var sumPrice = 0;
+                var priceOrders = 0; // sod
+                var sumDist = 0;
 
-                    if (!@User.Identity.IsAuthenticated.ToString().ToLower()) {
-                        //$('#authenticationModal').modal();
-                        location.href = "@loginPath".replace("amp;","");
+                $scope.OrderList.forEach(function (item) {
 
-                        event.preventDefault();
-                        return;
-                    }
-                    var lst = [];
-                    $("#ordersListTable tbody tr").each(function () {
-                        var productId = $(this).attr('data-product-id');
-                        var count = $(this).find('input#count').val();
-                        lst.push({ productId: productId, count: count });
-                    });
-                    localStorage.setItem('order_list', JSON.stringify(lst));
+                    var count = parseInt($(`[data-product-id="${item["id"]}"] input`).val());
+
+                    sumPrice += item["price"] * (count > 0 ? count : 1);
+
+                    sumDist += item["currentDiscountFee"] * (count > 0 ? count : 1);
+
+                    priceOrders += item["currentPrice"] * (count > 0 ? count : 1);
+
                 });
-        }
 
-        function CalCulator()
-        {
+                $scope.totalPrice = sumPrice;
+                $scope.totalFee = sumDist;
+                $scope.totalPercent = ((sumDist*100)/sumPrice);
+                $scope.totalPriceOrder = priceOrders;
 
-            //----------totalPrice------------
-            var sumPrice = 0;
-            var priceOrders = 0; // sod
-            var sumDist = 0;
+            }
 
-            $scope.OrderList.forEach(function (item) {
+            initilize();
 
-                var count = parseInt($(`[data-product-id="${item["id"]}"] input`).val());
+            $scope.RemoveProductOrder = async function (productId) {
 
-                sumPrice += item["price"] * (count > 0 ? count : 1);
+                var productIds = JSON.parse(localStorage.getItem('shopping_carts'));
 
-                sumDist += item["currentDiscountFee"] * (count > 0 ? count : 1);
+                for (var i = 0; i < productIds.length; i++) {
 
-                priceOrders += item["currentPrice"] * (count > 0 ? count : 1);
+                    if (productIds[i] == productId) {
+                        productIds.splice(i, 1);
 
-            });
-
-            $scope.totalPrice = sumPrice;
-            $scope.totalFee = sumDist;
-            $scope.totalPercent = ((sumDist*100)/sumPrice);
-            $scope.totalPriceOrder = priceOrders;
-
-        }
-
-        initilize();
-
-        $scope.RemoveProductOrder = async function (productId) {
-
-            var productIds = JSON.parse(localStorage.getItem('shopping_carts'));
-
-            for (var i = 0; i < productIds.length; i++) {
-
-                if (productIds[i] == productId) {
-                    productIds.splice(i, 1);
-
-                    localStorage.setItem('shopping_carts', JSON.stringify(productIds));
-                    $('#shoppingCartIcon').attr('data-count', +($('#shoppingCartIcon').attr('data-count')) - 1);
-                    $('#shoppingCartIcon').text($('#shoppingCartIcon').attr('data-count'));
+                        localStorage.setItem('shopping_carts', JSON.stringify(productIds));
+                        $('#shoppingCartIcon').attr('data-count', +($('#shoppingCartIcon').attr('data-count')) - 1);
+                        $('#shoppingCartIcon').text($('#shoppingCartIcon').attr('data-count'));
+                    }
                 }
+
+                $scope.OrderList.splice($scope.OrderList.findIndex(q => q.id == productId),1);
+
+                if ($scope.OrderList.length < 1) {
+                    var cartEmptyUrl = '@Url.Action("GetCartEmpty", "Home", new {area = "ShoppingCart"})';
+                    $http({
+                        url: cartEmptyUrl,
+                        method: "get",
+                    }).then(response => {
+                        $('#main_order').html(response.data);
+
+                    });
+
+                }
+
+                CalCulator();
+            };
+
+            $scope.MaskMoney = function (value) {
+                var result = value.toString();
+                var splitArray = [];
+                var numberLength = result.length;
+                while (numberLength - 3 > 0) {
+                    splitArray.push(numberLength - 3);
+                    numberLength -= 3;
+                }
+
+                for (var item in splitArray) {
+                    result = [result.slice(0, splitArray[item]), ",", result.slice(splitArray[item])].join('');
+
+                }
+                return result;
             }
 
-            $scope.OrderList.splice($scope.OrderList.findIndex(q => q.id == productId),1);
+            $scope.SumArray = function (value, selector) {
+                var sum = 0;
+                try {
+                    value.forEach(function (item) {
+                        sum += item[selector] * parseInt( $(`[data-product-id="${item["id"]}"] input`).val() );
+                    });
+                }
+                catch (ex) {
+                    console.log(ex+" for "+ value);
+                }
+                return sum;
+            };
 
-            if ($scope.OrderList.length < 1) {
-                var cartEmptyUrl = '@Url.Action("GetCartEmpty", "Home", new {area = "ShoppingCart"})';
-                $http({
-                    url: cartEmptyUrl,
-                    method: "get",
-                }).then(response => {
-                    $('#main_order').html(response.data);
+            $scope.CalCulator = function ()
+            {
+                CalCulator();
+            }
 
+            $scope.CreateFactor = function ()
+            {
+
+                if ($('#ordersListTable tbody tr').length === 0) {
+                    toastr.warning('باید حداقل یک کالا در فاکتور موجود باشد');
+                    event.preventDefault();
+                    return;
+                }
+
+                if (!@User.Identity.IsAuthenticated.ToString().ToLower()) {
+                    //$('#authenticationModal').modal();
+                    location.href = "@loginPath".replace("amp;","");
+                    event.preventDefault();
+                    return;
+                }
+                var lst = [];
+                $("#ordersListTable tbody tr").each(function () {
+                    var productId = $(this).attr('data-product-id');
+                    var count = $(this).find('input#count').val();
+                    lst.push({ productId: productId, count: count });
                 });
 
+                localStorage.setItem('order_list', JSON.stringify(lst));
+
+
+
             }
 
-            CalCulator();
-        };
-
-        $scope.MaskMoney = function (value) {
-            var result = value.toString();
-            var splitArray = [];
-            var numberLength = result.length;
-            while (numberLength - 3 > 0) {
-                splitArray.push(numberLength - 3);
-                numberLength -= 3;
-            }
-
-            for (var item in splitArray) {
-                result = [result.slice(0, splitArray[item]), ",", result.slice(splitArray[item])].join('');
-
-            }
-            return result;
-        }
-
-        $scope.SumArray = function (value, selector) {
-            var sum = 0;
-            try {
-                value.forEach(function (item) {
-                    sum += item[selector] * parseInt( $(`[data-product-id="${item["id"]}"] input`).val() );
-                });
-            }
-            catch (ex) {
-                console.log(ex+" for "+ value);
-            }
-            return sum;
-        };
-
-        $scope.CalCulator = function ()
-        {
-            CalCulator();
-        }
-
-        $scope.CreateFactor = function ()
-        {
-
-            if ($('#ordersListTable tbody tr').length === 0) {
-                toastr.warning('باید حداقل یک کالا در فاکتور موجود باشد');
-                event.preventDefault();
-                return;
-            }
-
-            if (!@User.Identity.IsAuthenticated.ToString().ToLower()) {
-                //$('#authenticationModal').modal();
-                location.href = "@loginPath".replace("amp;","");
-                event.preventDefault();
-                return;
-            }
-            var lst = [];
-            $("#ordersListTable tbody tr").each(function () {
-                var productId = $(this).attr('data-product-id');
-                var count = $(this).find('input#count').val();
-                lst.push({ productId: productId, count: count });
-            });
-
-            localStorage.setItem('order_list', JSON.stringify(lst));
-
-
-
-        }
-
-    });
+        });
 
 
     </script>
