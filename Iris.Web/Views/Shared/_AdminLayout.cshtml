@@ -96,12 +96,12 @@
                     </li>
                     <li>
                         <a href="@Url.Action(MVC.Product.Admin.ActionNames.Index, MVC.Product.Admin.Name, new {area = MVC.Product.Name})">
-                            <i class="fa fa-barcode"></i> <span>کالاها</span>
+                            <i class="fa fa-th-list"></i> <span>کالاها</span>
                         </a>
                     </li>
                     <li>
                         <a href="@Url.Action(MVC.ShoppingCart.Admin.ActionNames.Index, MVC.ShoppingCart.Admin.Name, new {area = MVC.ShoppingCart.Name})">
-                            <i class="fa fa-barcode"></i> <span>سفارشات</span>
+                            <i class="fa fa-shopping-cart"></i> <span>سفارشات</span>
                         </a>
                     </li>
                     <li>
@@ -128,6 +128,11 @@
                     <li>
                         <a href="@Url.Action(MVC.PostCategory.Admin.ActionNames.Index, MVC.PostCategory.Admin.Name, new {area = MVC.PostCategory.Name})">
                             <i class="fa fa-tag"></i> <span>گروه‌های پست</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "Admin", new {area = "propertytype"})">
+                            <i class="fa fa-check-square-o"></i> <span>ویژگی های کالا</span>
                         </a>
                     </li>
                     <li>

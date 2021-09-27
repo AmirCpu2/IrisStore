@@ -139,6 +139,10 @@
     <Compile Include="PostDataGridViewModel.cs" />
     <Compile Include="AddPostViewModel.cs" />
     <Compile Include="PostViewModel.cs" />
+    <Compile Include="PropertyDataGridViewModel.cs" />
+    <Compile Include="PropertyTypeDataGridViewModel.cs" />
+    <Compile Include="PropertyTypeViewModel.cs" />
+    <Compile Include="PropertyViewModel.cs" />
     <Compile Include="SiteMapLinkViewModel.cs" />
     <Compile Include="SlideShowDataGridViewModel.cs" />
     <Compile Include="ProductPageViewModel.cs" />

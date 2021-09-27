@@ -15,10 +15,10 @@ namespace Iris.Web
         {
             var types =
               Assembly
-   .GetExecutingAssembly()
-   .GetReferencedAssemblies()
-   .Select(Assembly.Load)
-   .SelectMany(x => x.GetExportedTypes()).ToList();
+                .GetExecutingAssembly()
+                .GetReferencedAssemblies()
+                .Select(Assembly.Load)
+                .SelectMany(x => x.GetExportedTypes()).ToList();
 
 
             LoadStandardMappings(types);

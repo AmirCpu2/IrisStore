@@ -140,6 +140,8 @@
     <Compile Include="Contracts\IPostCategoryService.cs" />
     <Compile Include="Contracts\IPostService.cs" />
     <Compile Include="Contracts\IProductService.cs" />
+    <Compile Include="Contracts\IPropertyService.cs" />
+    <Compile Include="Contracts\IPropertyTypeService.cs" />
     <Compile Include="Contracts\IShoppingCartService.cs" />
     <Compile Include="Contracts\ISiteMapService.cs" />
     <Compile Include="Contracts\ISiteSettingService.cs" />
@@ -157,6 +159,8 @@
     <Compile Include="PageService.cs" />
     <Compile Include="ProductService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyService.cs" />
+    <Compile Include="PropertyTypeService.cs" />
     <Compile Include="ShoppingCartService.cs" />
     <Compile Include="SiteMapService.cs" />
     <Compile Include="SiteSettingService.cs" />

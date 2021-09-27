@@ -12,7 +12,7 @@ namespace Iris.DomainClasses.Configurations
         public PropertyTypeConfig()
         {
             Property(e => e.IsEdited)
-                .IsFixedLength();
+                .IsRequired();
 
             HasMany(e => e.Properties)
                 .WithRequired(e => e.PropertyType)

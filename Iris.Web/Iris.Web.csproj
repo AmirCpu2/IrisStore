@@ -15,7 +15,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Iris.Web</RootNamespace>
     <AssemblyName>Iris.Web</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
@@ -26,6 +26,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <Use64BitIISExpress />
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -152,6 +153,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.SqlServer.Compact.4.0.8876.1\lib\net40\System.Data.SqlServerCe.dll</HintPath>
       <Private>True</Private>
@@ -163,13 +165,25 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
@@ -182,36 +196,16 @@
     </Reference>
     <Reference Include="System.Net.Http.WebRequest">
     </Reference>
-    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web.Optimization">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
-    </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="T4MVCExtensions, Version=3.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
-      <HintPath>..\packages\T4MVCExtensions.3.16.5\lib\net40\T4MVCExtensions.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\T4MVCExtensions.4.2.4\lib\net45\T4MVCExtensions.dll</HintPath>
     </Reference>
     <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
       <HintPath>..\packages\WebActivatorEx.2.0.5\lib\net40\WebActivatorEx.dll</HintPath>
@@ -227,16 +221,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccountController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
     <Compile Include="ActionType.cs" />
-    <Compile Include="AdminPanel.DashboardController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AdminPanel.SharedController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
     <Compile Include="App_Start\AutoMapperConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -256,6 +241,8 @@
     <Compile Include="Areas\Product\Controllers\UploadController.cs" />
     <Compile Include="Areas\Product\Controllers\AdminController.cs" />
     <Compile Include="Areas\Product\Controllers\HomeController.cs" />
+    <Compile Include="Areas\PropertyType\Controllers\AdminController.cs" />
+    <Compile Include="Areas\Property\Controllers\AdminController.cs" />
     <Compile Include="Areas\ShoppingCart\Controllers\AdminController.cs" />
     <Compile Include="Areas\ShoppingCart\Controllers\HomeController.cs" />
     <Compile Include="Areas\SiteSetting\Controllers\AdminController.cs" />
@@ -270,7 +257,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AccountController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LuceneIndexingController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
@@ -290,118 +279,53 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CookieHelper.cs" />
-    <Compile Include="HomeController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ItemType.ItemManagmentController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ItemType.SharedController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="LuceneIndexingController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
     <Compile Include="ModelBinders\DecmialModelBinder.cs" />
     <Compile Include="ModelBinders\PersianDateModelBinder.cs" />
-    <Compile Include="Page.AdminController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Post.AdminController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Post.HomeController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Post.SharedController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Post.WidgetsController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PostCategory.AdminController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PostCategory.SharedController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Product.AdminController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Product.HomeController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Product.SearchProductController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Product.SharedController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Product.UploadController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Product.WidgetController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ProductCategory.AdminController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ProductCategory.SharedController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SearchController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SharedController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ShoppingCart.AdminController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ShoppingCart.HomeController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ShoppingCart.SharedController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SiteMapController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
     <Compile Include="SiteMap\SiteMapResult.cs" />
-    <Compile Include="SiteSetting.AdminController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SiteSetting.SharedController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SlideShow.AdminController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SlideShow.SharedController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SlideShow.WidgetController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
     <Compile Include="Startup.cs" />
-    <Compile Include="T4MVC.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TestController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="User.AdminController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="User.HomeController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="User.SharedController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
+    <Compile Include="T4Models\AccountController.generated.cs" />
+    <Compile Include="T4Models\AdminPanel.DashboardController.generated.cs" />
+    <Compile Include="T4Models\AdminPanel.SharedController.generated.cs" />
+    <Compile Include="T4Models\HomeController.generated.cs" />
+    <Compile Include="T4Models\Items.AdminController.generated.cs" />
+    <Compile Include="T4Models\Items.SharedController.generated.cs" />
+    <Compile Include="T4Models\ItemType.AdminController.generated.cs" />
+    <Compile Include="T4Models\ItemType.ItemManagmentController.generated.cs" />
+    <Compile Include="T4Models\ItemType.SharedController.generated.cs" />
+    <Compile Include="T4Models\LuceneIndexingController.generated.cs" />
+    <Compile Include="T4Models\Page.AdminController.generated.cs" />
+    <Compile Include="T4Models\Post.AdminController.generated.cs" />
+    <Compile Include="T4Models\Post.HomeController.generated.cs" />
+    <Compile Include="T4Models\Post.SharedController.generated.cs" />
+    <Compile Include="T4Models\Post.WidgetsController.generated.cs" />
+    <Compile Include="T4Models\PostCategory.AdminController.generated.cs" />
+    <Compile Include="T4Models\PostCategory.SharedController.generated.cs" />
+    <Compile Include="T4Models\Product.AdminController.generated.cs" />
+    <Compile Include="T4Models\Product.HomeController.generated.cs" />
+    <Compile Include="T4Models\Product.SearchProductController.generated.cs" />
+    <Compile Include="T4Models\Product.SharedController.generated.cs" />
+    <Compile Include="T4Models\Product.UploadController.generated.cs" />
+    <Compile Include="T4Models\Product.WidgetController.generated.cs" />
+    <Compile Include="T4Models\ProductCategory.AdminController.generated.cs" />
+    <Compile Include="T4Models\ProductCategory.SharedController.generated.cs" />
+    <Compile Include="T4Models\SearchController.generated.cs" />
+    <Compile Include="T4Models\SharedController.generated.cs" />
+    <Compile Include="T4Models\ShoppingCart.AdminController.generated.cs" />
+    <Compile Include="T4Models\ShoppingCart.HomeController.generated.cs" />
+    <Compile Include="T4Models\ShoppingCart.SharedController.generated.cs" />
+    <Compile Include="T4Models\SiteMapController.generated.cs" />
+    <Compile Include="T4Models\SiteSetting.AdminController.generated.cs" />
+    <Compile Include="T4Models\SiteSetting.SharedController.generated.cs" />
+    <Compile Include="T4Models\SlideShow.AdminController.generated.cs" />
+    <Compile Include="T4Models\SlideShow.SharedController.generated.cs" />
+    <Compile Include="T4Models\SlideShow.WidgetController.generated.cs" />
+    <Compile Include="T4Models\T4MVC.cs" />
+    <Compile Include="T4Models\TestController.generated.cs" />
+    <Compile Include="T4Models\User.AdminController.generated.cs" />
+    <Compile Include="T4Models\User.HomeController.generated.cs" />
+    <Compile Include="T4Models\User.SharedController.generated.cs" />
+    <Compile Include="T4Models\WidgetsController.generated.cs" />
     <Compile Include="ViewModels\AutoCompleteSearchViewModel.cs" />
     <Compile Include="ViewModels\ContainerSliderWidgetViewModel.cs" />
     <Compile Include="ViewModels\Identity\AddPhoneNumberViewModel.cs" />
@@ -428,9 +352,6 @@
     <Compile Include="WebTasks\ReIndexLuceneTask.cs" />
     <Compile Include="WebTasks\CleanTempDirectoryTask.cs" />
     <Compile Include="WebTasks\ScheduledTasksRegistry.cs" />
-    <Compile Include="WidgetsController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="404.html" />
@@ -446,6 +367,11 @@
     <Content Include="Areas\ShoppingCart\Views\Home\DetailFactor.cshtml" />
     <Content Include="Areas\User\Views\Shared\_ProfileLayout.cshtml" />
     <Content Include="Areas\Favorite\Views\Home\MyProdcts.cshtml" />
+    <Content Include="Areas\Property\Views\web.config" />
+    <Content Include="Areas\Property\Views\Admin\Index.cshtml" />
+    <Content Include="Areas\PropertyType\Views\web.config" />
+    <Content Include="Areas\PropertyType\Views\Admin\Index.cshtml" />
+    <Content Include="Areas\Property\Views\Admin\GetDestinationList.cshtml" />
     <None Include="Connected Services\Zarinpal\configuration91.svcinfo" />
     <None Include="Connected Services\Zarinpal\configuration.svcinfo" />
     <Content Include="Connected Services\Zarinpal\Iris.Web.Zarinpal.GetUnverifiedTransactionsResponse.datasource">
@@ -2573,12 +2499,6 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
     <Content Include="Scripts\version.json" />
-    <None Include="T4MVC.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>T4MVC.cs</LastGenOutput>
-    </None>
-    <None Include="T4MVC.tt.hooks.t4" />
-    <None Include="T4MVC.tt.settings.xml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -2630,6 +2550,8 @@
     <Folder Include="Areas\Post\Views\Shared\" />
     <Folder Include="Areas\ProductCategory\Models\" />
     <Folder Include="Areas\ProductCategory\Views\Shared\" />
+    <Folder Include="Areas\PropertyType\Views\Shared\" />
+    <Folder Include="Areas\Property\Views\Shared\" />
     <Folder Include="Areas\SiteSetting\Models\" />
     <Folder Include="Areas\SiteSetting\Views\Shared\" />
     <Folder Include="Areas\SlideShow\Models\" />
@@ -2644,13 +2566,18 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\Zarinpal\" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\AutoMapperContracts\AutoMapperContracts.csproj">
       <Project>{1a273653-66a8-4221-a483-6861a85824ef}</Project>
       <Name>AutoMapperContracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\JqGridHelper\JqGridHelper.csproj">
-      <Project>{8db2207c-7fbc-4a5a-9585-e34104d50db9}</Project>
-      <Name>JqGridHelper</Name>
     </ProjectReference>
     <ProjectReference Include="..\Iris.DataLayer\Iris.DataLayer.csproj">
       <Project>{5740dfa0-cb79-492f-a711-5a7f3a6f5a05}</Project>
@@ -2672,19 +2599,14 @@
       <Project>{0d54e862-a1cb-4e9f-b7f7-f6e2360bcb05}</Project>
       <Name>Iris.ViewModels</Name>
     </ProjectReference>
+    <ProjectReference Include="..\JqGridHelper\JqGridHelper.csproj">
+      <Project>{8db2207c-7fbc-4a5a-9585-e34104d50db9}</Project>
+      <Name>JqGridHelper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Utilities\Utilities.csproj">
       <Project>{96d333f2-567a-4194-a9e5-650df27849ce}</Project>
       <Name>Utilities</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Connected Services\Zarinpal\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

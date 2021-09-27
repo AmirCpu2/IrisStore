@@ -25,13 +25,13 @@ namespace Iris.DomainClasses
         [StringLength(150)]
         public string NameFA { get; set; }
 
+        [Required]
         public bool IsArchive { get; set; }
 
         [Required]
-        [StringLength(10)]
-        public string IsEdited { get; set; }
+        public bool IsEdited { get; set; }
 
-        public DateTime EditDate { get; set; }
+        public DateTime? EditDate { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Property> Properties { get; set; }
