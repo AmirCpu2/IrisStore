@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -63,12 +64,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServerCompact, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.SqlServerCompact.6.1.3\lib\net45\EntityFramework.SqlServerCompact.dll</HintPath>
@@ -228,6 +227,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\StructuremapMvc.cs" />
     <Compile Include="Areas\AdminPanel\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\CommentManager\Controllers\AdminController.cs" />
+    <Compile Include="Areas\CommentManager\Controllers\HomeController.cs" />
     <Compile Include="Areas\Favorite\Controllers\HomeController.cs" />
     <Compile Include="Areas\Items\Controllers\AdminController.cs" />
     <Compile Include="Areas\ItemType\Controllers\AdminController.cs" />
@@ -238,6 +239,8 @@
     <Compile Include="Areas\Post\Controllers\AdminController.cs" />
     <Compile Include="Areas\Post\Controllers\HomeController.cs" />
     <Compile Include="Areas\ProductCategory\Controllers\AdminController.cs" />
+    <Compile Include="Areas\ProductProperty\Controllers\AdminController.cs" />
+    <Compile Include="Areas\ProductProperty\Controllers\HomeController.cs" />
     <Compile Include="Areas\Product\Controllers\UploadController.cs" />
     <Compile Include="Areas\Product\Controllers\AdminController.cs" />
     <Compile Include="Areas\Product\Controllers\HomeController.cs" />
@@ -371,7 +374,15 @@
     <Content Include="Areas\Property\Views\Admin\Index.cshtml" />
     <Content Include="Areas\PropertyType\Views\web.config" />
     <Content Include="Areas\PropertyType\Views\Admin\Index.cshtml" />
-    <Content Include="Areas\Property\Views\Admin\GetDestinationList.cshtml" />
+    <Content Include="Areas\Product\Views\Admin\Partials\_ProductPropertyTab.cshtml" />
+    <Content Include="Areas\ProductProperty\Views\web.config" />
+    <Content Include="Areas\ProductProperty\Views\Admin\Add.cshtml" />
+    <Content Include="Areas\ProductProperty\Views\widget\_DetailProperty.cshtml" />
+    <Content Include="Areas\ProductProperty\Views\widget\_IntroProperty.cshtml" />
+    <Content Include="Areas\CommentManager\Views\web.config" />
+    <Content Include="Areas\CommentManager\Views\Home\AddOrUpdate.cshtml" />
+    <Content Include="Areas\CommentManager\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\CommentManager\Views\Home\_showCommentsProduct.cshtml" />
     <None Include="Connected Services\Zarinpal\configuration91.svcinfo" />
     <None Include="Connected Services\Zarinpal\configuration.svcinfo" />
     <Content Include="Connected Services\Zarinpal\Iris.Web.Zarinpal.GetUnverifiedTransactionsResponse.datasource">
@@ -609,13 +620,17 @@
     <Content Include="Content\img\svg\user.svg" />
     <Content Include="Content\img\symbol-01.png" />
     <Content Include="Content\img\symbol-02.png" />
+    <Content Include="Content\img\theme\404.png" />
     <Content Include="Content\img\theme\404.svg" />
+    <Content Include="Content\img\theme\500.jpg" />
     <Content Include="Content\img\theme\ah-tab-overflow-menu.svg" />
     <Content Include="Content\img\theme\ajax-loader.gif" />
+    <Content Include="Content\img\theme\amazing-1.png" />
     <Content Include="Content\img\theme\amazing-title-mb.png" />
     <Content Include="Content\img\theme\amazing.svg" />
     <Content Include="Content\img\theme\avatar.png" />
     <Content Include="Content\img\theme\down.svg" />
+    <Content Include="Content\img\theme\mega-menu.jpg" />
     <Content Include="Content\img\theme\page-cover-faq.jpg" />
     <Content Include="Content\img\theme\page-cover.jpg" />
     <Content Include="Content\img\theme\search.png" />
@@ -2541,6 +2556,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\AdminPanel\Views\Shared\" />
+    <Folder Include="Areas\CommentManager\Views\Admin\" />
+    <Folder Include="Areas\CommentManager\Views\Shared\" />
     <Folder Include="Areas\Favorite\Views\Shared\" />
     <Folder Include="Areas\Items\Views\Shared\" />
     <Folder Include="Areas\ItemType\Views\Shared\" />
@@ -2550,6 +2567,7 @@
     <Folder Include="Areas\Post\Views\Shared\" />
     <Folder Include="Areas\ProductCategory\Models\" />
     <Folder Include="Areas\ProductCategory\Views\Shared\" />
+    <Folder Include="Areas\ProductProperty\Views\Home\" />
     <Folder Include="Areas\PropertyType\Views\Shared\" />
     <Folder Include="Areas\Property\Views\Shared\" />
     <Folder Include="Areas\SiteSetting\Models\" />
@@ -2560,6 +2578,7 @@
     <Folder Include="Scripts\RoxyFileManager\Uploads\Documents\" />
     <Folder Include="Scripts\RoxyFileManager\Uploads\FLV\" />
     <Folder Include="Scripts\RoxyFileManager\Uploads\Images\" />
+    <Folder Include="Views\Comment\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -2641,7 +2660,10 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
   </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

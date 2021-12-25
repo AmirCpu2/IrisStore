@@ -12,6 +12,7 @@ namespace Iris.ServiceLayer.Contracts
 
         Task<Iris.ViewModels.ListFactorViewModel> GetFactorById(int id);
 
+        bool UserBoughtProduct(int productId, int userId);
 
     }
 }

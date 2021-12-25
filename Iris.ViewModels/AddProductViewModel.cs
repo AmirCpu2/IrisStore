@@ -63,6 +63,8 @@ namespace Iris.ViewModels
         [Required(ErrorMessage = "لطفا یک نام تجاری را انتخاب کنید")]
         public int Brand { get; set; }
 
+        public string ProductPeropertys { get; set; }
+
         public List<AddProductImageViewModel> Images { get; set; }
         public List<AddProductPriceViewModel> Prices { get; set; }
         public List<AddProductDiscountViewModel> Discounts { get; set; }

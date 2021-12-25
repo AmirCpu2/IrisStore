@@ -6,6 +6,7 @@ using AutoMapper;
 using AutoMapperContracts;
 using Iris.DomainClasses;
 using Microsoft.AspNet.Identity;
+using Utilities;
 
 namespace Iris.ViewModels
 {
@@ -22,6 +23,7 @@ namespace Iris.ViewModels
         public IList<ProductPageImageViewModel> Images { get; set; }
         public IList<ProductPagePriceViewModel> Prices { get; set; }
         public IList<ProductPageDiscountViewModel> Discounts { get; set; }
+        public IList<ProductPropertyViewModel> ProductProperties { get; set; }
         public string SlugUrl { get; set; }
         public string MetaDescription { get; set; }
         public double? AverageRating { get; set; }
@@ -29,6 +31,14 @@ namespace Iris.ViewModels
         public int Count { get; set; }
         public IList<CategoryViewModel> Categories { get; set; }
         public int UserFavoriteCount { get; set; }
+        [Display(Name = "رنگ کالا")]
+        public ICollection<Item> ProductColors { get; set; } = new List<Item>();
+
+        [Display(Name = "فروشنده کالا")]
+        public Item Sellers { get; set; }
+
+        [Display(Name = "نام تجاری کالا")]
+        public Item Brand { get; set; }
 
 
         public void CreateMappings(IConfiguration configuration)
@@ -60,6 +70,16 @@ namespace Iris.ViewModels
                     opt => opt.MapFrom(product => product.Prices.OrderBy(price => price.Date)))
 
                 .ForMember(productModel => productModel.UserFavoriteCount, opt => opt.MapFrom(product => product.UserFavoriteProducts.Count()))
+
+                .ForMember(productModel => productModel.ProductColors, opt => opt.MapFrom(q => q.Items
+                    .Where(p => p.ItemType.NameEn.Equals(Enums.ItemType.ProductColor.ToString()))))
+
+                .ForMember(productModel => productModel.Sellers, opt => opt.MapFrom(q => q.Items
+                    .Where(p => p.ItemType.NameEn.Equals(Enums.ItemType.Seller.ToString())).FirstOrDefault()))
+
+                .ForMember(productModel => productModel.Brand, opt => opt.MapFrom(q => q.Items
+                    .Where(p => p.ItemType.NameEn.Equals(Enums.ItemType.Brand.ToString())).FirstOrDefault()))
+                //.ForMember(q=>q.ProductProperties, op=> op.MapFrom(p=>  p.ProductProperties.Select(Mapper.Map<ProductProperty, ProductPropertyViewModel>) ) )
 
                 ;//.ForMember(productModel => productModel.UserFavoriteCount, opt => opt.MapFrom(product => product.UserFavoriteProducts.Where(q=>q.User.UserName == User.Identity.Name));
 

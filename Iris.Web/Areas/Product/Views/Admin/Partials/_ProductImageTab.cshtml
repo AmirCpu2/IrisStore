@@ -42,10 +42,13 @@
 
 @if (Model.Images != null && Model.Images.Any())
 {
-    <input id="productImagesData" type="hidden" value="@JsonConvert.SerializeObject(Model.Images, new JsonSerializerSettings()
-{
-    ContractResolver = new CamelCasePropertyNamesContractResolver(),
-})" />
+    <input id="productImagesData" type="hidden" value="
+            @JsonConvert.SerializeObject(Model.Images, new JsonSerializerSettings()
+            {
+                ContractResolver = new CamelCasePropertyNamesContractResolver(),
+            })
+           " 
+           />
 }
 
 <script id="template-upload" type="text/x-tmpl">

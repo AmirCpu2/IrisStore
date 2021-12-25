@@ -428,6 +428,14 @@ namespace Iris.ServiceLayer
                                     .FirstOrDefaultAsync();
         }
 
+        public ProductPageViewModel GetProductPageNormal(int productId)
+        {
+            var selectedProduct = _products.Where(product => product.Id == productId)
+                        .ProjectTo<ProductPageViewModel>(null, _mappingEngine)
+                        .FirstOrDefault();
+
+            return selectedProduct;
+        }
     }
 
 }

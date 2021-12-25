@@ -1,0 +1,33 @@
+﻿
+@section styles{
+
+    
+}
+
+@{ 
+    var v = ViewBag.PropertyTypeSelectList;
+}
+
+<div class="row" ng-controller="PropertyController" ng-app="PropertyApp" g-cloak>
+    <div class="form-group">
+        @Html.Label("نوع ویژگی", new { @class = "col-md-2 control-label" })
+        <div class="col-md-5">
+          @*  @Html.DropDownList("PropertyTypeList", v as SelectList, new { @class = "form-control", style = "width: 100%;" })*@
+        </div>
+    </div>
+    <div>
+
+    </div>
+</div>
+
+@section scripts{
+    <script>
+
+        var app = angular.module("PropertyApp", []);
+
+        app.controller("PropertyController", function ($scope, $http) {
+
+        });
+
+    </script>
+}

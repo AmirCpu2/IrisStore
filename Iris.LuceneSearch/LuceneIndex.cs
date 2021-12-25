@@ -423,14 +423,14 @@ namespace Iris.LuceneSearch
                         where !string.IsNullOrEmpty(doc.Get(StronglyTyped.PropertyName<LuceneSearchModel>(x => x.ProductStatus)))
                         select new ProductWidgetViewModel
                         {
-                            Name = doc.Get(StronglyTyped.PropertyName<LuceneSearchModel>(x => x.Title)),
-                            Id = Convert.ToInt32(doc.Get(StronglyTyped.PropertyName<LuceneSearchModel>(x => x.ProductId))),
-                            Image = doc.Get(StronglyTyped.PropertyName<LuceneSearchModel>(x => x.Image)),
-                            SlugUrl = doc.Get(StronglyTyped.PropertyName<LuceneSearchModel>(x => x.SlugUrl)),
-                            ProductStatus = (ProductStatus)Enum.Parse(typeof(ProductStatus), doc.Get(StronglyTyped.PropertyName<LuceneSearchModel>(x => x.ProductStatus)), true),
-                            Category = doc.Get(StronglyTyped.PropertyName<LuceneSearchModel>(x => x.Category)),
-                            Price = decimal.Parse(doc.Get(StronglyTyped.PropertyName<LuceneSearchModel>(x => x.Price))),
-                            Discount = decimal.Parse(doc.Get(StronglyTyped.PropertyName<LuceneSearchModel>(x => x.Discount)))
+                            Name = doc.Get(StronglyTyped.PropertyName<LuceneSearchModel>(x => x.Title)??""),
+                            Id = Convert.ToInt32(doc.Get(StronglyTyped.PropertyName<LuceneSearchModel>(x => x.ProductId))??"0"),
+                            Image = doc.Get(StronglyTyped.PropertyName<LuceneSearchModel>(x => x.Image)??""),
+                            SlugUrl = doc.Get(StronglyTyped.PropertyName<LuceneSearchModel>(x => x.SlugUrl)??""),
+                            ProductStatus = (ProductStatus)Enum.Parse(typeof(ProductStatus), doc.Get(StronglyTyped.PropertyName<LuceneSearchModel>(x => x.ProductStatus))??"", true),
+                            Category = doc.Get(StronglyTyped.PropertyName<LuceneSearchModel>(x => x.Category)??""),
+                            Price = decimal.Parse(doc.Get(StronglyTyped.PropertyName<LuceneSearchModel>(x => x.Price))??"0"),
+                            Discount = decimal.Parse(doc.Get(StronglyTyped.PropertyName<LuceneSearchModel>(x => x.Discount))??"0")
 
                         }).ToList();
             }

@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -11,6 +12,8 @@
     <AssemblyName>Iris.DataLayer</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,12 +38,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServerCompact, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.SqlServerCompact.6.1.3\lib\net45\EntityFramework.SqlServerCompact.dll</HintPath>
@@ -73,42 +74,6 @@
     <Compile Include="ChangeTrackerExtenstions.cs" />
     <Compile Include="EfExtensionMethods.cs" />
     <Compile Include="IUnitOfWork.cs" />
-    <Compile Include="Migrations\202005211459002_ItemCollaction.cs" />
-    <Compile Include="Migrations\202005211459002_ItemCollaction.Designer.cs">
-      <DependentUpon>202005211459002_ItemCollaction.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202005250046465_ChangeProductItems.cs" />
-    <Compile Include="Migrations\202005250046465_ChangeProductItems.Designer.cs">
-      <DependentUpon>202005250046465_ChangeProductItems.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202005251226589_ChangeItemCollactionConfig.cs" />
-    <Compile Include="Migrations\202005251226589_ChangeItemCollactionConfig.Designer.cs">
-      <DependentUpon>202005251226589_ChangeItemCollactionConfig.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202109150934360_ChangeFactorParams.cs" />
-    <Compile Include="Migrations\202109150934360_ChangeFactorParams.Designer.cs">
-      <DependentUpon>202109150934360_ChangeFactorParams.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202109150955061_ChangeCustomUserModel.cs" />
-    <Compile Include="Migrations\202109150955061_ChangeCustomUserModel.Designer.cs">
-      <DependentUpon>202109150955061_ChangeCustomUserModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202109160907063_CreateNewTables.cs" />
-    <Compile Include="Migrations\202109160907063_CreateNewTables.Designer.cs">
-      <DependentUpon>202109160907063_CreateNewTables.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202109161028574_insertComment.cs" />
-    <Compile Include="Migrations\202109161028574_insertComment.Designer.cs">
-      <DependentUpon>202109161028574_insertComment.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202109171352151_insertImageFromUser.cs" />
-    <Compile Include="Migrations\202109171352151_insertImageFromUser.Designer.cs">
-      <DependentUpon>202109171352151_insertImageFromUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202109271843378_ChangePropertyTypeFilds.cs" />
-    <Compile Include="Migrations\202109271843378_ChangePropertyTypeFilds.Designer.cs">
-      <DependentUpon>202109271843378_ChangePropertyTypeFilds.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ApplicationDbConfiguration.cs" />
@@ -128,36 +93,15 @@
   <ItemGroup>
     <Content Include="readme.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202005211459002_ItemCollaction.resx">
-      <DependentUpon>202005211459002_ItemCollaction.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202005250046465_ChangeProductItems.resx">
-      <DependentUpon>202005250046465_ChangeProductItems.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202005251226589_ChangeItemCollactionConfig.resx">
-      <DependentUpon>202005251226589_ChangeItemCollactionConfig.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202109150934360_ChangeFactorParams.resx">
-      <DependentUpon>202109150934360_ChangeFactorParams.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202109150955061_ChangeCustomUserModel.resx">
-      <DependentUpon>202109150955061_ChangeCustomUserModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202109160907063_CreateNewTables.resx">
-      <DependentUpon>202109160907063_CreateNewTables.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202109161028574_insertComment.resx">
-      <DependentUpon>202109161028574_insertComment.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202109171352151_insertImageFromUser.resx">
-      <DependentUpon>202109171352151_insertImageFromUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202109271843378_ChangePropertyTypeFilds.resx">
-      <DependentUpon>202109271843378_ChangePropertyTypeFilds.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -21,12 +21,6 @@ namespace Iris.ViewModels
         [DisplayName("نام فارسی")]
         public string NameFA { get; set; }
 
-        [DisplayName("ترتیب")]
-        public int? SortingPriority { get; set; }
-
-        [DisplayName("نمایش در اینترو محصول")]
-        public bool ShowInIntro { get; set; }
-
         [DisplayName("گروه اصلی")]
         public virtual PropertyType PropertyType { get; set; }
 
@@ -35,7 +29,7 @@ namespace Iris.ViewModels
 
         [DisplayName("مشخصه گروه اصلی")]
         public int PropertyTypeId { get; set; }
-
+        
         public void CreateMappings(IConfiguration configuration)
         {
             configuration.CreateMap<Property, PropertyViewModel>()

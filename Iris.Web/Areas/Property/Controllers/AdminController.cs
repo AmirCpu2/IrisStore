@@ -22,6 +22,7 @@ namespace Iris.Web.Areas.Property.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IPropertyService _propertyService;
         private readonly IPropertyTypeService _propertyTypeService;
+        
         private readonly IMappingEngine _mappingEngine;
 
         public AdminController(IUnitOfWork unitOfWork, IPropertyService propertyService, IPropertyTypeService propertyTypeService, IMappingEngine mappingEngine)
@@ -76,8 +77,6 @@ namespace Iris.Web.Areas.Property.Controllers
                         property.NameEN,
                         property.NameFA,
                         property.PropertyTypeFA,
-                        property.ShowInIntro?"بله":"خیر",
-                        property.SortingPriority,
                     }
                 })).ToList()
             };
@@ -118,12 +117,8 @@ namespace Iris.Web.Areas.Property.Controllers
             return Json("ok");
         }
 
-        [Route("GetDestinationList")]
+        
 
-        public virtual ActionResult GetDestinationList(int? PropertyTypeId)
-        {
-            return View();
-        }
 
     }
 }

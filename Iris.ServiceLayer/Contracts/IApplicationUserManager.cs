@@ -570,5 +570,7 @@ namespace Iris.ServiceLayer.Contracts
 
         Task<DataGridViewModel<UserDataGridViewModel>> GetDataGridSource(string orderBy, JqGridRequest request, NameValueCollection form,
             DateTimeType dateTimeType, int page, int pageSize);
+
+        string GetFullNameById(int userId);
     }
 }

@@ -62,6 +62,13 @@ namespace Iris.ServiceLayer
         {
             return _users.Find(userId);
         }
+        
+        public string GetFullNameById(int userId)
+        {
+            var userModel = _users.FirstOrDefault(q => q.Id == userId);
+
+            return userModel.FirstName + " " + userModel.LastName;
+        }
 
         public ApplicationUser FindByName(string username)
         {

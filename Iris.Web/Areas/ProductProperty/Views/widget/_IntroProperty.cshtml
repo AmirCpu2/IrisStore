@@ -1,0 +1,28 @@
+﻿@model Iris.ViewModels.ProductPageViewModel
+
+@{ 
+    var open = Model.ProductProperties.Where(q=> q.ShowInIntro == true).Take(3);
+    var close = Model.ProductProperties.Where(q=> q.ShowInIntro == false).Skip(3);
+}
+
+<div class="product-params dt-sl">
+    <ul data-title="ویژگی‌های محصول">
+        
+        @foreach (var item in Model.ProductProperties)
+        {
+            <li>
+                <span>@item.Property.NameFA: </span>
+                <span> @item.Value </span>
+            </li>
+        }
+
+    </ul>
+    <div class="sum-more">
+        <span class="show-more btn-link-border">
+            + موارد بیشتر
+        </span>
+        <span class="show-less btn-link-border">
+            - بستن
+        </span>
+    </div>
+</div>

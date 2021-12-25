@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Iris.DomainClasses
 {
-    public partial class Property
+    public partial class Property 
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Property()
         {
-            Products = new HashSet<Product>();
+            ProductProperties = new HashSet<ProductProperty>();
         }
 
         public int Id { get; set; }
@@ -25,15 +25,11 @@ namespace Iris.DomainClasses
         [StringLength(250)]
         public string NameFA { get; set; }
 
-        public int? SortingPriority { get; set; }
-
         public int PropertyTypeId { get; set; }
-
-        public bool ShowInIntro { get; set; }
 
         public virtual PropertyType PropertyType { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Product> Products { get; set; }
+
+        public virtual ICollection<ProductProperty> ProductProperties { get; set; }
     }
 }

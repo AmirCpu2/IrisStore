@@ -61,6 +61,9 @@
 <section class="content">
     <form id="frmAddProduct" class="form-horizontal" action="@Url.Action(MVC.Product.Admin.ActionNames.AddProduct, MVC.Product.Admin.Name, new {area = MVC.Product.Name})" method="POST">
         @Html.HiddenFor(m => m.Id)
+        
+        <input hidden id="ProductPeropertys" name="ProductPeropertys" value="" />
+
         <div class="box box-info">
             <div class="box-header with-border">
                 <div class="row">
@@ -102,6 +105,9 @@
                                     <a href="#productImageTab" data-toggle="tab"><i class="fa fa-picture-o fa-lg fa-fw"></i> تصاویر</a>
                                 </li>
                                 <li>
+                                    <a href="#productPropertyTab" data-toggle="tab"><i class="fa fa-check-square-o fa-lg fa-fw"></i> ویژگی ها</a>
+                                </li>
+                                <li>
                                     <a href="#metaTagsTab" data-toggle="tab"><i class="fa fa-google fa-lg fa-fw"></i> موتورهای جستجو</a>
                                 </li>
                             </ul>
@@ -127,6 +133,11 @@
                                         }
                                     </div>
                                 }
+                                <div class="tab-pane animated @tabsEffect" id="productPropertyTab">
+                                    @{
+                                        Html.RenderAction("Add", "Admin", new { @area = "ProductProperty", @productId = Model.Id });
+                                    }
+                                </div>
                                 <div class="tab-pane animated @tabsEffect" id="productImageTab">
                                     @{
                                         Html.RenderPartial(MVC.Product.Admin.Views.Partials._ProductImageTab);
@@ -186,4 +197,41 @@
         });
 
     </script>
+    <script>
+        $(function () {
+
+            $("#sortable1, #sortable2").sortable({
+                connectWith: ".connectedSortable"
+            }).disableSelection();
+
+        });
+
+        $("#frmAddProduct").on("submit", function () {
+
+            var productPeropertysElement = $('[name*="property-"]');
+
+            if (productPeropertysElement.length > 0) {
+
+                var productPeropertys = [];
+
+                productPeropertysElement.each(function (index, element) {
+                    var propertyVal = element["value"];
+
+                    var propertyId = element["name"].replace("property-", "");
+
+                    productPeropertys.push({
+                        "PropertyId" : propertyId,
+                        "Value" : propertyVal
+                    });
+
+                });
+
+                $('#ProductPeropertys').val(JSON.stringify(productPeropertys));
+
+            }
+
+        });
+
+    </script>
+
 }

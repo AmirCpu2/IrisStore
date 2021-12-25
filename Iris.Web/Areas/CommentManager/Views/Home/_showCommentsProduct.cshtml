@@ -1,0 +1,199 @@
+﻿@model List<Iris.ViewModels.ShowCommentsProductViewModel>
+@{
+    Layout = null;
+
+    var CurrentUserIsCommenting = ((bool)ViewData["CurrentUserIsCommenting"]);
+
+    //AVG
+    var AVGDisigen = Model?.Average(q=> 20*q.Comment.DesignRate)??0;
+    var AVGWorthBuying = Model?.Average(q=> 20*q.Comment.WorthBuyingRate)??0;
+    var AVGConstructionQuality = Model?.Average(q=> 20*q.Comment.ConstructionQualityRate)??0;
+    var AVGEaseOfUse = Model?.Average(q=> 20*q.Comment.EaseOfUseRate)??0;
+    var AVGInnovation = Model?.Average(q=> 20*q.Comment.InnovationRate)??0;
+    var AVGFeatures = Model?.Average(q=> 20*q.Comment.FeaturesRate)??0;
+
+}
+
+
+
+<div class="row">
+    <div class="col-md-6 col-sm-12">
+        <ul class="content-expert-rating">
+            <li>
+                <div class="cell">طراحی و ظاهر</div>
+                <div class="cell">
+                    <div class="rating rating--general" data-rate-digit="عالی">
+                        <div class="rating-rate" data-rate-value="50%"
+                             style="width: @(AVGDisigen)%;"></div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="cell">ارزش خرید</div>
+                <div class="cell">
+                    <div class="rating rating--general" data-rate-digit="عالی">
+                        <div class="rating-rate" data-rate-value="100%"
+                             style="width: @(AVGWorthBuying)%;"></div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="cell">کیفیت ساخت</div>
+                <div class="cell">
+                    <div class="rating rating--general" data-rate-digit="عالی">
+                        <div class="rating-rate" data-rate-value="100%"
+                             style="width: @(AVGConstructionQuality)%;"></div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="cell">سهولت استفاده</div>
+                <div class="cell">
+                    <div class="rating rating--general" data-rate-digit="عالی">
+                        <div class="rating-rate" data-rate-value="100%"
+                             style="width: @(AVGEaseOfUse)%;"></div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="cell">نوآوری</div>
+                <div class="cell">
+                    <div class="rating rating--general" data-rate-digit="عالی">
+                        <div class="rating-rate" data-rate-value="100%"
+                             style="width: @(AVGInnovation)%;"></div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="cell">امکانات و قابلیت ها</div>
+                <div class="cell">
+                    <div class="rating rating--general" data-rate-digit="عالی">
+                        <div class="rating-rate" data-rate-value="100%"
+                             style="width: @(AVGFeatures)%;"></div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-6 col-sm-12">
+        <div class="comments-summary-note">
+            <span>
+                شما هم می‌توانید در مورد این کالا نظر
+                بدهید.
+            </span>
+            <p>
+                برای ثبت نظر، لازم است ابتدا وارد حساب کاربری خود
+                شوید. اگر این محصول را قبلا از این فروشگاه خریده
+                باشید، نظر
+                شما به عنوان مالک محصول ثبت خواهد شد.
+            </p>
+            <div class="dt-sl mt-2">
+                <a href="@Url.Action("AddOrUpdate","Home", new { @area = "CommentManager", @productId = ViewData["ProductId"] })" class="btn-primary-cm btn-with-icon">
+                    <i class="mdi mdi-comment-text-outline"></i>
+
+
+                    @( CurrentUserIsCommenting ? "ویرایش نظر ثبت شده" : "افزودن نظر جدید" )
+
+
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="comments-area dt-sl">
+    <div class="section-title text-sm-title title-wide no-after-title-wide mb-0 dt-sl">
+        <h2>نظرات کاربران</h2>
+        <p class="count-comment">@Model.Count نظر</p>
+    </div>
+    <ol class="comment-list">
+        <!-- #comment-## -->
+
+        @foreach (var commentVM in Model)
+        {
+
+
+            <li>
+                <div class="comment-body">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-12">
+
+                            @if (commentVM.IsBuyer)
+                            {
+                                <div class="message-light message-light--purchased">
+                                    خریدار این محصول
+                                </div>
+
+                                <ul class="comments-user-shopping">
+                                    <li>
+                                        <div class="cell">
+                                            رنگ خریداری
+                                            شده:
+                                        </div>
+                                        <div class="cell color-cell">
+                                            <span class="shopping-color-value"
+                                                  style="background-color: @commentVM.ColorCode; border: 1px solid rgba(0, 0, 0, 0.25)"></span>@commentVM.ColorNameFa
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="cell">
+                                            خریداری شده
+                                            از:
+                                        </div>
+                                        <div class="cell seller-cell">
+                                            <span class="o-text-blue">@commentVM.SellerFa</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            }
+                            else
+                            {
+                                <div style="height:202px; width:210.75px"></div>
+
+                            }
+
+                            @if (commentVM.Comment.SuggestStatusEnum == Utilities.Enums.SuggestStatus.Yes)
+                            {
+                                <div class="message-light message-light--opinion-positive">
+                                    خرید این محصول را توصیه می‌کنم
+                                </div>
+                            }
+                            else if(commentVM.Comment.SuggestStatusEnum != Utilities.Enums.SuggestStatus.Nop)
+                            {
+                                <div class="message-light--opinion-negative">
+                                    خرید این محصول را توصیه نمی‌کنم
+                                </div>
+                            }
+                        </div>
+                        <div class="col-md-9 col-sm-12 comment-content">
+                            <div class="comment-title">
+                                بررسی @commentVM.ProductNameFa
+                            </div>
+                            <div class="comment-author">
+                                توسط @commentVM.UserFullName
+                                در تاریخ @commentVM.Comment.CreateDateFa
+                                ثبت شده است
+                            </div>
+
+                            <p>@commentVM.Comment.Text</p>
+
+                            @*<div class="footer">
+                                <div class="comments-likes">
+                                    آیا این نظر برایتان مفید بود؟
+                                    <button class="btn-like" data-counter="۱۱">
+                                        بله
+                                    </button>
+                                    <button class="btn-like" data-counter="۶">
+                                        خیر
+                                    </button>
+                                </div>
+                            </div>*@
+                        </div>
+                    </div>
+                </div>
+            </li>
+        }
+
+
+    </ol>
+</div>

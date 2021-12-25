@@ -95,5 +95,19 @@ namespace Iris.ServiceLayer
         {
             throw new NotImplementedException();
         }
+
+        public async Task<IList<PropertyTypeViewModel>> AutoComplitPropertyType(int? productId, string searche)
+        {
+            var query = _PropertyType.AsQueryable();
+            var PropertyTypes = query.Where(q => q.NameFA.Contains(searche));
+           return await PropertyTypes.ProjectTo<PropertyTypeViewModel>(null, _mappingEngine).ToListAsync();
+
+        }
+
+        public IList<PropertyTypeViewModel> GetAllNormal()
+        {
+            return _PropertyType.AsQueryable().ProjectTo<PropertyTypeViewModel>(null, _mappingEngine)
+                .ToList();
+        }
     }
 }

@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Iris.DomainClasses.Configurations
 {
-    public class ProductQuestionAnswerConfig : EntityTypeConfiguration<ProductQuestionAnswer>
-    {
-        public ProductQuestionAnswerConfig()
-        {
-            HasOptional(e => e.Comment)
-                .WithRequired(e => e.ProductQuestionAnswer);
+    //public class ProductQuestionAnswerConfig : EntityTypeConfiguration<ProductQuestionAnswer>
+    //{
+    //    public ProductQuestionAnswerConfig()
+    //    {
+    //        //HasOptional(e => e.Comment)
+    //        //    .WithRequired(e => e.ProductQuestionAnswer);
 
-        }
-    }
+    //    }
+    //}
 }

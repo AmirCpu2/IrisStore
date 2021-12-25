@@ -21,12 +21,6 @@ namespace Iris.ViewModels
         [DisplayName("نام فارسی")]
         public string NameFA { get; set; }
 
-        [DisplayName("ترتیب")]
-        public int? SortingPriority { get; set; }
-
-        [DisplayName("نمایش در اینترو محصول")]
-        public bool ShowInIntro { get; set; }
-
         [DisplayName("گروه اصلی")]
         public string PropertyTypeFA { get; set; }
 

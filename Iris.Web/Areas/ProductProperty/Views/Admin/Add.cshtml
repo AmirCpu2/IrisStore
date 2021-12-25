@@ -1,0 +1,57 @@
+﻿
+<div class="clearfix" ng-controller="PropertyController" ng-app="PropertyApp" g-cloak>
+    <div class="form-group">
+        @Html.Label("نوع ویژگی", new { @class = "col-md-2 control-label" })
+        <div class="col-md-5">
+            @Html.DropDownList("PropertyTypeList", ViewData["PropertyTypeSelectList"] as SelectList, new { @class = "form-control", style = "width: 100%;"})
+        </div>
+    </div>
+    <div>
+        <div class="form-group" ng-repeat="ProductProprty in ProductProprtyList">
+            <label class="col-md-2 control-label">{{ProductProprty.property.nameFA}}</label>
+            <div class="col-md-5">
+                <input name="property-{{ProductProprty.property.id}}" class="form-control text-center property" value="{{ProductProprty.value}}" placeholder="مقدار را وارد کنید" />
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+
+    var app = angular.module("PropertyApp", []);
+    app.controller("PropertyController", function ($scope, $http) {
+
+        $scope.ProprtyTypeId = $("#PropertyTypeList").val();
+        $scope.ProductProprtyList = [{
+            property: {
+                id: 1,
+                nameEN: "tol",
+                nameFA: "طول"
+            }
+        }];
+
+        function getProperty() {
+            var url = `http://localhost/ProductProperty-Admin/GetProductPropertyList/?PropertyTypeId=${$scope.ProprtyTypeId}&productId=@(ViewData["productId"])`;
+
+            $.getJSON(
+                url,
+                function (ProductProprtyList) {
+                    $scope.ProductProprtyList = (ProductProprtyList);
+                    $scope.$apply();
+                }
+            );
+        }
+
+        getProperty();
+
+        $("#PropertyTypeList").on("change", function () {
+            $scope.ProductProprtyList = getProperty();
+        });
+    });
+
+
+
+
+</script>

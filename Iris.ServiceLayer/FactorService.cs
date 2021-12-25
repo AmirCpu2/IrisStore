@@ -16,6 +16,7 @@ namespace Iris.ServiceLayer
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMappingEngine _mappingEngine;
         private readonly IDbSet<Factor> _Factor;
+        private readonly IDbSet<FactorProduct> _FactorProduct;
         private readonly IDbSet<ApplicationUser> _userFavoriteProduct;
 
         public FactorService(IUnitOfWork unitOfWork, IMappingEngine mappingEngine)
@@ -23,6 +24,7 @@ namespace Iris.ServiceLayer
             _unitOfWork = unitOfWork;
             _mappingEngine = mappingEngine;
             _Factor = unitOfWork.Set<Factor>();
+            _FactorProduct = unitOfWork.Set<FactorProduct>();
             _userFavoriteProduct = unitOfWork.Set<ApplicationUser>();
         }
 
@@ -40,6 +42,13 @@ namespace Iris.ServiceLayer
             var factor = await _Factor.Where(q => q.Id.Equals(id)).Include(q=>q.Products).FirstOrDefaultAsync();
 
             return Mapper.Map<Iris.ViewModels.ListFactorViewModel>(factor);
+        }
+
+        public bool UserBoughtProduct(int productId, int userId)
+        {
+            var factorSttatus = _FactorProduct.Include(q=> q.Factor).Where(q => q.ProductId.Equals(productId) && q.Factor.UserId == userId).Any();
+
+            return factorSttatus;
         }
     }
 }

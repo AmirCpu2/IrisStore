@@ -93,7 +93,7 @@
                 //url access method type
                 mtype: 'POST',
                 //columns names
-                colNames: ['شماره', 'نام انگیسی', "نام فارسی", "گروه اصلی", "نمایش در اینترو محصول", "ترتیب", "عملیات"],
+                colNames: ['شماره', 'نام انگیسی', "نام فارسی", "گروه اصلی", "عملیات"],
                 //columns model
                 colModel: [
                     {
@@ -177,75 +177,6 @@
                                 if (value.length < 3 || value.length > 40)
                                     return [false, colname + " باید بین 3 تا 40 حرف باشد"];
                                 else
-                                    return [true, ""];
-                            }
-                        }
-                    },
-                     {
-                        name: '@(StronglyTyped.PropertyName<PropertyDataGridViewModel>(x => x.ShowInIntro))',
-                        index: '@(StronglyTyped.PropertyName<PropertyDataGridViewModel>(x => x.ShowInIntro))',
-                        align: 'center',
-                        search: true,
-                        width: 25,
-                        stype: 'select',
-                         editable: true,
-                         editoptions: {
-                             value: { "false": "خیر", "true": "بله" }
-                         },
-                        edittype: 'select',
-                         searchoptions: {
-                             dataUrl: `@Url.Action("GetDestinationList")`,
-                             buildSelect: function (data) {
-                                 //var s = "<select>", i, l, item;
-                                 //if (data && data.length) {
-                                 //    for (i = 0, l = data.length; i < l; i++) {
-                                 //        item = data [i];
-                                 //        s += '<option value="' + item + '">' + item + '</option>';
-                                 //    }
-                                 //}
-                                 return data;
-                             }
-                         }
-                        //editoptions: {
-                        //    maxlength: 40
-                        //},
-                        //editrules: {
-                        //    required: false,
-                        //    custom: true,
-                        //    custom_func: function (value, colname) {
-                        //        //if (!value)
-                        //        //    return [false, "لطفا نامی را وارد کنید"];
-
-                        //        //if (value.length < 3 || value.length > 40)
-                        //        //    return [false, colname + " باید بین 3 تا 40 حرف باشد"];
-                        //        //else
-                        //            return [true, ""];
-                        //    }
-                        //}
-                    },
-                    {
-                        name: '@(StronglyTyped.PropertyName<PropertyDataGridViewModel>(x => x.SortingPriority))',
-                        index: '@(StronglyTyped.PropertyName<PropertyDataGridViewModel>(x => x.SortingPriority))',
-                        align: 'center',
-                        search: true,
-                        width: 25,
-                        stype: 'number',
-                        number: true,
-                        editable: true,
-                        edittype: 'text',
-                        editoptions: {
-                            maxlength: 40
-                        },
-                        editrules: {
-                            required: false,
-                            custom: true,
-                            custom_func: function (value, colname) {
-                                //if (!value)
-                                //    return [false, "لطفا نامی را وارد کنید"];
-
-                                //if (value.length < 3 || value.length > 40)
-                                //    return [false, colname + " باید بین 3 تا 40 حرف باشد"];
-                                //else
                                     return [true, ""];
                             }
                         }

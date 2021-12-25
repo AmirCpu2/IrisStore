@@ -22,11 +22,11 @@ namespace Iris.DomainClasses
             Discounts = new HashSet<ProductDiscount>();
             Categories = new HashSet<Category>();
             Images = new HashSet<ProductImage>();
-            ProductQuestionAnswers = new HashSet<ProductQuestionAnswer>();
+            //ProductQuestionAnswers = new HashSet<ProductQuestionAnswer>();
             UserFavoriteProducts = new HashSet<UserFavoriteProduct>();
             Colors = new HashSet<Color>();
-            Properties = new HashSet<Property>();
             Comments = new HashSet<Comment>();
+            ProductProperties = new HashSet<ProductProperty>();
         }
 
         public string Title { get; set; }
@@ -58,7 +58,7 @@ namespace Iris.DomainClasses
         public virtual ICollection<ProductPrice> ProductPrices { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductQuestionAnswer> ProductQuestionAnswers { get; set; }
+        //public virtual ICollection<ProductQuestionAnswer> ProductQuestionAnswers { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserFavoriteProduct> UserFavoriteProducts { get; set; }
@@ -67,8 +67,8 @@ namespace Iris.DomainClasses
         public virtual ICollection<Color> Colors { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Property> Properties { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductProperty> ProductProperties { get; set; }
     }
 }

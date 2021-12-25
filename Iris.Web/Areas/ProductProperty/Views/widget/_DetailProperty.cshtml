@@ -1,0 +1,36 @@
+﻿@model Iris.ViewModels.ProductPageViewModel
+
+<div class="ah-tab-content params dt-sl">
+    <div class="section-title text-sm-title title-wide no-after-title-wide mb-0 dt-sl">
+        <h2>مشخصات فنی</h2>
+    </div>
+    <div class="product-title dt-sl mb-3">
+        <h1>
+            @Model.Name
+        </h1>
+    </div>
+
+    
+
+    <section>
+        <h3 class="params-title">@(Model?.ProductProperties?.FirstOrDefault()?.Property?.PropertyTypeFA??"")</h3>
+        <ul class="params-list">
+
+            @foreach(var ProductProperty in Model.ProductProperties.OrderBy(q=>q.DisplayOrder))
+            {
+                <li>
+                    <div class="params-list-key">
+                        <span class="d-block">@ProductProperty.Property.NameFA</span>
+                    </div>
+                    <div class="params-list-value">
+                        <span class="d-block">
+                            @ProductProperty.Value
+                        </span>
+                    </div>
+                </li>
+            }
+
+        </ul>
+    </section>
+    
+</div>

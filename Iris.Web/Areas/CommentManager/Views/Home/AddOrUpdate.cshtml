@@ -1,0 +1,339 @@
+﻿@model Iris.ViewModels.CommentViewModel
+
+
+@section styles
+{
+
+    <link rel="stylesheet" href="~/Content/css/vendor/bootstrap-slider.min.css">
+}
+
+<div class="container main-container">
+    <form class="px-5" id="CommentManager" action="@Url.Action("AddOrUpdate", "Home", new {area = "CommentManager"})" method="POST">
+        @Html.HiddenFor(model => model.ProductVM.Id)
+        @Html.HiddenFor(model => model.ProductId)
+        @Html.HiddenFor(model => model.TextEdit)
+        @Html.HiddenFor(model => model.SuggestStatus)
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.UserId)
+        @Html.HiddenFor(model => model.ProductVM.SlugUrl)
+
+        <!-- Start Product -->
+        <div class="dt-sn mb-5 dt-sl">
+            <div class="row">
+                <!-- Product Thumbnail-->
+                <div class="col-lg-4 col-md-6 pb-5">
+                    <div class="product-thumbnail text-center">
+                        <a href="~/product/@Model.ProductVM.Id/@(Model.ProductVM.SlugUrl)">
+                            <img src="@Model.ProductVM.Images.FirstOrDefault().Url"
+                                 class="img-fluid" alt="@Model.ProductVM.Name">
+                        </a>
+                    </div>
+                </div>
+                <!-- Product Info -->
+                <div class="col-lg-8 col-md-6 pb-5">
+                    <div class="product-info dt-sl">
+                        <div class="product-title dt-sl">
+                            <h1>
+                                @Model.ProductVM.Name
+                            </h1>
+                            <h3>@Model.ProductVM.Brand.NameFa</h3>
+                        </div>
+                        <div class="comments-product-attributes px-3">
+                            <div class="row">
+                                <div class="col-sm-6 col-12 mb-3">
+                                    <div class="comments-product-attributes-title">کیفیت ساخت</div>
+                                    <input id="ConstructionQualityRate"
+                                           name="ConstructionQualityRate"
+                                           type="text"
+                                           data-provide="slider"
+                                           data-slider-ticks="[1, 2, 3, 4, 5]"
+                                           data-slider-ticks-labels='["خیلی بد", "بد", "معمولی","خوب","عالی"]'
+                                           data-slider-min="1"
+                                           data-slider-max="5"
+                                           data-slider-step="1"
+                                           data-slider-value="@Model.ConstructionQualityRate"
+                                           data-slider-tooltip="hide" />
+                                </div>
+                                <div class="col-sm-6 col-12 mb-3">
+                                    <div class="comments-product-attributes-title">
+                                        ارزش خرید به نسبت قیمت
+                                    </div>
+                                    <input id="WorthBuyingRate"
+                                           name="WorthBuyingRate"
+                                           type="text"
+                                           data-provide="slider"
+                                           data-slider-ticks="[1, 2, 3, 4, 5]"
+                                           data-slider-ticks-labels='["خیلی بد", "بد", "معمولی","خوب","عالی"]'
+                                           data-slider-min="1"
+                                           data-slider-max="5"
+                                           data-slider-step="1"
+                                           data-slider-value="@Model.WorthBuyingRate"
+                                           data-slider-tooltip="hide" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6 col-12 mb-3">
+                                    <div class="comments-product-attributes-title">نوآوری</div>
+                                    <input id="InnovationRate"
+                                           name="InnovationRate"
+                                           type="text"
+                                           data-provide="slider"
+                                           data-slider-ticks="[1, 2, 3, 4, 5]"
+                                           data-slider-ticks-labels='["خیلی بد", "بد", "معمولی","خوب","عالی"]'
+                                           data-slider-min="1"
+                                           data-slider-max="5"
+                                           data-slider-step="1"
+                                           data-slider-value="@Model.InnovationRate"
+                                           data-slider-tooltip="hide" />
+                                </div>
+                                <div class="col-sm-6 col-12 mb-3">
+                                    <div class="comments-product-attributes-title">امکانات و قابلیت ها</div>
+                                    <input id="FeaturesRate"
+                                           name="FeaturesRate"
+                                           type="text"
+                                           data-provide="slider"
+                                           data-slider-ticks="[1, 2, 3, 4, 5]"
+                                           data-slider-ticks-labels='["خیلی بد", "بد", "معمولی","خوب","عالی"]'
+                                           data-slider-min="1"
+                                           data-slider-max="5"
+                                           data-slider-step="1"
+                                           data-slider-value="@Model.FeaturesRate"
+                                           data-slider-tooltip="hide" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6 col-12 mb-3">
+                                    <div class="comments-product-attributes-title">سهولت استفاده</div>
+                                    <input id="EaseOfUseRate"
+                                           name="EaseOfUseRate"
+                                           type="text"
+                                           data-provide="slider"
+                                           data-slider-ticks="[1, 2, 3, 4, 5]"
+                                           data-slider-ticks-labels='["خیلی بد", "بد", "معمولی","خوب","عالی"]'
+                                           data-slider-min="1"
+                                           data-slider-max="5"
+                                           data-slider-step="1"
+                                           data-slider-value="@Model.EaseOfUseRate"
+                                           data-slider-tooltip="hide" />
+                                </div>
+                                <div class="col-sm-6 col-12 mb-3">
+                                    <div class="comments-product-attributes-title">طراحی و ظاهر</div>
+                                    <input id="DesignRate"
+                                           name="DesignRate"
+                                           type="text"
+                                           data-provide="slider"
+                                           data-slider-ticks="[1, 2, 3, 4, 5]"
+                                           data-slider-ticks-labels='["خیلی بد", "بد", "معمولی","خوب","عالی"]'
+                                           data-slider-min="1"
+                                           data-slider-max="5"
+                                           data-slider-step="1"
+                                           data-slider-value="@Model.DesignRate"
+                                           data-slider-tooltip="hide" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row comments-add-col--content">
+                <div class="col-md-6 col-sm-12">
+                    <div class="form-ui">
+
+                        <div class="row" style="margin-right: 0px;">
+
+                            <div class="col-12 mt-5">
+                                <div class="form-row-title mb-2">
+                                    متن نظر شما (اجباری)
+                                    <span style="font-size:x-small">(ویرایش شده)</span>
+                                </div>
+                                <div class="form-row">
+                                    @*<textarea class="input-ui pr-2 pt-2" rows="5"
+                                        placeholder="متن خود را بنویسید"></textarea>*@
+
+                                    @if (Model.Status == (int)Utilities.Enums.CommentState.PendingForEdit)
+                                    {
+                                        @Html.TextAreaFor(model => model.Text, new { @class = "input-ui pr-2 pt-2", @rows = "5", @placeholder = "متن خود را بنویسید", @value= Model.TextEdit })
+                                        @Html.HiddenFor(model => model.TextEdit)
+                                    }
+                                    else
+                                    {
+                                        @Html.TextAreaFor(model => model.Text, new { @class = "input-ui pr-2 pt-2", @rows = "5", @placeholder = "متن خود را بنویسید" })
+                                    }
+
+                                </div>
+                            </div>
+                            <div class="col-12 mt-2 mb-2 px-0">
+                                <div class="product-offer-question">
+                                    <div class="section-title text-sm-title title-wide mb-1 no-after-title-wide">
+                                        <h2 class="font-weight-bold">
+                                            آیا خرید این محصول را به دوستانتان
+                                            پیشنهاد می کنید؟
+                                        </h2>
+                                    </div>
+                                    <div class="product-offer-question-option">
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" id="customRadio1" name="SuggestStatusChecked"
+                                                   class="custom-control-input" value="@((int)Utilities.Enums.SuggestStatus.Yes)"
+                                                   @( Model.SuggestStatusEnum == Utilities.Enums.SuggestStatus.Yes ? "checked" : "")>
+                                            <label class="custom-control-label" for="customRadio1">
+                                                پیشنهاد
+                                                می کنم
+                                            </label>
+                                        </div>
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" id="customRadio2" name="SuggestStatusChecked"
+                                                   class="custom-control-input" value="@((int)Utilities.Enums.SuggestStatus.No)"
+                                                   @( Model.SuggestStatusEnum == Utilities.Enums.SuggestStatus.No ? "checked" : "")>
+                                            <label class="custom-control-label"
+                                                   for="customRadio2">خیر،پیشنهاد نمی کنم</label>
+                                        </div>
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" id="customRadio3" name="SuggestStatusChecked"
+                                                   class="custom-control-input" value="@((int)Utilities.Enums.SuggestStatus.Nop)"
+                                                   @( Model.SuggestStatusEnum == Utilities.Enums.SuggestStatus.Nop ? "checked" : "")>
+                                            <label class="custom-control-label" for="customRadio3">
+                                                نظری
+                                                ندارم
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 px-0">
+                                <p class="d-block">
+                                    با “ثبت نظر” موافقت خود را با <a href="#"
+                                                                     class="border-bottom-dt" target="_blank">
+                                        قوانین
+                                        انتشار محتوا
+                                    </a> در این سایت اعلام می‌کنم.
+                                </p>
+                                <button class="btn btn btn-primary px-3">
+                                    @( Model.Id > 0 ? "بروز رسانی نظر" : "ثبت نظر")
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <h3>دیگران را با نوشتن نظرات خود، برای انتخاب این محصول راهنمایی کنید.</h3>
+                    <div class="desc-comment">
+                        <p>لطفا پیش از ارسال نظر، خلاصه قوانین زیر را مطالعه کنید:</p>
+                        <p>
+                            فارسی بنویسید و از کیبورد فارسی استفاده کنید. بهتر است از فضای خالی (Space)
+                            بیش‌از‌حدِ معمول، شکلک یا ایموجی استفاده نکنید و از کشیدن حروف یا کلمات با
+                            صفحه‌کلید بپرهیزید.
+                        </p>
+                        <p>
+                            نظرات خود را براساس تجربه و استفاده‌ی عملی و با دقت به نکات فنی ارسال کنید؛
+                            بدون
+                            تعصب به محصول خاص، مزایا و معایب را بازگو کنید و بهتر است از ارسال نظرات
+                            چندکلمه‌‌ای خودداری کنید.
+                        </p>
+                        <p>بهتر است در نظرات خود از تمرکز روی عناصر متغیر مثل قیمت، پرهیز کنید.</p>
+                        <p>
+                            به کاربران و سایر اشخاص احترام بگذارید. پیام‌هایی که شامل محتوای توهین‌آمیز و
+                            کلمات نامناسب باشند، حذف می‌شوند.
+                        </p>
+                        <p>
+                            از ارسال لینک‌های سایت‌های دیگر و ارایه‌ی اطلاعات شخصی خودتان مثل شماره تماس،
+                            ایمیل و آی‌دی شبکه‌های اجتماعی پرهیز کنید.
+                        </p>
+                        <p>
+                            با توجه به ساختار بخش نظرات، از پرسیدن سوال یا درخواست راهنمایی در این بخش
+                            خودداری کرده و سوالات خود را در بخش «پرسش و پاسخ» مطرح کنید.
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Product -->
+    </form>
+</div>
+
+
+@section scripts
+{
+    <script src="~/Scripts/js/vendor/bootstrap-slider.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var inputs = $('#advantage-input, #disadvantage-input');
+            var inputChangeCallback = function () {
+                var self = $(this);
+                if (self.val().trim().length > 0) {
+                    self.siblings('.js-icon-form-add').show();
+                } else {
+                    self.siblings('.js-icon-form-add').hide();
+                }
+            };
+            inputs.each(function () {
+                inputChangeCallback.bind(this)();
+                $(this).on('change keyup', inputChangeCallback.bind(this));
+            });
+            $("#advantages").delegate(".js-icon-form-add", 'click', function (e) {
+
+                var parent = $('.js-advantages-list');
+                if (parent.find(".js-advantage-item").length >= 5) {
+                    return;
+                }
+
+                var advantageInput = $('#advantage-input');
+
+                if (advantageInput.val().trim().length > 0) {
+                    parent.append(
+                        '<div class="ui-dynamic-label ui-dynamic-label--positive js-advantage-item">\n' +
+                        advantageInput.val() +
+                        '<button type="button" class="ui-dynamic-label-remove js-icon-form-remove"></button>\n' +
+                        '<input type="hidden" name="comment[advantages][]" value="' + advantageInput
+                            .val() + '">\n' +
+                        '</div>');
+
+                    advantageInput.val('').change();
+                    advantageInput.focus();
+                }
+
+            }).delegate(".js-icon-form-remove", 'click', function (e) {
+                $(this).parent('.js-advantage-item').remove();
+            });
+
+            $("#disadvantages").delegate(".js-icon-form-add", 'click', function (e) {
+
+                var parent = $('.js-disadvantages-list');
+                if (parent.find(".js-disadvantage-item").length >= 5) {
+                    return;
+                }
+
+                var disadvantageInput = $('#disadvantage-input');
+
+                if (disadvantageInput.val().trim().length > 0) {
+                    parent.append(
+                        '<div class="ui-dynamic-label ui-dynamic-label--negative js-disadvantage-item">\n' +
+                        disadvantageInput.val() +
+                        '<button type="button" class="ui-dynamic-label-remove js-icon-form-remove"></button>\n' +
+                        '<input type="hidden" name="comment[disadvantages][]" value="' +
+                        disadvantageInput.val() + '">\n' +
+                        '</div>');
+
+                    disadvantageInput.val('').change();
+                    disadvantageInput.focus();
+                }
+
+            }).delegate(".js-icon-form-remove", 'click', function (e) {
+                $(this).parent('.js-disadvantage-item').remove();
+            });
+        });
+    </script>
+
+    <script>
+        $(function () {
+            $("#CommentManager").on("submit", function () {
+                
+                $("[name='SuggestStatus']").val($("[name='SuggestStatusChecked']:checked").val());
+            });
+
+        });
+    </script>
+}
+

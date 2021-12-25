@@ -29,18 +29,19 @@ namespace Iris.DomainClasses.Configurations
 
             Property(entity => entity.SlugUrl).HasMaxLength(300);
 
-            HasMany(e => e.ProductQuestionAnswers)
+            HasMany(e => e.Comments)
                 .WithRequired(e => e.Product)
+                .HasForeignKey(e=> e.ProductId)
                 .WillCascadeOnDelete(false);
 
             HasMany(e => e.UserFavoriteProducts)
                 .WithRequired(e => e.Product)
                 .WillCascadeOnDelete(false);
 
-            HasMany(e => e.Properties)
-                .WithMany(e => e.Products)
-                .Map(m => m.ToTable("ProductProperty").MapLeftKey("ProductId").MapRightKey("PropertyId"));
-
+            HasMany(e => e.ProductProperties)
+                .WithRequired(e => e.Product)
+                .HasForeignKey(e => e.ProductId)
+                .WillCascadeOnDelete(false);
 
         }
     }

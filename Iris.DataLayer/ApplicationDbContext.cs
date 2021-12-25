@@ -30,11 +30,13 @@ namespace Iris.DataLayer
         //--
         public virtual DbSet<UserFavoritePost> UserFavoritePosts { get; set; }
         public virtual DbSet<UserFavoriteProduct> UserFavoriteProducts { get; set; }
-        public virtual DbSet<ProductQuestionAnswer> ProductQuestionAnswers { get; set; }
+        //public virtual DbSet<ProductQuestionAnswer> ProductQuestionAnswers { get; set; }
         public virtual DbSet<Property> Properties { get; set; }
         public virtual DbSet<PropertyType> PropertyTypes { get; set; }
         public virtual DbSet<Color> Colors { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
+
+        public virtual DbSet<ProductProperty> ProductProperty { get; set; }
 
         /// <summary>
         /// It looks for a connection string named connectionString1 in the web.config file.
@@ -68,10 +70,12 @@ namespace Iris.DataLayer
             builder.Configurations.Add(new FactorConfig());
             builder.Configurations.Add(new ItemTypeConfig());
             builder.Configurations.Add(new ItemConfig());
-            builder.Configurations.Add(new ProductQuestionAnswerConfig());
+            //builder.Configurations.Add(new ProductQuestionAnswerConfig());
             builder.Configurations.Add(new PropertyTypeConfig());
             builder.Configurations.Add(new ColorConfig());
             builder.Configurations.Add(new CommentConfig());
+            builder.Configurations.Add(new PropertyConfig());
+            builder.Configurations.Add(new ProductPropertyConfig());
 
 
             base.OnModelCreating(builder);
@@ -82,6 +86,7 @@ namespace Iris.DataLayer
             builder.Entity<CustomUserRole>().ToTable("UserRoles");
             builder.Entity<CustomUserLogin>().ToTable("UserLogins");
             builder.Entity<ItemType>().ToTable("ItemType");
+            //builder.Entity<Comment>().Property(q=> q.Id).HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
 
 
         }

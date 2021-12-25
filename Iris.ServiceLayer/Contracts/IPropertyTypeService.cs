@@ -19,6 +19,7 @@ namespace Iris.ServiceLayer.Contracts
 
         Task<IList<PropertyType>> GetListOfActualPropertyType(IList<string> propertyType);
         Task<IList<PropertyTypeViewModel>> GetAll();
+        IList<PropertyTypeViewModel> GetAllNormal();
         Task<IList<PropertyTypeViewModel>> GetSearchProductsPropertyType();
         Task<IList<PropertyTypeViewModel>> SearchPropertyType(string term, int count);
 
@@ -26,6 +27,7 @@ namespace Iris.ServiceLayer.Contracts
              NameValueCollection form, DateTimeType dateTimeType, int page, int pageSize);
 
         Task<PropertyTypeViewModel> GetById(int id);
+        Task<IList<PropertyTypeViewModel>> AutoComplitPropertyType(int? productId, string searche);
 
     }
 }

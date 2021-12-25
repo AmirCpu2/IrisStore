@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace Iris.DomainClasses
 {
-    public partial class ProductQuestionAnswer
-    {
-        public int ProductId { get; set; }
+    //public partial class ProductQuestionAnswer
+    //{
+    //    public int ProductId { get; set; }
 
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int CommentId { get; set; }
+    //    [Key]
+    //    [DatabaseGenerated(DatabaseGeneratedOption.None)]
+    //    public int CommentId { get; set; }
 
-        public virtual Comment Comment { get; set; }
+    //    public virtual Comment Comment { get; set; }
 
-        public virtual Product Product { get; set; }
-    }
+    //    public virtual Product Product { get; set; }
+    //}
 }

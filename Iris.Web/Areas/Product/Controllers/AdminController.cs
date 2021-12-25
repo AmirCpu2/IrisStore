@@ -29,10 +29,14 @@ namespace Iris.Web.Areas.Product.Controllers
         private readonly IItemsService _itemsService;
         private readonly IItemTypeService _itemTypeService;
         private readonly IProductService _productService;
+        private readonly IPropertyService _propertyService;
+        private readonly IPropertyTypeService _propertyTypeService;
+        private readonly IProductPropertyService _productPropertyService;
         private readonly IApplicationUserManager _userManager;
 
         public AdminController(IUnitOfWork unitOfWork, IApplicationUserManager userManager, IProductService productService, ICategoryService categoryService,
-            IItemsService itemsService, IItemTypeService itemTypeService, IMappingEngine mappingEngine )
+            IItemsService itemsService, IItemTypeService itemTypeService, IPropertyService propertyService, IPropertyTypeService propertyTypeService,
+            IProductPropertyService productPropertyService, IMappingEngine mappingEngine )
         {
             _unitOfWork = unitOfWork;
             _productService = productService;
@@ -41,6 +45,9 @@ namespace Iris.Web.Areas.Product.Controllers
             _itemTypeService = itemTypeService;
             _mappingEngine = mappingEngine;
             _userManager = userManager;
+            _propertyService = propertyService;
+            _propertyTypeService = propertyTypeService;
+            _productPropertyService = productPropertyService;
         }
 
         [Route("List")]
@@ -77,13 +84,13 @@ namespace Iris.Web.Areas.Product.Controllers
                 {
                     Id = product.Id,
                     RowCells = new List<object>
-                                                    {
-                                                        product.Id.ToString(CultureInfo.InvariantCulture),
-                                                        product.Title,
-                                                        product.ProductStatus,
-                                                        product.Price,
-                                                        product.Discount
-                                                    }
+                    {
+                        product.Id.ToString(CultureInfo.InvariantCulture),
+                        product.Title,
+                        product.ProductStatus,
+                        product.Price,
+                        product.Discount
+                    }
                 })).ToList()
             };
             return Json(jqGridData, JsonRequestBehavior.AllowGet);
@@ -105,7 +112,7 @@ namespace Iris.Web.Areas.Product.Controllers
             
             ViewData["BrandSelectList"] = new SelectList(await _itemsService
                                                                            .GetAllByItemTypeByName(Enums.ItemType.Brand.ToString()), "Id", "NameFa");
-            
+
             return View(productModel);
         }
 
@@ -211,6 +218,10 @@ namespace Iris.Web.Areas.Product.Controllers
                 SlugUrl = product.SlugUrl,
                 Category = "کالا‌ها"
             });
+
+            //Save ProductPeropertys
+            await _productPropertyService.AddOrUpdateByString(productModel.ProductPeropertys, product.Id);
+
 
             //Save ProductItems
             //First Unjoin if id > 0

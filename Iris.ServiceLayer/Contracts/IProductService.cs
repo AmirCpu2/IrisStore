@@ -32,6 +32,7 @@ namespace Iris.ServiceLayer.Contracts
         Task<IList<decimal>> GetAvailableProductDiscounts();
         Task<ProductSearchPagedList> SearchProduct(SearchProductViewModel searchModel);
         Task<ProductPageViewModel> GetProductPage(int productId);
+        ProductPageViewModel GetProductPageNormal(int productId);
         Task UpdateViewNumber(int productId);
         Task SaveRating(int productId, double rating);
         Task<IList<LueneProduct>> GetAllForLuceneIndex();

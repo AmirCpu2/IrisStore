@@ -123,6 +123,8 @@ namespace Iris.Web.DependencyResolution
             For<IFactorService>().Use<FactorService>();
             For<IPropertyService>().Use<PropertyService>();
             For<IPropertyTypeService>().Use<PropertyTypeService>();
+            For<IProductPropertyService>().Use<ProductPropertyService>();
+            For<ICommentService>().Use<CommentService>();
         }
 
         #endregion
