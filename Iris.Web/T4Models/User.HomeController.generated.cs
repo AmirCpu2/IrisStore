@@ -145,11 +145,11 @@ namespace Iris.Web.Areas.User.Controllers
         partial void UserProfileOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
         [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> UserProfile()
+        public override System.Web.Mvc.ActionResult UserProfile()
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UserProfile);
             UserProfileOverride(callInfo);
-            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+            return callInfo;
         }
 
         [NonAction]

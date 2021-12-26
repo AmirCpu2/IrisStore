@@ -37,6 +37,8 @@ namespace Iris.ViewModels
 
         public virtual string ThumbnailUrl { get; set; }
 
+        public virtual int? BidCount { get; set; } = 0;
+
         public void CreateMappings(IConfiguration configuration)
         {
             configuration.CreateMap<ApplicationUser, UserInfoWidgetViewModel>();

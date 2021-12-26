@@ -11,6 +11,7 @@ namespace Iris.DomainClasses
         public ApplicationUser()
         {
             BidHistory = new HashSet<BidHistory>();
+            CoinFactor = new HashSet<CoinFactor>();
         }
 
         public virtual ICollection<Factor> Factors { get; set; }
@@ -44,6 +45,7 @@ namespace Iris.DomainClasses
         public int? BidCountUse { get; set; }
 
         public virtual ICollection<BidHistory> BidHistory { get; set; }
+        public virtual ICollection<CoinFactor> CoinFactor { get; set; }
 
     }
 }

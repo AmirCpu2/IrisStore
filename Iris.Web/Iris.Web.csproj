@@ -251,6 +251,7 @@
     <Compile Include="Areas\SiteSetting\Controllers\AdminController.cs" />
     <Compile Include="Areas\SlideShow\Controllers\AdminController.cs" />
     <Compile Include="Areas\User\Controllers\AdminController.cs" />
+    <Compile Include="Areas\User\Controllers\CoinManagerController.cs" />
     <Compile Include="Areas\User\Controllers\HomeController.cs" />
     <Compile Include="AutoMapperConvertor\ProductStatusToStringConvertor.cs" />
     <Compile Include="Caching\CacheService.cs" />
@@ -383,6 +384,7 @@
     <Content Include="Areas\CommentManager\Views\Home\AddOrUpdate.cshtml" />
     <Content Include="Areas\CommentManager\Views\_ViewStart.cshtml" />
     <Content Include="Areas\CommentManager\Views\Home\_showCommentsProduct.cshtml" />
+    <Content Include="Areas\User\Views\CoinManager\BuyCoins.cshtml" />
     <None Include="Connected Services\Zarinpal\configuration91.svcinfo" />
     <None Include="Connected Services\Zarinpal\configuration.svcinfo" />
     <Content Include="Connected Services\Zarinpal\Iris.Web.Zarinpal.GetUnverifiedTransactionsResponse.datasource">

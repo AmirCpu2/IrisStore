@@ -69,23 +69,24 @@ namespace Iris.Web.Areas.User.Controllers
 
         [Route("UserProfile")]
         [HttpGet]
-        public virtual async Task<ActionResult> UserProfile()
+        public virtual ActionResult UserProfile()
         {
             if (User.Identity.IsAuthenticated)
             {
-                var user = await _userManager.FindByNameAsync(User.Identity.Name);
+                var user = _userManager.FindByName(User.Identity.Name);
                 ViewBag.FirstName = user.FirstName;
                 ViewBag.LastName = user.LastName;
                 ViewBag.Mobile = user.Mobile;
                 ViewBag.Address = user.Address;
                 ViewBag.PostalCode = user.PostalCode;
+                ViewBag.Email = user.Email;
             }
             return View();
         }
 
         [Route("ProfileSidebar")]
         [HttpGet]
-        public virtual  ActionResult ProfileSidebar()
+        public virtual ActionResult ProfileSidebar()
         {
             if (!User.Identity.IsAuthenticated)
                 return null;
@@ -102,7 +103,7 @@ namespace Iris.Web.Areas.User.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(userprofile);
+                return RedirectToAction("Index", new { Message = ManageMessageId.Error });
             }
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             if (user != null)
@@ -122,7 +123,7 @@ namespace Iris.Web.Areas.User.Controllers
             }
             else
             {
-                return View(userprofile);
+                return RedirectToAction("Index", new { Message = ManageMessageId.Error });
             }
 
 

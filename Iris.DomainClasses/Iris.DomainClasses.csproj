@@ -62,10 +62,12 @@
     <Compile Include="AuctionItem.cs" />
     <Compile Include="BidHistory.cs" />
     <Compile Include="BidWallet.cs" />
+    <Compile Include="CoinFactor.cs" />
     <Compile Include="Color.cs" />
     <Compile Include="Comment.cs" />
     <Compile Include="Configurations\BidHistoryConfig.cs" />
     <Compile Include="Configurations\BidWalletConfig.cs" />
+    <Compile Include="Configurations\CoinFactorConfig.cs" />
     <Compile Include="Configurations\ColorConfig.cs" />
     <Compile Include="Configurations\CommentConfig.cs" />
     <Compile Include="Configurations\DiscountConfig.cs" />

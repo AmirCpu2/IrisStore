@@ -54,7 +54,7 @@
                                             <h3>آدرس صندوق الکترونیکی</h3>
                                         </div>
                                         <div class="form-row">
-                                            @Html.TextBoxFor(m => Model.Email, htmlAttributes: new { @Value = ViewBag.Email, @class="input-ui pl-2", placeholder="آدرس ایمیل خود را وارد نمایید" })
+                                            @Html.TextBoxFor(m => m.Email, htmlAttributes: new { @Value = ViewBag.Email, @class="input-ui pl-2", placeholder="آدرس ایمیل خود را وارد نمایید" })
                                             @Html.ValidationMessageFor(x => x.Email)
                                         </div>
                                         <div class="form-row-title">

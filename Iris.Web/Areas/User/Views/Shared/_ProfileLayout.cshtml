@@ -17,7 +17,7 @@
     </div>
     <div class="mt-5">
         <!-- Start Product-Slider -->
-        
+
         @{
             Html.RenderAction("RecommendedProductCarousel", "Home", new { area = "Product" });
         }
@@ -26,3 +26,9 @@
         <!-- End Product-Slider -->
     </div>
 </div>
+
+
+@section scripts
+{
+    @RenderSection("subScripts", required: false)
+}

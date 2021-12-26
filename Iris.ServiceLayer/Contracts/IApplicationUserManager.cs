@@ -572,5 +572,9 @@ namespace Iris.ServiceLayer.Contracts
             DateTimeType dateTimeType, int page, int pageSize);
 
         string GetFullNameById(int userId);
+
+        Task AddCoin(int count, int userId);
+
+        Task ReduceCoin(int count, int userId);
     }
 }

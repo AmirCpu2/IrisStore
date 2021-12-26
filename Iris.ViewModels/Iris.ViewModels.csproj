@@ -114,6 +114,7 @@
     <Compile Include="AddProductViewModel.cs" />
     <Compile Include="AdminDashboardViewModel.cs" />
     <Compile Include="CategoryViewModel.cs" />
+    <Compile Include="CoinFactorViewModel.cs" />
     <Compile Include="CommentViewModel.cs" />
     <Compile Include="CreateFactorViewModel.cs" />
     <Compile Include="DataGridViewModel.cs" />

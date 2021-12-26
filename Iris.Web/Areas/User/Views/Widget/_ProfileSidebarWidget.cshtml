@@ -21,8 +21,8 @@
                     <span class="d-block profile-phone">@Html.DisplayTextFor(model => model.Mobile)</span>
                 </div>
                 <div class="profile-point mt-3 mb-2 dt-sl">
-                    <span class="float-right label-profile-point">امتیاز شما:</span>
-                    <span class="float-left value-profile-point">غییر فعال است</span>
+                    <span class="float-right label-profile-point">تعداد سکه های شما:</span>
+                    <span class="float-left value-profile-point" style="padding-left: 60px;">@(Model.BidCount??0)</span>
                 </div>
                 <div class="profile-link mt-2 dt-sl">
                     <div class="row">
@@ -77,10 +77,16 @@
                                 همه سفارش ها
                             </a>
                         </li>
-                        <li>
+                        @*<li>
                             <a href="#">
                                 <i class="mdi mdi-backburger"></i>
                                 درخواست مرجوعی
+                            </a>
+                        </li>*@
+                        <li>
+                            <a href="@Url.Action("BuyCoins", "CoinManager", new { area = "User" })" class="@(Request.Url.LocalPath.ToString().Equals(Url.Action("BuyCoins", "CoinManager", new { area = "User" }))? "active": "")">
+                                <i class="mdi mdi-coin-outline"></i>
+                                خرید سکه
                             </a>
                         </li>
                         <li>
@@ -95,18 +101,30 @@
                                 نقد و نظرات
                             </a>
                         </li>
-                        <li>
+                        @*<li>
                             <a href="#">
                                 <i class="mdi mdi-sign-direction"></i>
                                 آدرس ها
                             </a>
+                        </li>*@
+                        <li>
+                            <a href="#">
+                                <i class="mdi mdi-gavel"></i>
+                                ثبت آگهی در حراجی
+                            </a>
                         </li>
                         <li>
+                            <a href="#">
+                                <i class="mdi mdi-store"></i>
+                                حراجی های من
+                            </a>
+                        </li>
+                        @*<li>
                             <a href="#">
                                 <i class="mdi mdi-eye-outline"></i>
                                 بازدیدهای اخیر
                             </a>
-                        </li>
+                        </li>*@
                         <li>
                             <a href="@Url.Action("UserProfile", "Home", new { area = "user" })" class="@(Request.Url.LocalPath.ToString().Equals(Url.Action("UserProfile", "Home", new { area = "user" }))? "active": "")">
                                 <i class="mdi mdi-account-edit-outline"></i>

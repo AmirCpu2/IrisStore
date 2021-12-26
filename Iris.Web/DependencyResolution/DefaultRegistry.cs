@@ -125,6 +125,7 @@ namespace Iris.Web.DependencyResolution
             For<IPropertyTypeService>().Use<PropertyTypeService>();
             For<IProductPropertyService>().Use<ProductPropertyService>();
             For<ICommentService>().Use<CommentService>();
+            For<ICoinFactorService>().Use<CoinFactorService>();
         }
 
         #endregion

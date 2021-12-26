@@ -127,7 +127,7 @@ namespace Iris.ServiceLayer
         {
             const string userName = "demo";
             const string email = "demo@email.com";
-            const string password = "123demo123";
+            const string password = "P@ssM0rd";
             const string roleName = "Admin";
 
             //Create Role Admin if it does not exist
@@ -229,8 +229,37 @@ namespace Iris.ServiceLayer
             return dataGridModel;
         }
 
+        public async Task AddCoin(int count, int userId)
+        {
+            var userInfo = await _users.FirstOrDefaultAsync(q => q.Id == userId);
 
+            if (userInfo == null)
+                return ;
 
+            userInfo.BidCount += count;
+
+            _users.Attach(userInfo);
+
+            _uow.Entry(userInfo).State = EntityState.Modified;
+
+            await _uow.SaveAllChangesAsync();
+        }
+
+        public async Task ReduceCoin(int count, int userId)
+        {
+            var userInfo = await _users.FirstOrDefaultAsync(q => q.Id == userId);
+
+            if (userInfo == null)
+                return;
+
+            userInfo.BidCount += count;
+
+            _users.Attach(userInfo);
+
+            _uow.Entry(userInfo).State = EntityState.Modified;
+
+            await _uow.SaveAllChangesAsync();
+        }
     }
 
 
