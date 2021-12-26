@@ -38,6 +38,10 @@ namespace Iris.DataLayer
 
         public virtual DbSet<ProductProperty> ProductProperty { get; set; }
 
+        public virtual DbSet<BidHistory> BidHistory { get; set; }
+
+        public virtual DbSet<AuctionItem> AuctionItem { get; set; }
+
         /// <summary>
         /// It looks for a connection string named connectionString1 in the web.config file.
         /// </summary>
@@ -76,6 +80,7 @@ namespace Iris.DataLayer
             builder.Configurations.Add(new CommentConfig());
             builder.Configurations.Add(new PropertyConfig());
             builder.Configurations.Add(new ProductPropertyConfig());
+            builder.Configurations.Add(new BidHistoryConfig());
 
 
             base.OnModelCreating(builder);

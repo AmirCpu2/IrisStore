@@ -1,10 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Iris.DomainClasses
 {
     public class ApplicationUser : IdentityUser<int, CustomUserLogin, CustomUserRole, CustomUserClaim>
     {
+
+        public ApplicationUser()
+        {
+            BidHistory = new HashSet<BidHistory>();
+        }
+
         public virtual ICollection<Factor> Factors { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -28,6 +36,14 @@ namespace Iris.DomainClasses
         public virtual string ImageUrl { get; set; }
 
         public virtual string ThumbnailUrl { get; set; }
+
+        public virtual int? BidCount { get; set; }
+
+        public virtual DateTime? LastModifiedBidDate { get; set; }
+
+        public int? BidCountUse { get; set; }
+
+        public virtual ICollection<BidHistory> BidHistory { get; set; }
 
     }
 }
