@@ -22,7 +22,16 @@
                 </div>
                 <div class="profile-point mt-3 mb-2 dt-sl">
                     <span class="float-right label-profile-point">تعداد سکه های شما:</span>
-                    <span class="float-left value-profile-point" style="padding-left: 60px;">@(Model.BidCount??0)</span>
+                    <span class="float-left value-profile-point" style="padding-left: 60px;">
+
+                        @(Model.BidCount??0)
+
+                    </span>
+                    <span class="float-left value-profile-point" style="padding-left: 5px;">
+
+                        CP
+
+                    </span>
                 </div>
                 <div class="profile-link mt-2 dt-sl">
                     <div class="row">
@@ -108,7 +117,7 @@
                             </a>
                         </li>*@
                         <li>
-                            <a href="#">
+                            <a href="@Url.Action("AddOrUpdate", "Auction", new { area = "AuctionManagement" })" class="@(Request.Url.LocalPath.ToString().Equals(Url.Action("AddOrUpdate", "Auction", new { area = "AuctionManagement" }))? "active": "")">
                                 <i class="mdi mdi-gavel"></i>
                                 ثبت آگهی در حراجی
                             </a>

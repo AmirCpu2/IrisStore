@@ -125,6 +125,7 @@
     <Compile Include="ApplicationRoleManager.cs" />
     <Compile Include="ApplicationSignInManager.cs" />
     <Compile Include="ApplicationUserManager.cs" />
+    <Compile Include="AuctionItemService.cs" />
     <Compile Include="CategoryService.cs" />
     <Compile Include="CoinFactorService.cs" />
     <Compile Include="CommentService.cs" />
@@ -132,6 +133,7 @@
     <Compile Include="Contracts\IApplicationRoleManager.cs" />
     <Compile Include="Contracts\IApplicationSignInManager.cs" />
     <Compile Include="Contracts\IApplicationUserManager.cs" />
+    <Compile Include="Contracts\IAuctionItemService.cs" />
     <Compile Include="Contracts\ICategoryService.cs" />
     <Compile Include="Contracts\ICoinFactorService.cs" />
     <Compile Include="Contracts\ICommentService.cs" />

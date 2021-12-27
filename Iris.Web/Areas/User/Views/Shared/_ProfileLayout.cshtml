@@ -4,6 +4,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section Styles
+{
+    @RenderSection("subStyles", required: false)
+}
+
 <div class="container main-container">
     <div class="row">
         <!-- Start Sidebar -->

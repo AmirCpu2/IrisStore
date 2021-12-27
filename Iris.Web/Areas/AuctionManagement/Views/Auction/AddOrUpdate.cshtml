@@ -1,0 +1,190 @@
+﻿@model Iris.ViewModels.AuctionItemViewModel
+
+@{
+    ViewBag.Title = "آگهی";
+    Layout = "~/Areas/User/Views/Shared/_ProfileLayout.cshtml";
+}
+
+@section subStyles
+{
+
+}
+
+
+<div class="col-xl-9 col-lg-8 col-md-8 col-sm-12">
+    <div class="row">
+
+        <div class="col-md-10 col-sm-12 mx-auto">
+            <div class="px-3 px-res-0">
+                <div class="section-title text-sm-title title-wide mb-1 no-after-title-wide dt-sl mb-2 px-res-1">
+
+                    @if (Model.Id > 0)
+                    {
+                        <h2>ویرایش @ViewBag.Title</h2>
+                    }
+                    else
+                    {
+                        <h2>ثبت @ViewBag.Title جدید</h2>
+                    }
+
+                </div>
+                <div class="form-ui additional-info dt-sl dt-sn pt-4">
+
+                    @using (Html.BeginForm("AddOrUpdate", "Auction", new { area = "AuctionManagement" }, FormMethod.Post, new
+                    {
+                        enctype = "multipart/form-data"
+                    }))
+                    {
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                <div class="form-group">
+                                    <div class="form-row-title">
+                                        <h3>عنوان</h3>
+                                    </div>
+                                    <div class="form-row">
+                                        @Html.TextBoxFor(m => Model.Title, htmlAttributes: new { @class = "input-ui pr-2", placeholder = "عنوان کالا" })
+                                        @Html.ValidationMessageFor(x => x.Title)
+                                    </div>
+                                </div>
+
+                                <div class="form-row-title">
+                                    <h3>توضیحات</h3>
+                                </div>
+                                <div class="form-row">
+                                    @Html.TextAreaFor(q => q.Body, new { @class = "input-ui pr-2", placeholder = "توضیحات و مشخصات کالا را وارد نمایید" })
+                                    @Html.ValidationMessageFor(x => x.Body)
+                                </div>
+
+                                <div class="form-row-title">
+                                    <h3>تاریخ شروع حراجی</h3>
+                                </div>
+                                <div class="form-row">
+                                    @Html.TextBoxFor(model => model.StartDate, new { @class = "input-ui pr-2" })
+                                    @Html.ValidationMessageFor(x => x.StartDate)
+                                </div>
+
+                                <div class="form-row-title">
+                                    <h3>تاریخ پایان حراجی</h3>
+                                </div>
+                                <div class="form-row">
+                                    @Html.TextBoxFor(model => model.StopDate, new { @class = "input-ui pr-2" })
+                                    @Html.ValidationMessageFor(x => x.StopDate)
+                                </div>
+
+                                <div class="form-row-title">
+                                    <h3>شروع قیمت به تومان</h3>
+                                </div>
+                                <div class="form-row">
+                                    @Html.TextBoxFor(model => model.MiniPrice, new { @class = "input-ui pr-2", @type = "number" })
+                                    @Html.ValidationMessageFor(x => x.MiniPrice)
+                                </div>
+
+                                <div class="form-row-title">
+                                    <h3>پایان قیمت به تومان</h3>
+                                </div>
+                                <div class="form-row">
+                                    @Html.TextBoxFor(model => model.MaxPrice, new { @class = "input-ui pr-2", @type = "number" })
+                                    @Html.ValidationMessageFor(x => x.MaxPrice)
+                                </div>
+
+                                <div class="form-row-title">
+                                    <h3>عکس کالا</h3>
+                                </div>
+                                <div class="form-row mt-2">
+                                    <div class="input-group">
+                                        <div class="custom-file">
+                                            <input type="file"
+                                                   class="custom-file-input"
+                                                   name="ImageFileUpload"
+                                                   id="ImageFileUpload"
+                                                   aria-describedby="inputGroupFileAddon04">
+                                            <label class="custom-file-label" for="ImageFileUpload">
+                                                انتخاب
+                                                عکس
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                @*<div>
+                                    <img id="user_img"
+                                         height="100"
+                                         width="90"
+                                         style="border:solid" />
+                                </div>
+                                <div>
+                                    <input type="file" title="search image" id="file" name="file" onchange="show(this)" />
+                                </div>
+
+                                <div>
+                                    نام
+                                </div>
+                                <div>
+                                    <input type="text"
+                                           id="txt_name"
+                                           name="Name" />
+                                </div>*@
+
+
+                                <div class="form-row mt-2">
+                                    <div class="custom-control custom-checkbox float-right mt-2">
+                                        <input type="checkbox" class="custom-control-input"
+                                               id="customCheck4">
+                                        <label class="custom-control-label text-justify" for="customCheck4">
+                                            من قوانین سایت را جهت شرکت در حراجی مطالعه کردم و می پذیرم
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <hr />
+                                <div class="form-row mt-3 justify-content-center">
+                                    <button id="btnSumbit" type="submit" class="btn-primary-cm btn-with-icon ml-2">
+                                        <i class="mdi mdi mdi-gavel"></i>
+                                        @(Model.Id>0? "بروز رسانی" : "ثبت آگهی")
+                                    </button>
+                                    <button class="btn-primary-cm bg-secondary">انصراف</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+@section subScripts
+{
+    <script>
+        $(function () {
+            $('#StartDate').MdPersianDateTimePicker({
+                targetTextSelector: '#StartDate',
+                targetDateSelector: '#StartDate',
+            });
+            $('#StopDate').MdPersianDateTimePicker({
+                targetTextSelector: '#StopDate',
+                targetDateSelector: '#StopDate',
+            });
+
+
+        });
+
+        function show(input) {
+            if (input.files && input.files[0]) {
+                var filerdr = new FileReader();
+                filerdr.onload = function (e) {
+                    $('#user_img').attr('src', e.target.result);
+                }
+                filerdr.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+}

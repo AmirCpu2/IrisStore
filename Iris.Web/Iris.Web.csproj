@@ -227,6 +227,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\StructuremapMvc.cs" />
     <Compile Include="Areas\AdminPanel\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\AuctionManagement\Controllers\AuctionController.cs" />
     <Compile Include="Areas\CommentManager\Controllers\AdminController.cs" />
     <Compile Include="Areas\CommentManager\Controllers\HomeController.cs" />
     <Compile Include="Areas\Favorite\Controllers\HomeController.cs" />
@@ -385,6 +386,8 @@
     <Content Include="Areas\CommentManager\Views\_ViewStart.cshtml" />
     <Content Include="Areas\CommentManager\Views\Home\_showCommentsProduct.cshtml" />
     <Content Include="Areas\User\Views\CoinManager\BuyCoins.cshtml" />
+    <Content Include="Areas\AuctionManagement\Views\web.config" />
+    <Content Include="Areas\AuctionManagement\Views\Auction\AddOrUpdate.cshtml" />
     <None Include="Connected Services\Zarinpal\configuration91.svcinfo" />
     <None Include="Connected Services\Zarinpal\configuration.svcinfo" />
     <Content Include="Connected Services\Zarinpal\Iris.Web.Zarinpal.GetUnverifiedTransactionsResponse.datasource">
@@ -466,6 +469,9 @@
     <Content Include="Content\AdminLTE\skins\_all-skins.css" />
     <Content Include="Content\AdminLTE\skins\_all-skins.min.css" />
     <Content Include="Content\animate.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\css\dist\jquery.md.bootstrap.datetimepicker.js" />
+    <Content Include="Content\css\dist\jquery.md.bootstrap.datetimepicker.style.css" />
     <Content Include="Content\css\main.css" />
     <Content Include="Content\css\vendor\bootstrap-slider.min.css" />
     <Content Include="Content\css\vendor\bootstrap.min.css" />
@@ -642,6 +648,7 @@
     <Content Include="Content\img\theme\suggestion-title.png" />
     <Content Include="Content\img\theme\title-circles.png" />
     <Content Include="Content\JgridCustomFlat.css" />
+    <Content Include="Content\MdBootstrapPersianDateTimePicker\jquery.Bootstrap-PersianDateTimePicker.css" />
     <Content Include="Content\video\download.mp4" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Areas\Product\Views\Widget\_HorizontalProductWidget.cshtml" />
@@ -691,6 +698,8 @@
     <Content Include="Areas\Lucene\Views\web.config" />
     <Content Include="Areas\ShoppingCart\Views\Home\GetCartEmpty.cshtml" />
     <None Include="Connected Services\Zarinpal\PaymentGatewayImplementationService.wsdl" />
+    <Content Include="Content\css\dist\jquery.md.bootstrap.datetimepicker.js.map" />
+    <Content Include="Content\css\dist\jquery.md.bootstrap.datetimepicker.style.css.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap-confirmation.js" />
     <Content Include="Scripts\bootstrap-editable.js" />
@@ -1478,6 +1487,9 @@
     <Content Include="Scripts\js\vendor\ResizeSensor.min.js" />
     <Content Include="Scripts\js\vendor\theia-sticky-sidebar.min.js" />
     <Content Include="Scripts\js\vendor\wNumb.js" />
+    <Content Include="Scripts\MdBootstrapPersianDateTimePicker\jalaali.js" />
+    <Content Include="Scripts\MdBootstrapPersianDateTimePicker\jquery.Bootstrap-PersianDateTimePicker.js" />
+    <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\ProgressBar\progressbar.js" />
     <Content Include="Scripts\sitemap.xml" />
     <Content Include="Scripts\test-bundles\angular-aria.js" />
@@ -2558,6 +2570,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\AdminPanel\Views\Shared\" />
+    <Folder Include="Areas\AuctionManagement\Views\Shared\" />
     <Folder Include="Areas\CommentManager\Views\Admin\" />
     <Folder Include="Areas\CommentManager\Views\Shared\" />
     <Folder Include="Areas\Favorite\Views\Shared\" />
@@ -2580,6 +2593,7 @@
     <Folder Include="Scripts\RoxyFileManager\Uploads\Documents\" />
     <Folder Include="Scripts\RoxyFileManager\Uploads\FLV\" />
     <Folder Include="Scripts\RoxyFileManager\Uploads\Images\" />
+    <Folder Include="UploadedFiles\AuctionImages\" />
     <Folder Include="Views\Comment\" />
   </ItemGroup>
   <ItemGroup>

@@ -36,10 +36,10 @@
 
     @Styles.Render("~/Content/themes/base/jqueryUi")
     @Styles.Render("~/Content/css")
-    @RenderSection("styles", required: false)
-
     <!-- Bootstrap -->
     @Styles.Render("~/Content/css/vendor/bootstrap.min.css")
+
+    @RenderSection("styles", required: false)
     <!-- Plugins -->
     @Styles.Render("~/Content/css/vendor/owl.carousel.min.css")
     @Styles.Render("~/Content/css/vendor/jquery.horizontalmenu.css")
@@ -99,10 +99,10 @@
         $(function () {
             progressBar.config({
 
-                // 1: stright line progress bar 
+                // 1: stright line progress bar
                 // 2: progress bar width to be same as your percentage
                 // 3: fix width bar progress bar
-                // 4: recoil of pattern 3 
+                // 4: recoil of pattern 3
                 // 5: recoil of pattern 1
                 pattern: 1,
 
@@ -145,7 +145,8 @@
     <script src="~/Scripts/js/main.js"></script>
 
     <!--End Style Scripts-->
-
+    <link href="~/Content/css/dist/jquery.md.bootstrap.datetimepicker.style.css" rel="stylesheet" />
+    <script src="~/Content/css/dist/jquery.md.bootstrap.datetimepicker.js"></script>
 
 </body>
 </html>
