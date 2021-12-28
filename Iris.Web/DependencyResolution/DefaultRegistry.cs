@@ -127,6 +127,7 @@ namespace Iris.Web.DependencyResolution
             For<ICommentService>().Use<CommentService>();
             For<ICoinFactorService>().Use<CoinFactorService>();
             For<IAuctionItemService>().Use<AuctionItemService>();
+            For<IBidHistoryService>().Use<BidHistoryService>();
         }
 
         #endregion

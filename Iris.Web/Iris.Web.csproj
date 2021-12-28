@@ -228,6 +228,8 @@
     <Compile Include="App_Start\StructuremapMvc.cs" />
     <Compile Include="Areas\AdminPanel\Controllers\DashboardController.cs" />
     <Compile Include="Areas\AuctionManagement\Controllers\AuctionController.cs" />
+    <Compile Include="Areas\AuctionManagement\Controllers\BidHistoryController.cs" />
+    <Compile Include="Areas\AuctionManagement\Controllers\SearchAuctionController.cs" />
     <Compile Include="Areas\CommentManager\Controllers\AdminController.cs" />
     <Compile Include="Areas\CommentManager\Controllers\HomeController.cs" />
     <Compile Include="Areas\Favorite\Controllers\HomeController.cs" />
@@ -388,6 +390,9 @@
     <Content Include="Areas\User\Views\CoinManager\BuyCoins.cshtml" />
     <Content Include="Areas\AuctionManagement\Views\web.config" />
     <Content Include="Areas\AuctionManagement\Views\Auction\AddOrUpdate.cshtml" />
+    <Content Include="Areas\AuctionManagement\Views\SearchAuction\Index.cshtml" />
+    <Content Include="Areas\AuctionManagement\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\AuctionManagement\Views\Auction\Index.cshtml" />
     <None Include="Connected Services\Zarinpal\configuration91.svcinfo" />
     <None Include="Connected Services\Zarinpal\configuration.svcinfo" />
     <Content Include="Connected Services\Zarinpal\Iris.Web.Zarinpal.GetUnverifiedTransactionsResponse.datasource">
@@ -484,6 +489,7 @@
     <Content Include="Content\css\vendor\owl.carousel.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\img\banner\auctioneer-with-hammer-selling-artwork-stage-buyers-holding-signs-with-offers-flat-vector-illustration-auction-trade-bidding_74855-13015.jpg" />
     <Content Include="Content\img\banner\large-ads.jpg" />
     <Content Include="Content\img\banner\large-banner.jpg" />
     <Content Include="Content\img\banner\medium-banner-1.jpg" />
@@ -2570,6 +2576,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\AdminPanel\Views\Shared\" />
+    <Folder Include="Areas\AuctionManagement\Views\BidHistory\" />
     <Folder Include="Areas\AuctionManagement\Views\Shared\" />
     <Folder Include="Areas\CommentManager\Views\Admin\" />
     <Folder Include="Areas\CommentManager\Views\Shared\" />

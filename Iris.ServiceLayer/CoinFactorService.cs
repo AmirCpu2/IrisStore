@@ -46,12 +46,26 @@ namespace Iris.ServiceLayer
 
         public void Edit(CoinFactor coinFactor)
         {
-            if (coinFactor?.Id != null)
+            if (coinFactor?.Id == null)
                 return ;
 
-            _coinFactor.Attach(coinFactor);
+
+            var oldItem = _coinFactor.FirstOrDefault(q => q.Id == coinFactor.Id);
+
+            //Edit coinFactor
+
+            oldItem.StatusId = coinFactor.StatusId;
+
+            oldItem.RefId = coinFactor.RefId;
+
+            oldItem.BuyDate = coinFactor.BuyDate;
+
+            _coinFactor.Attach(oldItem);
+
+            _unitOfWork.Entry(oldItem).State = EntityState.Modified;
 
             _unitOfWork.SaveAllChanges();
+
         }
 
         public async Task<IList<CoinFactorViewModel>> GetAllByUserId(int UserId)

@@ -35,6 +35,10 @@
                         enctype = "multipart/form-data"
                     }))
                     {
+                        @Html.HiddenFor(q=> q.IsEdit)
+                        @Html.HiddenFor(q=> q.IsDelete)
+                        @Html.HiddenFor(q=> q.Id)
+
                         <div class="row">
 
                             <div class="col-md-12">
@@ -61,7 +65,8 @@
                                     <h3>تاریخ شروع حراجی</h3>
                                 </div>
                                 <div class="form-row">
-                                    @Html.TextBoxFor(model => model.StartDate, new { @class = "input-ui pr-2" })
+                                    @Html.HiddenFor(model => model.StartDate)
+                                    @Html.TextBox("StartDateView", "" ,new { @class = "input-ui pr-2" })
                                     @Html.ValidationMessageFor(x => x.StartDate)
                                 </div>
 
@@ -69,7 +74,8 @@
                                     <h3>تاریخ پایان حراجی</h3>
                                 </div>
                                 <div class="form-row">
-                                    @Html.TextBoxFor(model => model.StopDate, new { @class = "input-ui pr-2" })
+                                    @Html.HiddenFor(model => model.StopDate, new { @class = "input-ui pr-2" })
+                                    @Html.TextBox("StopDateView", "", new { @class = "input-ui pr-2" })
                                     @Html.ValidationMessageFor(x => x.StopDate)
                                 </div>
 
@@ -89,6 +95,15 @@
                                     @Html.ValidationMessageFor(x => x.MaxPrice)
                                 </div>
 
+                                <div class="form-row" style="
+                                     justify-content: center; 
+                                     margin-top: 25px;
+                                     max-height:292px;">
+                                    <img id="user_img"
+                                         width="240"
+                                         style="border:solid"
+                                         src="@(Model?.ImageAddress??"/Content/img/theme/avatar.png")" />
+                                </div>
                                 <div class="form-row-title">
                                     <h3>عکس کالا</h3>
                                 </div>
@@ -99,36 +114,24 @@
                                                    class="custom-file-input"
                                                    name="ImageFileUpload"
                                                    id="ImageFileUpload"
+                                                   onchange="show(this)"
                                                    aria-describedby="inputGroupFileAddon04">
-                                            <label class="custom-file-label" for="ImageFileUpload">
-                                                انتخاب
-                                                عکس
-                                            </label>
+                                            @if ( (Model?.ImageAddress?.Length??0) > 0)
+                                            {
+                                                <label class="custom-file-label" for="ImageFileUpload" id="ImageFileUploadName" style="direction: ltr;">
+                                                    @Model.ImageName
+                                                </label>
+                                            }
+                                            else
+                                            {
+                                                <label class="custom-file-label" for="ImageFileUpload" id="ImageFileUploadName" style="direction: ltr;">
+                                                    انتخاب
+                                                    عکس
+                                                </label>
+                                            }
                                         </div>
                                     </div>
                                 </div>
-
-
-
-                                @*<div>
-                                    <img id="user_img"
-                                         height="100"
-                                         width="90"
-                                         style="border:solid" />
-                                </div>
-                                <div>
-                                    <input type="file" title="search image" id="file" name="file" onchange="show(this)" />
-                                </div>
-
-                                <div>
-                                    نام
-                                </div>
-                                <div>
-                                    <input type="text"
-                                           id="txt_name"
-                                           name="Name" />
-                                </div>*@
-
 
                                 <div class="form-row mt-2">
                                     <div class="custom-control custom-checkbox float-right mt-2">
@@ -144,9 +147,9 @@
                                 <div class="form-row mt-3 justify-content-center">
                                     <button id="btnSumbit" type="submit" class="btn-primary-cm btn-with-icon ml-2">
                                         <i class="mdi mdi mdi-gavel"></i>
-                                        @(Model.Id>0? "بروز رسانی" : "ثبت آگهی")
+                                        @(Model.Id > 0 ? "بروز رسانی" : "ثبت آگهی")
                                     </button>
-                                    <button class="btn-primary-cm bg-secondary">انصراف</button>
+                                    <a class="btn-primary-cm bg-secondary" href="@Url.Action("Index", "Home" , new { @area = "User" })">انصراف</a>
                                 </div>
 
                             </div>
@@ -165,13 +168,15 @@
 {
     <script>
         $(function () {
-            $('#StartDate').MdPersianDateTimePicker({
-                targetTextSelector: '#StartDate',
+            $('#StartDateView').MdPersianDateTimePicker({
+                targetTextSelector: '#StartDateView',
                 targetDateSelector: '#StartDate',
+                enableTimePicker: true
             });
-            $('#StopDate').MdPersianDateTimePicker({
-                targetTextSelector: '#StopDate',
+            $('#StopDateView').MdPersianDateTimePicker({
+                targetTextSelector: '#StopDateView',
                 targetDateSelector: '#StopDate',
+                enableTimePicker: true
             });
 
 
@@ -180,11 +185,15 @@
         function show(input) {
             if (input.files && input.files[0]) {
                 var filerdr = new FileReader();
+                
                 filerdr.onload = function (e) {
                     $('#user_img').attr('src', e.target.result);
+
+                    $('#ImageFileUploadName').text(input.files[0].name);
                 }
                 filerdr.readAsDataURL(input.files[0]);
             }
         }
+
     </script>
 }

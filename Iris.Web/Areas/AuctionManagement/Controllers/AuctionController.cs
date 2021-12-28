@@ -38,6 +38,19 @@ namespace Iris.Web.Areas.AuctionManagement.Controllers
             _authenticationManager = authenticationManager;
         }
 
+        [Route("Index")]
+        [HttpGet]
+        public async Task<ActionResult> Index(int id, int? state)
+        {
+            if (id < 1) 
+                return HttpNotFound();
+
+            var auctionItem = await _auctionItemService.GetOneById(id);
+            
+            return View(auctionItem);
+        }
+
+
         [Route("AddOrUpdate")]
         [HttpGet]
         public async Task<ActionResult> AddOrUpdate(int? id)
@@ -55,38 +68,47 @@ namespace Iris.Web.Areas.AuctionManagement.Controllers
 
         [Route("AddOrUpdate")]
         [HttpPost]
-        public ActionResult AddOrUpdate(AuctionItemViewModel entity, HttpPostedFileBase file)
+        public async Task<ActionResult> AddOrUpdate(AuctionItemViewModel entity)
         {
 
-            //Upload Image
-            var allowedExtensions = new[] {
-                ".Jpg", ".png", ".jpg", "jpeg"
-            };
+            if (entity.ImageFileUpload != null)
+            {
+                //Upload Image
+                var allowedExtensions = new[] {
+                    ".Jpg", ".png", ".jpg", "jpeg"
+                };
 
-            var fileName = Path.GetFileName(entity.ImageFileUpload.FileName); //getting only file name(ex-ganesh.jpg)  
-            var ext = Path.GetExtension(entity.ImageFileUpload.FileName); //getting the extension(ex-.jpg)  
-            if(allowedExtensions.Contains(ext)) //check what type of extension  
-            {
-                string name = Path.GetFileNameWithoutExtension(fileName); //getting file name without extension  
-                string myfile = name + "_" + DateTime.Now.ToString("yyyyy-MM-dd-HH-MM-ss") + ext; //appending the name with id  
-                // store the file inside ~/project folder(Img)  
-                var path = Path.Combine(Server.MapPath("~/UploadedFiles/AuctionImages"), myfile);
-                entity.ImageAddress = path;
-                entity.ImageName = fileName;
-                entity.ImageFileUpload.SaveAs(path);
-            }
-            else
-            {
-                ViewBag.FileUploadMessage = "بارگذاری تصویر ناموفق بود";
-                return View(entity);
+                var fileName = Path.GetFileName(entity.ImageFileUpload.FileName); //getting only file name(ex-ganesh.jpg)  
+                var ext = Path.GetExtension(entity.ImageFileUpload.FileName); //getting the extension(ex-.jpg)  
+                if (allowedExtensions.Contains(ext)) //check what type of extension  
+                {
+                    string name = Path.GetFileNameWithoutExtension(fileName); //getting file name without extension  
+                    string myfile = name + "_" + DateTime.Now.ToString("yyyyy-MM-dd-HH-MM-ss") + ext; //appending the name with id  
+                                                                                                      // store the file inside ~/project folder(Img)  
+                    var path = Path.Combine(Server.MapPath("~/UploadedFiles/AuctionImages"), myfile);
+                    entity.ImageAddress = $"/UploadedFiles/AuctionImages/{myfile}";
+                    entity.ImageName = fileName;
+                    entity.ImageFileUpload.SaveAs(path);
+                }
+                else
+                {
+                    ViewBag.FileUploadMessage = "بارگذاری تصویر ناموفق بود";
+                    return View(entity);
+                }
             }
 
-            if(entity.Id > 0)
+            entity.StartDate =  Utilities.PersianDateUtils.ConvertPersianToGregorianDate(entity.StartDateView) ?? entity.StartDate;
+            entity.StopDate =  Utilities.PersianDateUtils.ConvertPersianToGregorianDate(entity.StopDateView) ?? entity.StopDate;
+
+
+            if (entity.Id > 0)
             {
+
                 entity.EditDate = DateTime.Now;
+                entity.IsEdit = true;
 
-                //Edit AuctionItem
-                _auctionItemService.Edit(AutoMapper.Mapper.Map<AuctionItemViewModel, AuctionItem>(entity));
+                var a = AutoMapper.Mapper.Map<AuctionItemViewModel, AuctionItem>(entity);
+                _auctionItemService.Edit(a);
 
             }
             else

@@ -34,9 +34,15 @@ namespace Iris.ViewModels
 
         [Required]
         public DateTime StartDate { get; set; } = DateTime.Now.AddDays(1);
+        public string StartDateView { get; set; }
+        public string StartDateFa => Utilities.PersianDateUtils.ToPersianDateFa(StartDate);
+        public string StartDateFaFull => Utilities.PersianDateUtils.StartDateFaFull(StartDate);
 
         [Required]
         public DateTime StopDate { get; set; } = DateTime.Now.AddDays(2);
+        public string StopDateView { get; set; }
+        public string StopDateFa => Utilities.PersianDateUtils.ToPersianDateFa(StopDate);
+        public string StopDateFaFull => Utilities.PersianDateUtils.StartDateFaFull(StopDate);
 
         public string ImageName { get; set; }
 
@@ -49,10 +55,12 @@ namespace Iris.ViewModels
         public bool IsEdit { get; set; }
 
         [Required]
-        public decimal MiniPrice { get; set; } = 50;
+        [DisplayFormat(DataFormatString = "{0:###,###}", ApplyFormatInEditMode = true)]
+        public decimal MiniPrice { get; set; } = 50000;
 
         [Required]
-        public decimal MaxPrice { get; set; } = 200;
+        [DisplayFormat(DataFormatString = "{0:###,###}", ApplyFormatInEditMode = true)]
+        public decimal MaxPrice { get; set; } = 200000;
 
         public int? WinUserId { get; set; }
 

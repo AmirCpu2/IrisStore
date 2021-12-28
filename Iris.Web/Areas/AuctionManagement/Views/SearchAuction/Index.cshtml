@@ -1,0 +1,208 @@
+﻿@model Iris.ViewModels.SearchAuctionViewModel
+@{ 
+    string currentUserId = ViewData["CurrentUserId"].ToString();
+}
+<div class="header-cover">
+    <div class="promotion-header-img"></div>
+</div>
+<div class="container main-container" style="margin-top: 100px">
+
+    <div class="row">
+
+        <!-- Start Content -->
+        <div class="col-lg-12 col-md-12 col-sm-12 search-card-res">
+            
+            <div class="dt-sl dt-sn px-0 search-amazing-tab">
+                <div class="col-md-12" style="text-align-last: center; ">
+
+                    <p style="color: #f7858d; font-size: 20px; font-weight: bold;">
+                        حراجی راه ابریشم
+                    </p>
+                    <hr />
+                </div>
+                <!--Sorted Product-->
+                <div class="ah-tab-wrapper dt-sl">
+                    <div class="ah-tab dt-sl">
+                        <a class="ah-tab-item"
+                           onclick="location='@Url.Action("Index", new { @sortState = (int)Utilities.Enums.SortState.DSNews})'"
+                           data-ah-tab-active="@( Model.SortState == Utilities.Enums.SortState.DSNews? "true": "false" )">
+                            جدید ترین
+                        </a>
+                        <a class="ah-tab-item"
+                           onclick="location='@Url.Action("Index", new { @sortState = (int)Utilities.Enums.SortState.ASNews})'"
+                           data-ah-tab-active="@( Model.SortState == Utilities.Enums.SortState.ASNews? "true": "false" )">
+                            قدیمی ترین
+                        </a>
+                        <a class="ah-tab-item"
+                           onclick="location='@Url.Action("Index", new { @sortState = (int)Utilities.Enums.SortState.ASStartMony})'"
+                           data-ah-tab-active="@( Model.SortState == Utilities.Enums.SortState.ASStartMony? "true": "false" )">
+                            ارزان ترین
+                        </a>
+                        <a class="ah-tab-item"
+                           onclick="location='@Url.Action("Index", new { @sortState = (int)Utilities.Enums.SortState.DSStartMony})'"
+                           data-ah-tab-active="@( Model.SortState == Utilities.Enums.SortState.DSStartMony? "true": "false" )">
+                            گران ترین
+                        </a>
+                    </div>
+                </div>
+
+                <!--Product-->
+                <div>
+                    <div class="ah-tab-content-wrapper dt-sl px-res-0">
+                        <div class="row mb-3 mx-0 px-res-0">
+                            @foreach (var item in Model.AuctionItemList)
+                            {
+                                <div class="col-lg-3 col-md-4 col-sm-6 col-12 px-10 mb-1 px-res-0">
+                                    <div class="product-card mb-2 mx-res-0 pt-0">
+                                        
+
+                                        @if (item.StopDate > DateTime.Now)
+                                        {
+                                            <div class="product-timeout position-relative pt-5 mb-3">
+                                                <div class="promotion-badge">
+                                                    فروش ویژه
+                                                </div>
+                                                <div class="countdown-timer"  data-date="@item.StopDate.ToString("MM dd yyyy HH:mm:ss")">
+                                                    <!-- 10 24 2019 20:20:22-->
+                                                    @{
+                                                        var amontTime = item.StopDate - DateTime.Now;
+                                                    }
+                                                    <span data-days>@amontTime.Days</span>:
+                                                    <span data-hours>@amontTime.Hours</span>:
+                                                    <span data-minutes>@amontTime.Minutes</span>:
+                                                    <span data-seconds>@amontTime.Seconds</span>
+                                                </div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="product-timeout position-relative pt-5 mb-3">
+                                                <div class="product-timeout position-relativ">
+                                                    <div class="promotion-badge not-available">
+                                                        اتمام این حراجی
+                                                    </div>
+                                                </div>
+                                                <div class="countdown-timer" data-date="@DateTime.Now">
+                                                    <!-- 10 24 2019 20:20:22-->
+                                                    @{
+                                                        var amontTime = DateTime.Now - DateTime.Now;
+                                                    }
+                                                    <span data-days>@amontTime.Days</span>:
+                                                    <span data-hours>@amontTime.Hours</span>:
+                                                    <span data-minutes>@amontTime.Minutes</span>:
+                                                    <span data-seconds>@amontTime.Seconds</span>
+                                                </div>
+                                            </div>
+                                        }
+
+
+                                        <div class="product-head">
+                                            @if (item.PostedByUserId.ToString() == currentUserId)
+                                            {
+                                                <div class="discount" style="top: 8px; right: 15px;">
+                                                    <a style="color: #00bfd6; font-size: 20px;"
+                                                       href="@Url.Action("AddOrUpdate","Auction", new { @area = "AuctionManagement", @id = item.Id })">
+                                                        <i class="mdi mdi-settings-outline"></i>
+                                                    </a>
+                                                </div>
+                                            }
+                                            <div class="discount" style="top: 10px;">
+                                                <span>@($"{item.BidHistories.Count.ToString()} پیشنهاد")</span>
+                                            </div>
+                                        </div>
+
+                                        <a class="product-thumb" style=" text-align: center; padding-right: 0px; max-height:241px;"
+                                           href="@Url.Action("Index","Auction", new { @area = "AuctionManagement", @id = item.Id })">
+                                            <img src="@item.ImageAddress" alt="Product Thumbnail">
+                                        </a>
+                                        <div class="product-card-body">
+
+                                            <h5 class="product-title">
+                                                <a href="@Url.Action("Index","Auction", new { @area = "AuctionManagement", @id = item.Id })">
+                                                    @item.Title
+                                                </a>
+                                            </h5>
+
+                                            <a class="product-meta" href="@Url.Action("Index","Auction", new { @area = "AuctionManagement", @id = item.Id })">
+                                                تاریخ حراجی
+                                                @item.StartDateFa
+                                                تا
+                                                @item.StopDateFa
+                                            </a>
+
+                                            <span class="product-price">
+                                                شروع قیمت از
+                                                @item.MiniPrice.ToString("###,###")
+                                                تومان
+                                            </span>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <!--paging-->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="pagination">
+
+                                    @{
+                                        var startPageNumber = (Model.PageNumber - 1 > 0 ? Model.PageNumber - 1 : 1);
+                                    }
+
+                                    @if (Model.PageNumber - 1 > 0)
+                                    {
+                                        @:<a href="@Url.Action("Index", new { @sortState = Model.SortState, @page = Model.PageNumber-1 })" class="prev"><i class="mdi mdi-chevron-double-right"></i></a>
+                                    }
+
+                                    @if (Model.PageNumber + 3 > Model.LastPageNumber && Model.LastPageNumber > 3)
+                                    {
+                                        @:<a href="@Url.Action("Index", new { @sortState = Model.SortState, @page = 1 })">1</a>
+                                        @:<a href="#">...</a>
+                                    }
+
+                                    @for (var i = startPageNumber; i < Model.LastPageNumber; i++)
+                                    {
+                                        if (Model.PageNumber == i)
+                                        {
+                                            @:<a href="#" class="active-page">@i</a>
+                                        }
+                                        else
+                                        {
+                                            @:<a href="@Url.Action("Index", new { @sortState = Model.SortState, @page = i })">@i</a>
+                                        }
+
+                                        if (i == startPageNumber + 3)
+                                        {
+                                            @:<a href="#">...</a>
+                                            break;
+                                        }
+
+                                    }
+
+                                    @if (Model.PageNumber != Model.LastPageNumber && Model.LastPageNumber > 1)
+                                    {
+                                        <a href="@Url.Action("Index", new { @sortState = Model.SortState, @page = Model.LastPageNumber })">@Model.LastPageNumber</a>
+                                    }
+
+                                    @if (Model.PageNumber == Model.LastPageNumber && Model.LastPageNumber > 1)
+                                    {
+                                        <a href="#" class="active-page">@Model.LastPageNumber</a>
+                                    }
+
+                                    @if (Model.PageNumber + 1 <= Model.LastPageNumber)
+                                    {
+                                        @:<a href="@Url.Action("Index", new { @sortState = Model.SortState, @page = Model.PageNumber+1 })" class="next"><i class="mdi mdi-chevron-double-left"></i></a>
+                                    }
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Content -->
+    </div>
+</div>

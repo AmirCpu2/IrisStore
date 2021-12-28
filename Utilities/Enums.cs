@@ -89,5 +89,23 @@ namespace Utilities
             Paid = 1,
         }
 
+        public enum SortState
+        {
+            DSNews = 0,
+            ASNews = 1,
+            ASDateTime = 2,
+            DSDateTime = 3,
+            ASStartMony = 4,
+            DSStartMony = 5,
+            
+        }
+        
+        public enum BidRequestState
+        {
+            NotAutorize = 0,
+            NotMatchCoin = 1,
+            Complited = 2,
+        }
+
     }
 }

@@ -16,18 +16,16 @@
             Html.RenderAction("ProfileSidebar", "Home", new { area = "user" });
         }
         <!-- End Sidebar -->
+
         <!-- Start Content -->
         @RenderBody()
         <!-- End Content -->
     </div>
     <div class="mt-5">
         <!-- Start Product-Slider -->
-
         @{
             Html.RenderAction("RecommendedProductCarousel", "Home", new { area = "Product" });
         }
-
-
         <!-- End Product-Slider -->
     </div>
 </div>
