@@ -1,0 +1,71 @@
+﻿@model List<Iris.ViewModels.AuctionItemViewModel>
+
+<section class="slider-section mb-5 amazing-section" style="background: #ef394e">
+    <div class="container main-container">
+        <div class="row mb-3">
+            <!-- Start Product-Slider -->
+            <div class="col-12">
+                <div class="product-carousel carousel-lg owl-carousel owl-theme">
+                    <div class="item">
+                        <div class="amazing-product text-center pt-5">
+                            <a href="#">
+                                <img src="/Content/img/theme/amazing-1.png" alt="">
+                            </a>
+                            <a href="#" class="view-all-amazing-btn">
+                                مشاهده همه
+                            </a>
+                        </div>
+                    </div>
+
+                    @foreach (var item in Model)
+                    {
+                        <div class="item">
+                            <div class="product-card mb-3">
+
+                                <div class="product-timeout position-relative pt-5 mb-3">
+                                    <div class="product-head">
+                                        <div class="discount" >
+                                            <span>@($"{item.BidHistories.Count.ToString()} پیشنهاد")</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+
+                                <a class="product-thumb" style=" text-align: center; padding-right: 0px; max-height:241px;"
+                                   href="@Url.Action("Index","Auction", new { @area = "AuctionManagement", @id = item.Id })">
+                                    <img src="@item.ImageAddress" alt="Product Thumbnail">
+                                </a>
+                                <div class="product-card-body">
+
+                                    <h5 class="product-title">
+                                        <a href="@Url.Action("Index","Auction", new { @area = "AuctionManagement", @id = item.Id })">
+                                            @item.Title
+                                        </a>
+                                    </h5>
+
+                                    <a class="product-meta" href="@Url.Action("Index","Auction", new { @area = "AuctionManagement", @id = item.Id })">
+                                        تاریخ حراجی
+                                        @item.StartDateFa
+                                        تا
+                                        @item.StopDateFa
+                                    </a>
+
+                                    <span class="product-price">
+                                        شروع از
+                                        @item.MiniPrice.ToString("###,###")
+                                        تومان
+                                    </span>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    
+                </div>
+            </div>
+            <!-- End Product-Slider -->
+
+        </div>
+    </div>
+</section>

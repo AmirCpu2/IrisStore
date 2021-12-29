@@ -10,6 +10,8 @@ namespace Iris.ViewModels
         public IList<ProductWidgetViewModel> SuggestionProducts { get; set; }
         public IList<SidebarCategoryViewModel> Categories { get; set; }
         public IList<SlideShowViewModel> SlideShows { get; set; }
+        public IList<AuctionItemViewModel> NewAuctionItems { get; set; }
+        public IList<AuctionItemViewModel> TopViewAuctionItem { get; set; }
         public IList<LinkViewModel> PageLinks { get; set; }
         public IList<LinkViewModel> PostCategoryLinks { get; set; }
         public IList<PostCategorySideBarViewModel> PostCategories { get; set; }

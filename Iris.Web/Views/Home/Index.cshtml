@@ -7,40 +7,46 @@
     <!-- Start Main-Slider -->
     @Html.Partial(MVC.SlideShow.Widget.Views.SlideShowWidget, Model.SlideShows)
     <!-- End Main-Slider -->
-
     <!-- Start Product-Slider -->
     <div class="row">
         <!--Product Main-->
         <div class="col-xl-10 col-lg-12">
             @{
-            Html.RenderPartial(MVC.Widgets.Views.ContainerSliderWidget, new ProductSliderWidgetViewModel
-            {
-                Title = "پر فروش ترینها",
-                CarouselId = "topViewProductsCarousel",
-                LinkText = "مشاهده همه",
-                Link = $"{Url.Action(MVC.Product.SearchProduct.ActionNames.Index, MVC.Product.SearchProduct.Name, new { area = MVC.Product.Name })}#/page/all/empty/1/ViewNumber/desc",
-                Products = Model.MostViewedProducts ,
-                ShowCount = 5
-            });
+                Html.RenderPartial(MVC.Widgets.Views.ContainerSliderWidget, new ProductSliderWidgetViewModel
+                {
+                    Title = "پر فروش ترینها",
+                    CarouselId = "topViewProductsCarousel",
+                    LinkText = "مشاهده همه",
+                    Link = $"{Url.Action(MVC.Product.SearchProduct.ActionNames.Index, MVC.Product.SearchProduct.Name, new { area = MVC.Product.Name })}#/page/all/empty/1/ViewNumber/desc",
+                    Products = Model.MostViewedProducts,
+                    ShowCount = 5
+                });
             }
         </div>
         <!--Product Mini-->
         <div class="col-xl-2 col-lg-3 hidden-lg pr-0">
             @{
-            Html.RenderPartial(MVC.Widgets.Views.SuggestionSliderWidger, new ProductSliderWidgetViewModel
-            {
-                Title = "پیشنهاد لحظه ای",
-                CarouselId = "SuggestionProductsCarousel",
-                LinkText = "مشاهده همه",
-                Link = $"{Url.Action(MVC.Product.SearchProduct.ActionNames.Index, MVC.Product.SearchProduct.Name, new { area = MVC.Product.Name })}#/page/all/empty/1/ViewNumber/desc",
-                Products = Model.SuggestionProducts.OrderBy(q=>q.Discount).Reverse().Take(5).ToList() ,
-                ShowCount = 1
-            });
+                Html.RenderPartial(MVC.Widgets.Views.SuggestionSliderWidger, new ProductSliderWidgetViewModel
+                {
+                    Title = "پیشنهاد لحظه ای",
+                    CarouselId = "SuggestionProductsCarousel",
+                    LinkText = "مشاهده همه",
+                    Link = $"{Url.Action(MVC.Product.SearchProduct.ActionNames.Index, MVC.Product.SearchProduct.Name, new { area = MVC.Product.Name })}#/page/all/empty/1/ViewNumber/desc",
+                    Products = Model.SuggestionProducts.OrderBy(q => q.Discount).Reverse().Take(5).ToList(),
+                    ShowCount = 1
+                });
             }
         </div>
     </div>
     <!-- End Product-Slider -->
 
+</div>
+<!-- Start Product-Slider -->
+
+@Html.Partial("~/Areas/AuctionManagement/Views/Widget/AuctionShowWidget.cshtml", Model.NewAuctionItems)
+
+<div class="container main-container">
+    <!-- End Product-Slider -->
     <!-- Start Banner -->
     <div class="row mt-3 mb-5">
         <div class="col-sm-6 col-12 mb-2">
@@ -159,7 +165,7 @@
                         <div class="item">
                             <a href="#" class="promotion-category">
                                 <img src="../../Content/img/category/restaurant-cutlery-circular-symbol-of-a-spoon-and-a-fork-in-a-circle.png"
-                                        alt="">
+                                     alt="">
                                 <h4 class="promotion-category-name">خوردنی و آشامیدنی</h4>
                                 <h6 class="promotion-category-quantity">۲۲۰۰۰ کالا</h6>
                             </a>
@@ -173,15 +179,15 @@
     <!-- Start Product-Slider -->
     <div class="row">
         @{
-        Html.RenderPartial(MVC.Widgets.Views.ContainerSliderWidget, new ProductSliderWidgetViewModel
-        {
-            Title = "جدید ترینها",
-            CarouselId = "newestProductsCarousel",
-            LinkText = "مشاهده همه",
-            Link = $"{Url.Action(MVC.Product.SearchProduct.ActionNames.Index, MVC.Product.SearchProduct.Name, new {area = MVC.Product.Name})}#/page/all/empty/1/PostedDate/desc",
-            Products = Model.NewestProducts,
-            ShowCount = 6
-        });
+            Html.RenderPartial(MVC.Widgets.Views.ContainerSliderWidget, new ProductSliderWidgetViewModel
+            {
+                Title = "جدید ترینها",
+                CarouselId = "newestProductsCarousel",
+                LinkText = "مشاهده همه",
+                Link = $"{Url.Action(MVC.Product.SearchProduct.ActionNames.Index, MVC.Product.SearchProduct.Name, new { area = MVC.Product.Name })}#/page/all/empty/1/PostedDate/desc",
+                Products = Model.NewestProducts,
+                ShowCount = 6
+            });
         }
     </div>
     <!-- End Product-Slider -->
@@ -196,33 +202,41 @@
         </div>
     </div>
     <!-- End Banner -->
+
+</div>
+
+@Html.Partial("~/Areas/AuctionManagement/Views/Widget/AuctionShowWidgetBlueTheme.cshtml", Model.TopViewAuctionItem)
+
+<div class="container main-container">
+
+
     <!-- Start Product-Slider -->
     <div class="row">
         @{
-        Html.RenderPartial(MVC.Widgets.Views.ContainerSliderWidget, new ProductSliderWidgetViewModel
-        {
-            Title = "پربازدیدترین کالا‌ها",
-            CarouselId = "topViewProductsCarousel",
-            LinkText = "مشاهده همه",
-            Link = $"{Url.Action(MVC.Product.SearchProduct.ActionNames.Index, MVC.Product.SearchProduct.Name, new { area = MVC.Product.Name })}#/page/all/empty/1/ViewNumber/desc",
-            Products = Model.MostViewedProducts,
-            ShowCount = 6
-        });
+            Html.RenderPartial(MVC.Widgets.Views.ContainerSliderWidget, new ProductSliderWidgetViewModel
+            {
+                Title = "پربازدیدترین کالا‌ها",
+                CarouselId = "topViewProductsCarousel",
+                LinkText = "مشاهده همه",
+                Link = $"{Url.Action(MVC.Product.SearchProduct.ActionNames.Index, MVC.Product.SearchProduct.Name, new { area = MVC.Product.Name })}#/page/all/empty/1/ViewNumber/desc",
+                Products = Model.MostViewedProducts,
+                ShowCount = 6
+            });
         }
     </div>
     <!-- End Product-Slider -->
     <!-- Start Feature-Product -->
     <div class="row">
         @{
-        Html.RenderPartial(MVC.Widgets.Views.Listwidget, new ProductSliderWidgetViewModel
-        {
-            Title = "پیشنهاد ما",
-            CarouselId = "SuggestionProductsCarousel",
-            LinkText = "مشاهده همه",
-            Link = $"{Url.Action(MVC.Product.SearchProduct.ActionNames.Index, MVC.Product.SearchProduct.Name, new { area = MVC.Product.Name })}#/page/all/empty/1/ViewNumber/desc",
-            Products = Model.SuggestionProducts ,
-            ShowCount = 3
-        });
+            Html.RenderPartial(MVC.Widgets.Views.Listwidget, new ProductSliderWidgetViewModel
+            {
+                Title = "پیشنهاد ما",
+                CarouselId = "SuggestionProductsCarousel",
+                LinkText = "مشاهده همه",
+                Link = $"{Url.Action(MVC.Product.SearchProduct.ActionNames.Index, MVC.Product.SearchProduct.Name, new { area = MVC.Product.Name })}#/page/all/empty/1/ViewNumber/desc",
+                Products = Model.SuggestionProducts,
+                ShowCount = 3
+            });
         }
     </div>
     <!-- End Feature-Product -->

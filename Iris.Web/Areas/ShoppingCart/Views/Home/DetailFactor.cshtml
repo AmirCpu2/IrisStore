@@ -167,10 +167,10 @@
                                             خرید
                                             مجدد
                                         </a>
-                                        <button class="btn text-light bg-secondary d-block w-100" type="button" data-productId="@item.ProductId">
+                                        <a class="btn text-light bg-secondary d-block w-100" href="@Url.Action("AddOrUpdate","Home", new { @area = "CommentManager", @productId=item.ProductId})" data-productId="@item.ProductId">
                                             ثبت
                                             نظر
-                                        </button>
+                                        </a>
                                     </td>
                                 </tr>
                             }

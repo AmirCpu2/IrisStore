@@ -19,6 +19,8 @@ namespace Iris.ServiceLayer.Contracts
         Task<IList<VM.AuctionItemViewModel>> GetAllPaging(int take, int skip);
         IQueryable<AuctionItem> GetAll_asQuery(Expression<Func<AuctionItem, bool>> expression = null);
         Task<VM.AuctionItemViewModel> GetOneById(int id);
+        Task<IList<VM.AuctionItemViewModel>> GetTopViewAuctionItem(int Take);
+        Task<IList<VM.AuctionItemViewModel>> GetNewAuctionItems(int Take);
 
     }
 }

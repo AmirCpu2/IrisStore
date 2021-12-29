@@ -396,6 +396,8 @@
     <Content Include="Areas\AuctionManagement\Views\Auction\UserAuctionList.cshtml" />
     <Content Include="Areas\User\Views\CoinManager\Index.cshtml" />
     <Content Include="Areas\AuctionManagement\Views\Auction\UserAuctionListWinner.cshtml" />
+    <Content Include="Areas\AuctionManagement\Views\Widget\AuctionShowWidget.cshtml" />
+    <Content Include="Areas\AuctionManagement\Views\Widget\AuctionShowWidgetBlueTheme.cshtml" />
     <None Include="Connected Services\Zarinpal\configuration91.svcinfo" />
     <None Include="Connected Services\Zarinpal\configuration.svcinfo" />
     <Content Include="Connected Services\Zarinpal\Iris.Web.Zarinpal.GetUnverifiedTransactionsResponse.datasource">

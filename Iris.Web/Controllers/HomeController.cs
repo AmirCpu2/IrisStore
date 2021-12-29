@@ -16,9 +16,11 @@ namespace Iris.Web.Controllers
         private readonly ISlideShowImageService _slideShowService;
         private readonly IPageService _pageService;
         private readonly ISiteSettingService _settingService;
+        private readonly IAuctionItemService _auctionItemService;
 
         public HomeController(IApplicationUserManager userManager, IProductService productService, ICategoryService categoryService,
-            ISlideShowImageService slideShowService, IPostCategoryService postCategoryService, IPageService pageService, ISiteSettingService settingService)
+            ISlideShowImageService slideShowService, IPostCategoryService postCategoryService,
+            IPageService pageService, ISiteSettingService settingService, IAuctionItemService auctionItemService)
         {
             _userManager = userManager;
             _productService = productService;
@@ -27,6 +29,7 @@ namespace Iris.Web.Controllers
             _postCategoryService = postCategoryService;
             _pageService = pageService;
             _settingService = settingService;
+            _auctionItemService = auctionItemService;
         }
 
         [Route("~/")]
@@ -43,7 +46,9 @@ namespace Iris.Web.Controllers
                 PopularProducts = await _productService.GetPopularProducts(8),
                 Categories = await _categoryService.GetSidebarCategories(5),
                 SlideShows = await _slideShowService.GetSlideShowImages(),
-                PostCategories = await _postCategoryService.GetSideBar()
+                PostCategories = await _postCategoryService.GetSideBar(),
+                NewAuctionItems = await _auctionItemService.GetNewAuctionItems(8),
+                TopViewAuctionItem = await _auctionItemService.GetTopViewAuctionItem(8),
             };
 
             var metaTags = await _settingService.GetSiteMetaTags();

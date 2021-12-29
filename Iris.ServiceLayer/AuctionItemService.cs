@@ -142,5 +142,23 @@ namespace Iris.ServiceLayer
 
             return auctionItemListViewModelList.Select(q => Mapper.Map<AuctionItem, AuctionItemViewModel>(q)).ToList();
         }
+
+        public async Task<IList<AuctionItemViewModel>> GetTopViewAuctionItem(int take)
+        {
+            var auctionItemList = _auctionItem.OrderByDescending(q=> q.BidHistories.Count()).Take(take);
+
+            var auctionItemListViewModelList = await auctionItemList.ToListAsync();
+
+            return auctionItemListViewModelList.Select(q => Mapper.Map<AuctionItem, AuctionItemViewModel>(q)).ToList();
+        }
+
+        public async Task<IList<AuctionItemViewModel>> GetNewAuctionItems(int take)
+        {
+            var auctionItemList = _auctionItem.OrderByDescending(q => q.BidHistories.Count()).Take(take);
+
+            var auctionItemListViewModelList = await auctionItemList.ToListAsync();
+
+            return auctionItemListViewModelList.Select(q => Mapper.Map<AuctionItem, AuctionItemViewModel>(q)).ToList();
+        }
     }
 }
