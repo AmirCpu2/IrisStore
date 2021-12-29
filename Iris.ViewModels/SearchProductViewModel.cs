@@ -12,6 +12,9 @@
         public decimal? MinDiscount { get; set; }
         public decimal? MaxDiscount { get; set; }
 
+        public int[] SelectedColors { get; set; }
+        public int[] SelectedSellers { get; set; }
+        public int[] SelectedBrands { get; set; }
         public int[] SelectedCategories { get; set; }
         public string SearchTerm { get; set; }
 

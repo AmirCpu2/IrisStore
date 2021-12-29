@@ -42,6 +42,22 @@ namespace Iris.Web.Areas.User.Controllers
             _authenticationManager = authenticationManager;
         }
 
+        [Route("Index")]
+        [HttpGet]
+        public virtual async Task<ActionResult> Index()
+        {
+            var currentUserId = _userManager.GetCurrentUserId();
+
+            if(currentUserId < 1)
+            {
+                return HttpNotFound();
+            }
+
+            var coinFactorList = await _coinFactorService.GetAllByUserId(currentUserId);
+
+            return View(coinFactorList);
+        }
+
         [Route("BuyCoins")]
         [HttpGet]
         public virtual ActionResult BuyCoins(bool? isSuccess)

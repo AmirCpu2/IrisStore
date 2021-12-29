@@ -15,6 +15,7 @@ namespace Iris.ServiceLayer.Contracts
         void Delete(int id);
         void Edit(AuctionItem coinFactor);
         Task<IList<VM.AuctionItemViewModel>> GetAllByUserId(int UserId);
+        Task<IList<VM.AuctionItemViewModel>> GetAllWinnByUserId(int UserId);
         Task<IList<VM.AuctionItemViewModel>> GetAllPaging(int take, int skip);
         IQueryable<AuctionItem> GetAll_asQuery(Expression<Func<AuctionItem, bool>> expression = null);
         Task<VM.AuctionItemViewModel> GetOneById(int id);

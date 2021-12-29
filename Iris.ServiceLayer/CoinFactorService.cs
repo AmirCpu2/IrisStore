@@ -72,9 +72,9 @@ namespace Iris.ServiceLayer
         {
             var coinList = _coinFactor.Where(q=> q.UserId == UserId);
 
-            var coinFactorViewModelList = await coinList.Select(q=> Mapper.Map<CoinFactor, CoinFactorViewModel>(q)).ToListAsync();
+            var coinFactorViewModelList = await coinList.ToListAsync();
 
-            return coinFactorViewModelList;
+            return coinFactorViewModelList.Select(q => Mapper.Map<CoinFactor, CoinFactorViewModel>(q)).ToList();
         }
 
         public async Task<CoinFactorViewModel> GetOneById(Guid id)

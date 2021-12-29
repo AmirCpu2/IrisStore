@@ -304,8 +304,36 @@ namespace Iris.ServiceLayer
                     productsQuery.Where(product =>
                     product.Categories.Any(category => searchModel.SelectedCategories.Contains(category.Id)));
             }
+            
+            if (searchModel.SelectedColors != null && searchModel.SelectedColors.Any())
+            {
+                productsQuery =
+                    productsQuery.Where(product =>
+                    product.Items.Any(item => searchModel.SelectedColors.Contains(item.Id)));
+            }
+            
+            if (searchModel.SelectedBrands != null && searchModel.SelectedBrands.Any())
+            {
+                productsQuery =
+                    productsQuery.Where(product =>
+                    product.Items.Any(item => searchModel.SelectedBrands.Contains(item.Id)));
+            }
+            
+            if (searchModel.SelectedSellers != null && searchModel.SelectedSellers.Any())
+            {
+                productsQuery =
+                    productsQuery.Where(product =>
+                    product.Items.Any(item => searchModel.SelectedSellers.Contains(item.Id)));
+            }
 
-            productsQuery = productsQuery.OrderBy($"ProductStatus,{searchModel.SortBy} {searchModel.SortOrder}");
+            if(searchModel.SortBy == "ProductPrices")
+            {
+                productsQuery = productsQuery.OrderBy($"ProductStatus,{"AverageRating"} {"DESC"}");
+            }
+            else
+            {
+                productsQuery = productsQuery.OrderBy($"ProductStatus,{searchModel.SortBy} {searchModel.SortOrder}");
+            }
 
 
             if (searchModel.ShowStockProductsOnly)
@@ -341,7 +369,17 @@ namespace Iris.ServiceLayer
                 TotalCount = await productsQuery.CountAsync()
             };
 
-
+            if (searchModel.SortBy == "ProductPrices")
+            {
+                if (searchModel.SortOrder == "DESC")
+                {
+                    result.Products = result.Products.OrderByDescending(q => q.Price).ToList();
+                }
+                else
+                {
+                    result.Products = result.Products.OrderBy(q => q.Price).ToList();
+                }
+            }
 
             return result;
         }

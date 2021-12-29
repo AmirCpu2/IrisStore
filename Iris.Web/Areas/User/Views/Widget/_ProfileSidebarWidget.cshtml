@@ -123,17 +123,23 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="@Url.Action("UserAuctionList", "Auction", new { area = "AuctionManagement" })" class="@(Request.Url.LocalPath.ToString().Equals(Url.Action("UserAuctionList", "Auction", new { area = "AuctionManagement" }))? "active": "")">
                                 <i class="mdi mdi-store"></i>
                                 حراجی های من
                             </a>
                         </li>
-                        @*<li>
-                            <a href="#">
-                                <i class="mdi mdi-eye-outline"></i>
-                                بازدیدهای اخیر
+                        <li>
+                            <a href="@Url.Action("UserAuctionListWinner", "Auction", new { area = "AuctionManagement" })" class="@(Request.Url.LocalPath.ToString().Equals(Url.Action("UserAuctionListWinner", "Auction", new { area = "AuctionManagement" }))? "active": "")">
+                                <i class="mdi mdi-trophy-outline"></i>
+                                حراجی های برنده شده
                             </a>
-                        </li>*@
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "CoinManager", new { area = "user" })" class="@(Request.Url.LocalPath.ToString().Equals(Url.Action("Index", "CoinManager", new { area = "user" }))? "active": "")">
+                                <i class="mdi mdi-eye-outline"></i>
+                                مشاهده تغییرات سکه
+                            </a>
+                        </li>
                         <li>
                             <a href="@Url.Action("UserProfile", "Home", new { area = "user" })" class="@(Request.Url.LocalPath.ToString().Equals(Url.Action("UserProfile", "Home", new { area = "user" }))? "active": "")">
                                 <i class="mdi mdi-account-edit-outline"></i>

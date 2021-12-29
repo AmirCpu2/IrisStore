@@ -29,6 +29,7 @@ namespace Iris.ViewModels
 
         [Required]
         public DateTime CrateDate { get; set; } = DateTime.Now;
+        public string CrateDateFa => Utilities.PersianDateUtils.ToPersianDateFa(CrateDate);
 
         public DateTime? EditDate { get; set; }
 

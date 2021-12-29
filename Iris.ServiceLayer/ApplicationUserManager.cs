@@ -252,7 +252,7 @@ namespace Iris.ServiceLayer
             if (userInfo == null)
                 return;
 
-            userInfo.BidCount += count;
+            userInfo.BidCount -= count;
 
             _users.Attach(userInfo);
 

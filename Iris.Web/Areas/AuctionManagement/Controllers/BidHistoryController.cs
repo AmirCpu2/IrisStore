@@ -56,7 +56,7 @@ namespace Iris.Web.Areas.AuctionManagement.Controllers
 
             if(curentUserId < 1)
             {
-                RedirectToAction("Index", "Auction", new { @area = "AuctionManagement", @id = auctionItemId, @state = (int)Enums.BidRequestState.NotAutorize });
+                return RedirectToAction("Index", "Auction", new { @area = "AuctionManagement", @id = auctionItemId, @state = (int)Enums.BidRequestState.NotAutorize });
             }
 
             var auctionItem = await _auctionItemService.GetOneById(auctionItemId);

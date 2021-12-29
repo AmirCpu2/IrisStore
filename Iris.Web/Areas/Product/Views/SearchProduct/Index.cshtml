@@ -28,7 +28,7 @@
                                    autocomplete="off"
                                    id="searchInputProduct"
                                    class="ui-autocomplete-input">
-                            <button class="btn-search-widget" id="btnSearchProdcut">
+                            <button class="btn-search-widget" id="btnSearchProdcut" type="button"  ng-click="SearcheNew()">
                                 <img src="~/Content/img/theme/search.png" alt="">
                             </button>
                         </div>
@@ -57,9 +57,9 @@
                                         {
                                             <div class="custom-control custom-checkbox">
                                                 <input type="checkbox" class="custom-control-input"
-                                                       id="@item.Id">
+                                                       id="AvailableGroups-@item.Id" value="@item.Id">
                                                 <label class="custom-control-label"
-                                                       for="@item.Id">@item.Name</label>
+                                                       for="AvailableGroups-@item.Id">@item.Name</label>
                                                 </div>
                                             }
                                     </div>
@@ -81,12 +81,15 @@
                                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
                                      data-parent="#accordionExample">
                                     <div class="card-body">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input"
-                                                   id="customCheck7">
-                                            <label class="custom-control-label"
-                                                   for="customCheck7">همه</label>
-                                        </div>
+                                        @foreach (var item in Model.BrandSelectList)
+                                        {
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input"
+                                                       id="BrandSelectList-@item.Id" value="@item.Id">
+                                                <label class="custom-control-label"
+                                                       for="BrandSelectList-@item.Id">@item.NameFa</label>
+                                                </div>
+                                            }
                                     </div>
                                 </div>
                             </div>
@@ -106,28 +109,15 @@
                                 <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
                                      data-parent="#accordionExample">
                                     <div class="card-body">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input"
-                                                   id="customCheck11">
-                                            <label class="custom-control-label"
-                                                   for="customCheck11">همه</label>
-                                        </div>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input"
-                                                   id="customCheck12">
-                                            <label class="custom-control-label" for="customCheck12">
-                                                دیدی
-                                                کالا
-                                            </label>
-                                        </div>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input"
-                                                   id="customCheck13">
-                                            <label class="custom-control-label" for="customCheck13">
-                                                فروشنده
-                                                رسمی برند
-                                            </label>
-                                        </div>
+                                        @foreach (var item in Model.SellersSelectList)
+                                        {
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input"
+                                                       id="SellersSelectList-@item.Id" value="@item.Id">
+                                                <label class="custom-control-label"
+                                                       for="SellersSelectList-@item.Id">@item.NameFa</label>
+                                                </div>
+                                            }
                                     </div>
                                 </div>
                             </div>
@@ -147,52 +137,19 @@
                                 <div id="collapseFour" class="collapse" aria-labelledby="headingFour"
                                      data-parent="#accordionExample">
                                     <div class="card-body">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input"
-                                                   id="customCheck14">
-                                            <label class="custom-control-label"
-                                                   for="customCheck14">مشکی</label>
-                                            <span class="filter-color"
-                                                  style="background-color: rgb(0,0,0)"></span>
-                                        </div>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input"
-                                                   id="customCheck15">
-                                            <label class="custom-control-label" for="customCheck15">
-                                                نوک
-                                                مدادی
-                                            </label>
-                                            <span class="filter-color"
-                                                  style="background-color: rgb(105,105,105)"></span>
-                                        </div>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input"
-                                                   id="customCheck16">
-                                            <label class="custom-control-label" for="customCheck16">
-                                                آبی
-                                                روشن
-                                            </label>
-                                            <span class="filter-color"
-                                                  style="background-color: rgb(64,170,255)"></span>
-                                        </div>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input"
-                                                   id="customCheck17">
-                                            <label class="custom-control-label" for="customCheck17">
-                                                نقره
-                                                ای
-                                            </label>
-                                            <span class="filter-color"
-                                                  style="background-color: rgb(222,222,222)"></span>
-                                        </div>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input"
-                                                   id="customCheck18">
-                                            <label class="custom-control-label"
-                                                   for="customCheck18">زرد</label>
-                                            <span class="filter-color"
-                                                  style="background-color: rgb(255,255,0)"></span>
-                                        </div>
+                                        @foreach (var item in Model.ProductColorSelectList)
+                                        {
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input"
+                                                       id="ProductColorSelectList-@item.Id" value="@item.Id">
+                                                <label class="custom-control-label"
+                                                       for="ProductColorSelectList-@item.Id">@item.NameFa</label>
+                                                    <span class="filter-color"
+                                                          style="background-color: @Utilities.Color.GetColorCode(item.NameEn)">
+
+                                                    </span>
+                                                </div>
+                                            }
                                     </div>
                                 </div>
                             </div>
@@ -229,7 +186,7 @@
 
                     <!--Submit BTN-->
                     <div class="col-12">
-                        <button class="btn btn-info btn-block" type="submit">
+                        <button class="btn btn-info btn-block" type="button" ng-click="SearcheNew()">
                             فیلتر
                         </button>
                         <br />
@@ -289,7 +246,8 @@
                             </div>
                         </div>
                         <!--paging-->
-                        <div class="row">
+                        
+                        @*<div class="row">
                             <div class="col-12">
                                 <div class="pagination">
                                     <a href="#" class="prev"><i class="mdi mdi-chevron-double-right"></i></a>
@@ -302,7 +260,8 @@
                                     <a href="#" class="next"><i class="mdi mdi-chevron-double-left"></i></a>
                                 </div>
                             </div>
-                        </div>
+                        </div>*@
+
                     </div>
                 </div>
             </div>
@@ -342,30 +301,87 @@
              * initilize value
              */
             var initilize = function () {
-                searchParams =
-                {
-                    "PageNumber": 1,
-                    "PageSize": "24",
-                    "SortBy": "ViewNumber",
-                    "SortOrder": "desc",
-                    "ShowStockProductsOnly": false,
-                    "MinPrice": priceMin,//document.getElementById('priceRange').noUiSlider.get()[0],
-                    "MaxPrice": priceMax,//$('#priceRange').noUiSlider.get()[1],
-                    "MinDiscount": null,
-                    "MaxDiscount": null,
-                    "SelectedCategories": [],
-                    "SearchTerm": ""
-                }
-                searching(searchParams);
+
+                searcheModel.UpdateValue();
+
+                searching(searcheModel.GetJsonModel());
             }
 
             initilize();
 
+            //[ASC | DESC]
+
+            var sortState = [
+                {},//empty
+                { sortOrder: 'DESC', sortBy: 'Id'},// مرتبط ترین
+                { sortOrder: 'DESC', sortBy: 'ViewNumber'},// پربازدید ترین
+                { sortOrder: 'DESC', sortBy: 'PostedDate'},// جدید ترین
+                { sortOrder: 'DESC', sortBy: 'AverageRating'},//پرفروش ترین
+                { sortOrder: 'ASC', sortBy: 'ProductPrices'},//ارزانترین
+                { sortOrder: 'DESC', sortBy: 'ProductPrices'},//گرانترین
+            ]
+
             $scope.sort = function (id) {
-                alert(id);
+                searcheModel.SortBy = sortState[id].sortBy;
+                searcheModel.SortOrder = sortState[id].sortOrder;
+
+                searcheModel.UpdateValue();
+
+                searching(searcheModel.GetJsonModel());
+            }
+            
+            $scope.SearcheNew = function (id) {
+                searcheModel.UpdateValue();
+
+                searching(searcheModel.GetJsonModel());
             }
 
         });
+
+        class searcheModel {
+            static PageNumber = 1;
+            static PageSize = 10;
+            static SortBy = 'Id';
+            static SortOrder = 'DESC';
+            static ShowStockProductsOnly = $('#AvailableProducts:checked').length > 0;
+            static MinPrice = Math.floor( $('.noUi-handle.noUi-handle-lower').attr("aria-valuenow") );
+            static MaxPrice = Math.floor( $('.noUi-handle.noUi-handle-lower').attr("aria-valuemax") );
+            static MinDiscount = null;
+            static MaxDiscount = null;
+            static SelectedColors = $.map($('input[id^="ProductColorSelectList-"]:checked'), function (option) { return option.value; });
+            static SelectedSellers = $.map($('input[id^="SellersSelectList-"]:checked'), function (option) { return option.value; });
+            static SelectedBrands = $.map($('input[id^="BrandSelectList-"]:checked'), function (option) { return option.value; });
+            static SelectedCategories = $.map($('input[id^="AvailableGroups-"]:checked'),function(option) {return option.value;});
+            static SearchTerm = $('#searchInputProduct').val();
+
+            static UpdateValue() {
+                this.ShowStockProductsOnly = $('#AvailableProducts:checked').length > 0;
+                this.MinPrice = Math.floor($('.noUi-handle.noUi-handle-lower').attr("aria-valuenow"));
+                this.MaxPrice = Math.floor($('.noUi-handle.noUi-handle-lower').attr("aria-valuemax"));
+                this.SearchTerm = $('#searchInputProduct').val();
+                this.SelectedColors = $.map($('input[id^="ProductColorSelectList-"]:checked'), function (option) { return option.value; });
+                this.SelectedSellers = $.map($('input[id^="SellersSelectList-"]:checked'), function (option) { return option.value; });
+                this.SelectedBrands = $.map($('input[id^="BrandSelectList-"]:checked'), function (option) { return option.value; });
+                this.SelectedCategories = $.map($('input[id^="AvailableGroups-"]:checked'), function (option) { return option.value; });
+            }
+
+            static GetJsonModel() {
+                return JSON.stringify({
+                    "PageNumber": this.PageNumber,
+                    "PageSize": this.PageSize,
+                    "SortBy": this.SortBy,
+                    "SortOrder": this.SortOrder,
+                    "ShowStockProductsOnly": this.ShowStockProductsOnly,
+                    "MinPrice": this.MinPrice,
+                    "MaxPrice": this.MaxPrice,
+                    "SelectedColors": this.SelectedColors,
+                    "SelectedSellers": this.SelectedSellers,
+                    "SelectedBrands": this.SelectedBrands,
+                    "SelectedCategories": this.SelectedCategories,
+                    "SearchTerm": this.SearchTerm,
+                });
+            }
+        }
 
     </script>
     @Scripts.Render("~/bundles/search-product")

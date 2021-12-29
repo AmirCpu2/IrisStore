@@ -68,7 +68,7 @@ namespace Iris.Web.Areas.AuctionManagement.Controllers
 
         [Route("AddOrUpdate")]
         [HttpPost]
-        public async Task<ActionResult> AddOrUpdate(AuctionItemViewModel entity)
+        public ActionResult AddOrUpdate(AuctionItemViewModel entity)
         {
 
             if (entity.ImageFileUpload != null)
@@ -124,7 +124,39 @@ namespace Iris.Web.Areas.AuctionManagement.Controllers
             return RedirectToAction("Index", "Home", new { @area = "User" });
         }
 
+        [Route("UserAuctionList")]
+        [HttpGet]
+        public async Task<ActionResult> UserAuctionList()
+        {
+            var currentUserId = _userManager.GetCurrentUserId();
 
+            if(currentUserId < 1)
+            {
+                return HttpNotFound();
+            }    
+
+            var auctionItemList = await _auctionItemService.GetAllByUserId(currentUserId);
+
+
+            return View(auctionItemList);
+        }
+        
+        [Route("UserAuctionListWinner")]
+        [HttpGet]
+        public async Task<ActionResult> UserAuctionListWinner()
+        {
+            var currentUserId = _userManager.GetCurrentUserId();
+
+            if(currentUserId < 1)
+            {
+                return HttpNotFound();
+            }    
+
+            var auctionItemList = await _auctionItemService.GetAllWinnByUserId(currentUserId);
+
+
+            return View(auctionItemList);
+        }
 
     }
 }

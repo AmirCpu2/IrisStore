@@ -18,10 +18,13 @@ namespace Iris.ViewModels
         public Guid Id { get; set; }
 
         [DisplayName("نوع بسته")]
-        public Enums.CoinPacket CoinPacket { get; set; }
+        public int CoinPacketId { get; set; } = 0;
 
         [DisplayName("نوع بسته")]
-        public int CoinPacketId { get; set; }
+        public Enums.CoinPacket CoinPacket => (Enums.CoinPacket)CoinPacketId;
+        
+        [DisplayName("نوع بسته")]
+        public string CoinPacketFa => CoinPacketId > 0 ? CoinPacket.GetEnumDescription() : "";
 
         [DisplayName("تاریخ خرید")]
         public DateTime BuyDate { get; set; } = DateTime.Now;
@@ -30,10 +33,13 @@ namespace Iris.ViewModels
         public string BuyDateFa => PersianDateUtils.ToPersianDate(BuyDate);
 
         [DisplayName("وضعیت خرید")]
-        public int StatusId { get; set; }
+        public int StatusId { get; set; } = 0;
 
         [DisplayName("وضعیت خرید")]
-        public Enums.CoinFactorStatus Status { get; set; }
+        public Enums.CoinFactorStatus Status => (Enums.CoinFactorStatus)StatusId;
+        
+        [DisplayName("وضعیت خرید")]
+        public string StatusFa => StatusId > -2 ? Status.GetEnumDescription() : "";
 
         [DisplayName("شناسه کابر")]
         public int UserId { get; set; }

@@ -1,0 +1,54 @@
+﻿@model List<Iris.ViewModels.CoinFactorViewModel>
+@{
+    ViewBag.Title = "تراکنش سکه ها";
+    Layout = "~/Areas/User/Views/Shared/_ProfileLayout.cshtml";
+    var i = 1;
+}
+<div class="col-xl-9 col-lg-8 col-md-8 col-sm-12">
+    <div class="row">
+        <div class="col-12">
+            <div class="section-title text-sm-title title-wide mb-1 no-after-title-wide dt-sl mb-2 px-res-1">
+                <h2>تراکنش سکه ها</h2>
+            </div>
+            <div class="dt-sl">
+                <div class="table-responsive">
+                    <table class="table table-order">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>نوع بسته</th>
+                                <th>تاریخ خرید</th>
+                                @*<th>کد پیگیری</th>*@
+                                <th>وضعیت خرید</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@(i++)</td>
+                                    <td style="direction: ltr;">@item.CoinPacketFa CP</td>
+                                    <td>@item.BuyDateFa</td>
+                                    @*<td>@item.RefId</td>*@
+                                    <td>@(item.StatusFa)</td>
+                                </tr>
+                            }
+
+
+                            <tr>
+                                <td class="link-to-orders" colspan="5">
+                                    <a href="#">
+                                        مشاهده لیست تراکنش سکه ها
+
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

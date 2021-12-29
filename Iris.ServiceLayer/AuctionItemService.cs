@@ -18,12 +18,14 @@ namespace Iris.ServiceLayer
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMappingEngine _mappingEngine;
         private readonly IDbSet<AuctionItem> _auctionItem;
+        private readonly IDbSet<BidHistory> _bidHistory;
 
         public AuctionItemService(IUnitOfWork unitOfWork, IMappingEngine mappingEngine)
         {
             _unitOfWork = unitOfWork;
             _auctionItem = _unitOfWork.Set<AuctionItem>();
             _mappingEngine = mappingEngine;
+            _bidHistory = _unitOfWork.Set<BidHistory>();
         }
 
         public AuctionItemViewModel Add(AuctionItem auctionItem)
@@ -90,9 +92,9 @@ namespace Iris.ServiceLayer
         {
             var auctionItemList = _auctionItem.Where(q => q.PostedByUserId == UserId);
 
-            var coinFactorViewModelList = await auctionItemList.ToListAsync();
+            var auctionItemListViewModelList = await auctionItemList.ToListAsync();
 
-            return coinFactorViewModelList.Select(q => Mapper.Map<AuctionItem, AuctionItemViewModel>(q)).ToList();
+            return auctionItemListViewModelList.Select(q => Mapper.Map<AuctionItem, AuctionItemViewModel>(q)).ToList();
         }
 
         public async Task<AuctionItemViewModel> GetOneById(int id)
@@ -106,6 +108,39 @@ namespace Iris.ServiceLayer
         public IQueryable<AuctionItem> GetAll_asQuery(Expression<Func<AuctionItem, bool>> expression = null)
         {
             return (expression == null) ? _auctionItem : _auctionItem.Where(expression);
+        }
+
+        public async Task<IList<AuctionItemViewModel>> GetAllWinnByUserId(int UserId)
+        {
+
+            //Update
+            var auctionsLessWinner = await _auctionItem
+                .Where(q => q.StopDate < DateTime.Now && q.WinUserId == null && q.BidHistories.Count()>0).ToListAsync();
+
+            foreach (var auctionLessWinnerItem in auctionsLessWinner)
+            {
+                var bidHistori = auctionLessWinnerItem.BidHistories.LastOrDefault();
+                if (bidHistori?.UserId != null)
+                {
+                    var auction = await _auctionItem.FirstOrDefaultAsync(q => q.Id == bidHistori.AuctionItemId);
+
+                    auction.WinUserId = bidHistori.UserId;
+
+                    _auctionItem.Attach(auction);
+
+                    _unitOfWork.Entry(auction).State = EntityState.Modified;
+
+                    await _unitOfWork.SaveAllChangesAsync();
+
+                }
+
+            }
+
+            var auctionItemList = _auctionItem.Where(q => q.StopDate < DateTime.Now && q.WinUserId == UserId);
+            
+            var auctionItemListViewModelList = await auctionItemList.ToListAsync();
+
+            return auctionItemListViewModelList.Select(q => Mapper.Map<AuctionItem, AuctionItemViewModel>(q)).ToList();
         }
     }
 }

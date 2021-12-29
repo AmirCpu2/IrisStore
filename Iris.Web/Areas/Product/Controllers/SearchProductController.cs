@@ -6,6 +6,7 @@ using AutoMapper;
 using Iris.ServiceLayer.Contracts;
 using Iris.ViewModels;
 using PagedList;
+using Utilities;
 
 namespace Iris.Web.Areas.Product.Controllers
 {
@@ -14,18 +15,21 @@ namespace Iris.Web.Areas.Product.Controllers
     {
         private readonly ICategoryService _categoryService;
         private readonly IProductService _productService;
+        private readonly IItemsService _itemsService;
         private readonly IMappingEngine _mappingEngine;
 
-        public SearchProductController(ICategoryService categoryService, IMappingEngine mappingEngine, IProductService productService)
+        public SearchProductController(ICategoryService categoryService, IMappingEngine mappingEngine, IProductService productService, IItemsService itemsService)
         {
             _categoryService = categoryService;
             _productService = productService;
             _mappingEngine = mappingEngine;
+            _itemsService = itemsService;
         }
 
         [Route("Search")]
         public virtual async Task<ActionResult> Index()
         {
+
             var model = new SerachProductIndexViewModel
             {
                 Categories = new GroupsViewModel
@@ -33,6 +37,9 @@ namespace Iris.Web.Areas.Product.Controllers
                     SelectedGroups = new List<GroupViewModel>(),
                     AvailableGroups = _mappingEngine.Map<IList<CategoryViewModel>, IList<GroupViewModel>>((await _categoryService.GetSearchProductsCategories())),
                 },
+                ProductColorSelectList = await _itemsService.GetAllByItemTypeByName(Enums.ItemType.ProductColor.ToString()),
+                SellersSelectList = await _itemsService.GetAllByItemTypeByName(Enums.ItemType.Seller.ToString()),
+                BrandSelectList = await _itemsService.GetAllByItemTypeByName(Enums.ItemType.Brand.ToString()),
                 PricesMax = await _productService.GetAvailbleProductPriceMax(),
                 PricesMin = await _productService.GetAvailbleProductPriceMin(),
                 Discounts = await _productService.GetAvailableProductPrices()
