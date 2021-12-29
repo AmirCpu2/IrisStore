@@ -45,6 +45,8 @@ namespace Iris.Web.Areas.AuctionManagement.Controllers
             if (id < 1) 
                 return HttpNotFound();
 
+            ViewBag.IsSuccess = state;
+
             var auctionItem = await _auctionItemService.GetOneById(id);
             
             return View(auctionItem);

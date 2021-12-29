@@ -1,6 +1,8 @@
 ﻿@model Iris.ViewModels.AuctionItemViewModel
 @{
-
+    ViewBag.Title = $"{Model.Title} حراجی";
+    int status = ViewBag?.IsSuccess ?? -100;
+    
 }
 
 @section styles{
@@ -42,14 +44,13 @@
         </div>
     </div>
     <!-- End title - breadcrumb -->
-    
     <!-- Start Product -->
     <div class="dt-sn mb-5 dt-sl">
         <div class="row">
             <!-- Product Gallery-->
             <div class="col-lg-4 col-md-6 ps-relative">
                 <!-- Product Options-->
-                
+
                 <div class="product-timeout position-relative pt-5 mb-3">
 
                     @if (Model.StopDate > DateTime.Now)
@@ -93,22 +94,22 @@
 
                         <div class="item">
                             <a class="gallery-item" href="@Model.ImageAddress" style="text-align: -webkit-center;"
-                                data-fancybox="gallery1" data-hash="@Model.ImageAddress.GetHashCode()">
+                               data-fancybox="gallery1" data-hash="@Model.ImageAddress.GetHashCode()">
                                 <img style="width:223px;" src="@Model.ImageAddress" alt="@Model.Title">
                             </a>
                         </div>
-                        
+
 
                     </div>
-                    
+
                 </div>
             </div>
             <!-- Product Info -->
             <div class="col-lg-8 col-md-6 pb-5">
                 <div class=" title-wide no-after-title-wide" style="position: absolute; left: 30px; top: -5px;">
                     <a href="@Request.Url" class="" style="display:block">
-                    بروز رسانی
-                    <i class="mdi mdi-refresh"></i>
+                        بروز رسانی
+                        <i class="mdi mdi-refresh"></i>
                     </a>
                 </div>
                 <div class="product-info dt-sl">
@@ -171,7 +172,7 @@
                                     @{
                                         var lastBid = Model?.BidHistories?.LastOrDefault();
 
-                                        var FullName = (lastBid?.User?.Id??0) > 0 ? $"{lastBid.User.FirstName} {lastBid.User.LastName}" : "کاربری یافت نشد";
+                                        var FullName = (lastBid?.User?.Id ?? 0) > 0 ? $"{lastBid.User.FirstName} {lastBid.User.LastName}" : "کاربری یافت نشد";
 
                                     }
                                     <span class="price" style="font-size: 20px;">@(FullName)</span>
@@ -192,7 +193,8 @@
                     </div>
 
                     <div class="section-title text-sm-title title-wide no-after-title-wide mb-0 dt-sl">
-                        <h2>پیمانه هر پیشنهاد :
+                        <h2>
+                            پیمانه هر پیشنهاد :
                             <span class="price" style="font-size: 20px;">
                                 @( ( (int)(Model.MiniPrice/1000) ).ToString("###,###") )
                             </span>
@@ -200,7 +202,7 @@
                                 سکه
                             </span>
                         </h2>
-                        
+
                     </div>
 
                     <div class="dt-sl mt-4">
@@ -208,8 +210,7 @@
                         @if (Model.StartDate < DateTime.Now && Model.StopDate > DateTime.Now)
                         {
                             <button id="btnAdd" data-product-id="@Model.Id" class="btn-primary-cm btn-with-icon"
-                                    onclick="location = '@Url.Action("AddBid", "BidHistory", new { @area = "AuctionManagement", @auctionItemId = Model.Id })';"
-                                    >
+                                    onclick="location = '@Url.Action("AddBid", "BidHistory", new { @area = "AuctionManagement", @auctionItemId = Model.Id })';">
                                 @*<img src="~/Content/img/theme/shopping-cart.png" alt="@Model.Title" />*@
                                 <i class="mdi mdi-gavel"></i>
                                 پیشنهاد قیمت
@@ -218,9 +219,7 @@
                         else
                         {
                             <button id="btnAdd" disabled data-product-id="@Model.Id" class="btn-primary-cm btn-with-icon bkGray"
-                                    onclick="location = '@Url.Action("AddBid", "BidHistory", new { @area = "AuctionManagement", @auctionItemId = Model.Id })';"
-                                    
-                                    >
+                                    onclick="location = '@Url.Action("AddBid", "BidHistory", new { @area = "AuctionManagement", @auctionItemId = Model.Id })';">
                                 @*<img src="~/Content/img/theme/shopping-cart.png" alt="@Model.Title" />*@
                                 <i class="mdi mdi-gavel"></i>
                                 پیشنهاد قیمت
@@ -232,7 +231,7 @@
             </div>
         </div>
     </div>
-    
+
 </div>
 
 
@@ -240,4 +239,20 @@
     <script src="~/Scripts/js/vendor/jquery.fancybox.min.js"></script>
     <script src="~/Scripts/js/vendor/countdown.min.js"></script>
     @Scripts.Render("~/bundles/product-page")
+    @if (status > -100)
+    {
+        <script>
+            $(function () {
+                @if ((int)Utilities.Enums.BidRequestState.NotAutorize == status) {
+                    @:toastr.error("شما باید وار حساب کاربریتان شوید", "");
+                }
+                else if ((int)Utilities.Enums.BidRequestState.Complited == status) {
+                    @:toastr.info("پیشنهاد شما با موفق ثبت شد", "");
+                }
+                else if ((int)Utilities.Enums.BidRequestState.NotMatchCoin == status) {
+                    @:toastr.error("سکه های شما از پیمانه این محصول کمتر است", "");
+                }
+            });
+        </script>
+    }
 }

@@ -33,6 +33,12 @@ namespace Iris.Web.Controllers
         [AllowAnonymous]
         public virtual ActionResult Login(string returnUrl, bool isUser = false)
         {
+            
+            if( (_userManager?.GetCurrentUserId()??0) > 0)
+            {
+                return RedirectToAction("Index", "Home", new { @area = "" });
+            }
+
             ViewBag.ReturnUrl = returnUrl;
 
             if (!isUser || true)

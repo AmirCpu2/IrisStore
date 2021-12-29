@@ -203,7 +203,7 @@ namespace Iris.Web.Areas.ShoppingCart.Controllers
             Zarinpal.PaymentGatewayImplementationServicePortTypeClient zp = new Zarinpal.PaymentGatewayImplementationServicePortTypeClient();
             string Authority;
 
-            int Status = zp.PaymentRequest("YOUR-ZARINPAL-MERCHANT-CODE", (int)factorProduct.TotalPrice, "تست درگاه زرین پال در راه ابریشم", "Amircpu2@gmail.com", "09217159257", $"http://localhost/shpppingcart/Verify?id=" + publicId, out Authority);
+            int Status = zp.PaymentRequest("YOUR-ZARINPAL-MERCHANT-CODE", (int)factorProduct.TotalPrice, "تست درگاه زرین پال در راه ابریشم", "Amircpu2@gmail.com", "09217159257", $"http://{Request.Url.Host}/shpppingcart/Verify?id=" + publicId, out Authority);
 
             if (Status == 100)
             {

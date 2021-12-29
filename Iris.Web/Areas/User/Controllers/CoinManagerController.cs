@@ -99,7 +99,7 @@ namespace Iris.Web.Areas.User.Controllers
             
             string Authority;
 
-            int Status = zp.PaymentRequest("YOUR-ZARINPAL-MERCHANT-CODE", factorTotalPrice, "تست درگاه زرین پال در راه ابریشم", "Amircpu2@gmail.com", "09217159257", $"http://localhost/CoinManager/Verify?id=" + coinFactorVM.Id, out Authority);
+            int Status = zp.PaymentRequest("YOUR-ZARINPAL-MERCHANT-CODE", factorTotalPrice, "تست درگاه زرین پال در راه ابریشم", "Amircpu2@gmail.com", "09217159257", $"http://{Request.Url.Host}/CoinManager/Verify?id=" + coinFactorVM.Id, out Authority);
 
             if (Status == 100)
             {
@@ -152,6 +152,11 @@ namespace Iris.Web.Areas.User.Controllers
             }
             //Update
             _coinFactorService.Edit(Mapper.Map<CoinFactorViewModel, CoinFactor>(coinFactorVM));
+
+
+
+
+
 
             return RedirectToAction("BuyCoins", new { @isSuccess =ViewBag.IsSuccess });
         }

@@ -79,7 +79,7 @@ namespace Iris.Web.Areas.AuctionManagement.Controllers
             
             int disCoin = ((int)auctionItem.MiniPrice) / 1000;
 
-            if(disCoin > curentUser.BidCount)
+            if(disCoin > (curentUser?.BidCount??0))
             {
                 return RedirectToAction("Index", "Auction", new { @area = "AuctionManagement", @id = auctionItemId, @state = (int)Enums.BidRequestState.NotMatchCoin });
 

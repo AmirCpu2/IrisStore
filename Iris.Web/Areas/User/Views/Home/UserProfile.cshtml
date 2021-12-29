@@ -25,7 +25,7 @@
                                                 <h3>نام</h3>
                                             </div>
                                             <div class="form-row">
-                                                @Html.TextBoxFor(m => Model.FirstName, htmlAttributes: new { @Value = ViewBag.FirstName, @class = "input-ui pr-2", placeholder="نام خود را وارد نمایید" })
+                                                @Html.TextBoxFor(m => Model.FirstName, htmlAttributes: new { @Value = ViewBag.FirstName, @class = "input-ui pr-2", placeholder = "نام خود را وارد نمایید" })
                                                 @Html.ValidationMessageFor(x => x.FirstName)
                                             </div>
                                         </div>
@@ -33,14 +33,14 @@
                                             <h3>نام خانوادگی</h3>
                                         </div>
                                         <div class="form-row">
-                                            @Html.TextBoxFor(m => Model.LastName, htmlAttributes: new { @Value = ViewBag.LastName, @class = "input-ui pr-2", placeholder="نام خانوادگی خود را وارد نمایید" })
+                                            @Html.TextBoxFor(m => Model.LastName, htmlAttributes: new { @Value = ViewBag.LastName, @class = "input-ui pr-2", placeholder = "نام خانوادگی خود را وارد نمایید" })
                                             @Html.ValidationMessageFor(x => x.LastName)
                                         </div>
                                         <div class="form-row-title">
                                             <h3>شماره تلفن</h3>
                                         </div>
                                         <div class="form-row">
-                                            @Html.TextBoxFor(m => Model.Mobile, htmlAttributes: new { @Value = ViewBag.Mobile, @class = "input-ui pl-2", placeholder="شماره موبایل خود را وارد نمایید" })
+                                            @Html.TextBoxFor(m => Model.Mobile, htmlAttributes: new { @Value = ViewBag.Mobile, @class = "input-ui pl-2", placeholder = "شماره موبایل خود را وارد نمایید" })
                                             @Html.ValidationMessageFor(x => x.Mobile)
                                         </div>
                                         <div class="form-row-title">
@@ -54,21 +54,21 @@
                                             <h3>آدرس صندوق الکترونیکی</h3>
                                         </div>
                                         <div class="form-row">
-                                            @Html.TextBoxFor(m => m.Email, htmlAttributes: new { @Value = ViewBag.Email, @class="input-ui pl-2", placeholder="آدرس ایمیل خود را وارد نمایید" })
+                                            @Html.TextBoxFor(m => m.Email, htmlAttributes: new { @Value = ViewBag.Email, @class = "input-ui pl-2", placeholder = "آدرس ایمیل خود را وارد نمایید" })
                                             @Html.ValidationMessageFor(x => x.Email)
                                         </div>
                                         <div class="form-row-title">
                                             <h3>کد پستی (بدون خط تیره)</h3>
                                         </div>
                                         <div class="form-row">
-                                            @Html.TextBoxFor(m => Model.PostalCode, htmlAttributes: new { @Value = ViewBag.PostalCode, @class = "input-ui pl-2", placeholder="کد پستی خود را بدون خط تیره وارد نمایید" })
+                                            @Html.TextBoxFor(m => Model.PostalCode, htmlAttributes: new { @Value = ViewBag.PostalCode, @class = "input-ui pl-2", placeholder = "کد پستی خود را بدون خط تیره وارد نمایید" })
                                             @Html.ValidationMessageFor(x => x.PostalCode)
                                         </div>
 
                                         <div class="form-row mt-2">
                                             <div class="custom-control custom-checkbox float-right mt-2">
                                                 <input type="checkbox" class="custom-control-input"
-                                                    id="customCheck4">
+                                                       id="customCheck4">
                                                 <label class="custom-control-label text-justify" for="customCheck4">
                                                     اشتراک در خبرنامه ما
                                                 </label>
@@ -76,20 +76,22 @@
                                         </div>
 
                                         <div class="form-row-title">
-                                                <h3>عکس پروفایل</h3>
+                                            <h3>عکس پروفایل</h3>
                                         </div>
                                         <div class="form-row mt-2">
                                             <div class="input-group">
                                                 <div class="custom-file">
                                                     <input type="file" class="custom-file-input"
-                                                        id="inputGroupFile04"
-                                                        aria-describedby="inputGroupFileAddon04">
-                                                    <label class="custom-file-label" for="inputGroupFile04">انتخاب
-                                                        عکس</label>
+                                                           id="inputGroupFile04"
+                                                           aria-describedby="inputGroupFileAddon04">
+                                                    <label class="custom-file-label" for="inputGroupFile04">
+                                                        انتخاب
+                                                        عکس
+                                                    </label>
                                                 </div>
                                             </div>
                                         </div>
-                                        <hr/>
+                                        <hr />
                                         <div class="form-row mt-3 justify-content-center">
                                             <button id="btnSumbit" type="submit" class="btn-primary-cm btn-with-icon ml-2">
                                                 <i class="mdi mdi-account-circle-outline"></i>
@@ -110,38 +112,85 @@
 
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="Name">نام</label>
-                                            @Html.TextBoxFor(m => Model.FirstName, new { @class = "form-control", style = "width:45%" })
-                                            @Html.ValidationMessageFor(x => x.FirstName)
+                                            <div class="form-row-title">
+                                                <h3>نام</h3>
+                                            </div>
+                                            <div class="form-row">
+                                                @Html.TextBoxFor(m => Model.FirstName, htmlAttributes: new { @Value = ViewBag.FirstName, @class = "input-ui pr-2", placeholder = "نام خود را وارد نمایید" })
+                                                @Html.ValidationMessageFor(x => x.FirstName)
+                                            </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="LastName">نام خانوادگی</label>
-                                            @Html.TextBoxFor(m => Model.LastName, new { @class = "form-control", style = "width:45%" })
+                                        <div class="form-row-title">
+                                            <h3>نام خانوادگی</h3>
+                                        </div>
+                                        <div class="form-row">
+                                            @Html.TextBoxFor(m => Model.LastName, htmlAttributes: new { @Value = ViewBag.LastName, @class = "input-ui pr-2", placeholder = "نام خانوادگی خود را وارد نمایید" })
                                             @Html.ValidationMessageFor(x => x.LastName)
                                         </div>
-                                        <div class="form-group">
-                                            <label for="PhoneNumber">شماره تلفن</label>
-                                            @Html.TextBoxFor(m => Model.Mobile, new { @class = "form-control", style = "width:45%" })
+                                        <div class="form-row-title">
+                                            <h3>شماره تلفن</h3>
+                                        </div>
+                                        <div class="form-row">
+                                            @Html.TextBoxFor(m => Model.Mobile, htmlAttributes: new { @Value = ViewBag.Mobile, @class = "input-ui pl-2", placeholder = "شماره موبایل خود را وارد نمایید" })
                                             @Html.ValidationMessageFor(x => x.Mobile)
                                         </div>
-                                        <div class="form-group">
-                                            <label for="Address">آدرس</label>
-                                            @Html.TextAreaFor(m => Model.Address, new { @class = "form-control", style = "width:45%", rows = 5 })
+                                        <div class="form-row-title">
+                                            <h3>آدرس</h3>
+                                        </div>
+                                        <div class="form-row">
+                                            <textarea name="Address" id="Address" class="input-ui pr-2" placeholder="آدرس پستی خود را وارد نمایید" value="@ViewBag.Address">@ViewBag.Address</textarea>
                                             @Html.ValidationMessageFor(x => x.Address)
                                         </div>
-                                        <div class="form-group">
-                                            <label for="Address">کد پستی (بدون خط تیره)</label>
-                                            @Html.TextBoxFor(m => Model.PostalCode, htmlAttributes: new { @class = "form-control", style = "width:45%" })
+                                        <div class="form-row-title">
+                                            <h3>آدرس صندوق الکترونیکی</h3>
+                                        </div>
+                                        <div class="form-row">
+                                            @Html.TextBoxFor(m => m.Email, htmlAttributes: new { @Value = ViewBag.Email, @class = "input-ui pl-2", placeholder = "آدرس ایمیل خود را وارد نمایید" })
+                                            @Html.ValidationMessageFor(x => x.Email)
+                                        </div>
+                                        <div class="form-row-title">
+                                            <h3>کد پستی (بدون خط تیره)</h3>
+                                        </div>
+                                        <div class="form-row">
+                                            @Html.TextBoxFor(m => Model.PostalCode, htmlAttributes: new { @Value = ViewBag.PostalCode, @class = "input-ui pl-2", placeholder = "کد پستی خود را بدون خط تیره وارد نمایید" })
                                             @Html.ValidationMessageFor(x => x.PostalCode)
                                         </div>
-                                    </div>
-                                </div>
 
-                                <div class="row" style="padding-bottom: 25px;">
-                                    <div class="col-md-4">
-                                        <button id="btnSumbit" type="submit" style="width: 35%" class="btn btn-sm btn-success">
-                                            <i class="fa fa-money"></i> ثبت اطلاعات
-                                        </button>
+                                        <div class="form-row mt-2">
+                                            <div class="custom-control custom-checkbox float-right mt-2">
+                                                <input type="checkbox" class="custom-control-input"
+                                                       id="customCheck4">
+                                                <label class="custom-control-label text-justify" for="customCheck4">
+                                                    اشتراک در خبرنامه ما
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row-title">
+                                            <h3>عکس پروفایل</h3>
+                                        </div>
+                                        <div class="form-row mt-2">
+                                            <div class="input-group">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input"
+                                                           id="inputGroupFile04"
+                                                           aria-describedby="inputGroupFileAddon04">
+                                                    <label class="custom-file-label" for="inputGroupFile04">
+                                                        انتخاب
+                                                        عکس
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        <div class="form-row mt-3 justify-content-center">
+                                            <button id="btnSumbit" type="submit" class="btn-primary-cm btn-with-icon ml-2">
+                                                <i class="mdi mdi-account-circle-outline"></i>
+                                                ثبت اطلاعات کاربری
+                                            </button>
+                                            <button class="btn-primary-cm bg-secondary">انصراف</button>
+                                        </div>
+
                                     </div>
                                 </div>
                             }
@@ -154,111 +203,6 @@
                 </div>
             </div>
         </div>
-
-
-        @*<div class="container page-wrapper" style="background-color: #fff;">
-                <div class="col-md-12">
-                    <div class="row">
-                        <h2>پروفایل</h2>
-                    </div>
-                    @{if (User.Identity.IsAuthenticated && !string.IsNullOrEmpty(ViewBag.FirstName) && !string.IsNullOrEmpty(ViewBag.LastName) && !string.IsNullOrEmpty(ViewBag.Mobile) && !string.IsNullOrEmpty(ViewBag.Address))
-                        {
-                            using (Html.BeginForm("UserProfile", "Home", new { area = "User" }, FormMethod.Post, new { id = "frmSubmitProfile" }))
-                            {
-                                <div class="row">
-
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="Name">نام</label>
-                                            @Html.TextBoxFor(m => Model.FirstName, htmlAttributes: new { @Value = ViewBag.FirstName, @class = "form-control", style = "width:45%" })
-                                            @Html.ValidationMessageFor(x => x.FirstName)
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="LastName">نام خانوادگی</label>
-                                            @Html.TextBoxFor(m => Model.LastName, htmlAttributes: new { @Value = ViewBag.LastName, @class = "form-control", style = "width:45%" })
-                                            @Html.ValidationMessageFor(x => x.LastName)
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="PhoneNumber">شماره تلفن</label>
-                                            @Html.TextBoxFor(m => Model.Mobile, htmlAttributes: new { @Value = ViewBag.Mobile, @class = "form-control", style = "width:45%" })
-                                            @Html.ValidationMessageFor(x => x.Mobile)
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="Address">آدرس</label>
-                                            @Html.TextBoxFor(m => Model.Address, htmlAttributes: new { @Value = ViewBag.Address, @class = "form-control", style = "width:45%" })
-                                            @Html.ValidationMessageFor(x => x.Address)
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="Address">کد پستی (بدون خط تیره)</label>
-                                            @Html.TextBoxFor(m => Model.PostalCode, htmlAttributes: new { @Value = ViewBag.PostalCode, @class = "form-control", style = "width:45%" })
-                                            @Html.ValidationMessageFor(x => x.PostalCode)
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row" style="padding-bottom: 25px;">
-                                    <div class="col-md-4">
-                                        <button id="btnSumbit" type="submit" style="width: 35%" class="btn btn-sm btn-success">
-                                            <i class="fa fa-money"></i> ثبت اطلاعات
-                                        </button>
-                                    </div>
-                                </div>
-                            }
-                        }
-                        else
-                        {
-                            using (Html.BeginForm("UserProfile", "Home", new { area = "User" }, FormMethod.Post, new { id = "frmSubmitProfile" }))
-                            {
-                                <div class="row">
-
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="Name">نام</label>
-                                            @Html.TextBoxFor(m => Model.FirstName, new { @class = "form-control", style = "width:45%" })
-                                            @Html.ValidationMessageFor(x => x.FirstName)
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="LastName">نام خانوادگی</label>
-                                            @Html.TextBoxFor(m => Model.LastName, new { @class = "form-control", style = "width:45%" })
-                                            @Html.ValidationMessageFor(x => x.LastName)
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="PhoneNumber">شماره تلفن</label>
-                                            @Html.TextBoxFor(m => Model.Mobile, new { @class = "form-control", style = "width:45%" })
-                                            @Html.ValidationMessageFor(x => x.Mobile)
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="Address">آدرس</label>
-                                            @Html.TextAreaFor(m => Model.Address, new { @class = "form-control", style = "width:45%", rows = 5 })
-                                            @Html.ValidationMessageFor(x => x.Address)
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="Address">کد پستی (بدون خط تیره)</label>
-                                            @Html.TextBoxFor(m => Model.PostalCode, htmlAttributes: new { @class = "form-control", style = "width:45%" })
-                                            @Html.ValidationMessageFor(x => x.PostalCode)
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row" style="padding-bottom: 25px;">
-                                    <div class="col-md-4">
-                                        <button id="btnSumbit" type="submit" style="width: 35%" class="btn btn-sm btn-success">
-                                            <i class="fa fa-money"></i> ثبت اطلاعات
-                                        </button>
-                                    </div>
-                                </div>
-                            }
-                        }
-
-                    }
-
-                    <div class="row">
-                        <div id="ordersListTable" class="col-md-12">
-
-                        </div>
-                    </div>
-                </div>
-            </div>*@
 
     </div>
 </div>

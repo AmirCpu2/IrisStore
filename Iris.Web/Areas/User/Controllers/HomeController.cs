@@ -101,11 +101,13 @@ namespace Iris.Web.Areas.User.Controllers
         public virtual async Task<ActionResult> UserProfile
             ([Bind(Include = "ID,FirstName,LastName,Mobile,Address,PostalCode,ImageUrl,ThumbnailUrl")]ProfileViewmodel userprofile)
         {
-            if (!ModelState.IsValid)
-            {
-                return RedirectToAction("Index", new { Message = ManageMessageId.Error });
-            }
-            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            //if (!ModelState.IsValid)
+            //{
+            //    return RedirectToAction("Index", new { Message = ManageMessageId.Error });
+            //}
+
+            var user = await _userManager.GetCurrentUserAsync();
+
             if (user != null)
             {
 
